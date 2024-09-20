@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # Backend service (Rails)
+  backend:
+    build:
+      context: ./app
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    volumes:
+      - ./app:/app
+    ports:
+    # host_port: container_port
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:password@db:5432/mydb
+      RAILS_ENV: development
+
+  # Frontend service (React)
+  frontend:
+    build:
+      context: ./client
+    volumes:
+      - ./client:/client
+    ports:
+      - "5173:5173"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+  # PostgreSQL database service
+  db:
+    image: postgres:16
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+
+# Persistent storage for the PostgreSQL database
+volumes:
+  pgdata:
