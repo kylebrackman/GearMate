@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Backend service (Rails)
   backend:
@@ -23,12 +21,14 @@ services:
       context: ./client
     volumes:
       - ./client:/client
+      - node_modules:/client/node_modules
     ports:
       - "5173:5173"
     stdin_open: true
     tty: true
     depends_on:
       - backend
+    command: npm run dev -- --host
 
   # PostgreSQL database service
   db:
@@ -36,12 +36,13 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: GearMate_development
     ports:
       - "5432:5432"
 
 # Persistent storage for the PostgreSQL database
 volumes:
   pgdata:
+  node_modules:
