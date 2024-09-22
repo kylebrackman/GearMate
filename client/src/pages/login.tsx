@@ -51,7 +51,7 @@ export default function Login() {
         e.preventDefault();
         try {
             const returnedUser: User | null = await loginUserApi(email, password);
-            user.login(returnedUser);
+            user.loginContext(returnedUser);
             navigate('/allItems');
             resetForm();
         } catch (error: any) {

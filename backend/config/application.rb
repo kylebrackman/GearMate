@@ -31,5 +31,7 @@ module App
 
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
+
+    
   end
 end
