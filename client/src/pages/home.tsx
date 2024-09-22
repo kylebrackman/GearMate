@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Item } from '../models/ItemModel.tsx';
-import ItemCard from '../components/Items/ItemCard.tsx';
+import ItemCard from '../components/item/ItemCard.tsx';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { getAllItemsApi } from '../services/ItemApi.ts';
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
             <ItemCard
                 id={i.id}
                 name={i.name}
-                // image={i.image}
+                image={i.image ?? ''}
                 description={i.description}
                 price={i.price}
             />

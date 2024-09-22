@@ -9,25 +9,27 @@ import { grey } from '@mui/material/colors';
 interface ItemCardProps {
     id: number;
     name: string;
-    // image: string;
+    image: string;
     description: string;
     price: number;
 }
 
-const ItemCard: React.FC<ItemCardProps> = ({ name, id, price, description }) => {
+const ItemCard: React.FC<ItemCardProps> = ({ name, id, price, description, image }) => {
 
     const navigate = useNavigate();
 
     const handleRentClick = () => {
         navigate(`/item/${id}`);
     };
+    const backendUrl = import.meta.env.VITE_API_URL;
+    const imageUrl = `${backendUrl}${image}`
 
     const descriptionColor = grey[700];
     return (
         <Card onClick={handleRentClick} sx={{ maxWidth: 345, backgroundColor: 'white', boxShadow: 0, cursor: 'pointer' }}>
             <CardMedia
                 sx={{ height: 300, backgroundColor: 'white', borderRadius: 4, backgroundImage: 'url("../../../static-photos/me-climbing.png")' }}
-                image='url("../../../static-photos/me-climbing.png")'
+                image={imageUrl}
                 title="green iguana"
             />
             <CardContent sx={{ backgroundColor: 'white' }}> {/* Set background color of CardContent to white */}

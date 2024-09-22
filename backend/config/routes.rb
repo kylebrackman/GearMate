@@ -18,5 +18,8 @@ Rails.application.routes.draw do
 
     # Item routes
     resources :items
+
   end
+
+
 end

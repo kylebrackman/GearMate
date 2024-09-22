@@ -6,7 +6,7 @@ class Api::ItemsController < ApplicationController
     def index
         if params[:all_items]
             # items = Item.all.with_attached_image
-            items = Item.all
+            items = Item.all.with_attached_image
         else
             #adding in finding the current user because i'm skipping authorize above
             @current_user = User.find_by(id: session[:user_id])

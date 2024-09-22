@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -11,8 +11,8 @@ import Paper from '@mui/material/Paper';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom";
-import { addItemApi } from '../services/ItemApi';
-import { Item } from '../models/ItemModel';
+import { addItemApi } from '../../services/ItemApi';
+import { Item } from '../../models/ItemModel';
 
 interface ItemPosition {
     lat: number;
@@ -26,7 +26,7 @@ const UploadItem = () => {
     const [itemType, setItemType] = useState("Select")
     const [description, setDescription] = useState("")
     const [condition, setCondition] = useState("Select")
-    // const [image, setImage] = useState<File | null>(null)
+    const [image, setImage] = useState<File | null>(null)
     const [itemPrice, setItemPrice] = useState("")
     // const [itemPosition, setItemPosition] = useState({ lat: 0, lng: 0 })
     // Temporary ts fix below
@@ -65,9 +65,9 @@ const UploadItem = () => {
         newItemData.append("lat", itemPosition.lat.toString())
         newItemData.append("lng", itemPosition.lng.toString())
 
-        // if (image) {
-        //     newItemData.append("image", image);
-        // }
+        if (image) {
+            newItemData.append("image", image);
+        }
         for (let pair of newItemData.entries()) {
             console.log(pair[0] + ': ' + pair[1]);
         }
@@ -188,7 +188,7 @@ const UploadItem = () => {
                                         </Select>
                                     </Grid>
                                 </Grid>
-                                {/* <label htmlFor="file-upload">
+                                <label htmlFor="file-upload">
                                     <input
                                         id="file-upload"
                                         name="file-upload"
@@ -201,7 +201,7 @@ const UploadItem = () => {
                                             }
                                         }}
                                     />
-                                </label> */}
+                                </label>
                                 <Button
                                     type="submit"
                                     fullWidth

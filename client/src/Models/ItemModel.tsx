@@ -8,6 +8,9 @@ export interface Item {
     price: number;
     owner_id?: number;
     item_type?: string;
+    owner_first_name?: string;
+    owner_last_name?: string;
+    image?: string;
 }
 
 

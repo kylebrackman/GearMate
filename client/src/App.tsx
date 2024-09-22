@@ -5,8 +5,8 @@ import Navbar from "./components/common/navbar";
 import { UserProvider } from "./context/UserContext";
 import SignUp from "./pages/auth/signup";
 import LogIn from "./pages/auth/login";
-import UploadItem from "./pages/UploadItem";
-import ItemSummary from "./pages/ItemSummary";
+import UploadItem from "./pages/item/UploadItem";
+import ItemSummary from "./pages/item/ItemSummary";
 import Home from "./pages/Home";
 import CreateProfile from "./pages/CreateProfile";
 

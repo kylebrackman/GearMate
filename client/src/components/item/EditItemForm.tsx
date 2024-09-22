@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-import { UserContext } from "../../context/UserContext";
-import { Item } from '../../models/ItemModel.ts';
+import { UserContext } from "../../context/UserContext.tsx";
+import { Item } from '../../models/ItemModel.tsx';
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';

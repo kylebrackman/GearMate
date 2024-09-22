@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { UserContext } from "../context/UserContext";
-import { Item } from '../models/ItemModel';
+import { UserContext } from "../../context/UserContext.tsx";
+import { Item } from '../../models/ItemModel.tsx';
 // import EditItemForm from '../components/Items/EditItemForm.tsx';
 import { Box, Typography, Divider, Grid, Button } from '@mui/material';
 // import { orange, red } from '@mui/material/colors';
@@ -10,13 +10,12 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { Dayjs } from 'dayjs';
 import { Dialog, DialogContent } from '@mui/material';
 import Alert from '@mui/material/Alert';
-import { getItemApi } from '../services/ItemApi.ts';
-import { createRentalRequestApi } from '../services/RentalRequestApi.ts';
-import { RentalRequest } from '../models/RentalRequestModel.tsx';
+import { getItemApi } from '../../services/ItemApi.ts';
+import { createRentalRequestApi } from '../../services/RentalRequestApi.ts';
+import { RentalRequest } from '../../models/RentalRequestModel.tsx';
 
 // import useStripeConnect from '../../hooks/useStripeConnect.js';
 // import { createStripeId } from '../../services/StripeApi.ts';
-// const item = await getItemApi(itemId);
 
 const ItemSummary = () => {
   const { user } = useContext(UserContext);
@@ -24,7 +23,6 @@ const ItemSummary = () => {
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
-  // const backendBaseUrl = import.meta.env.VITE_API_URL
   const [item, setItem] = useState<Item | null>(null);
   const { id } = useParams();
   const itemId = id ?? '';
@@ -46,15 +44,13 @@ const ItemSummary = () => {
     fetchItem();
   }, [id]);
   // const needsStripeConnect = !user?.stripe_connected_account_id
-
   // const stripeConnectInstance
+  const backendUrl = import.meta.env.VITE_API_URL;
+  const imageUrl = `${backendUrl}${item?.image}`
 
   const requestButtonColor = orange[600];
   // const deleteItemButtonColor = red[600];
   const navigate = useNavigate();
-  // const item = allItems.find((i) => i.id === parseInt(id as string || ''));
-
-  // const imageUrl = `${backendBaseUrl}${item?.image}`;
 
   const handleNavigateToSignUp = () => {
     navigate('/signup');
@@ -152,14 +148,12 @@ const ItemSummary = () => {
           <Grid item xs={12} sm={6}>
             <Box
               component="img"
-              // src={imageUrl}
-              src='url("../../public/static-photos/me-climbing.png")'
+              src={imageUrl}
               alt={item.name}
               sx={{
                 width: '100%',
                 height: 'auto',
                 borderRadius: '8px',
-                backgroundImage: 'url("../../public/static-photos/me-climbing.png")',
               }}
             />
           </Grid>
@@ -181,9 +175,9 @@ const ItemSummary = () => {
               <Box component="span" fontWeight="bold">
                 Owner:
               </Box>{' '}
-              {/* <Box component="span" fontWeight="regular">
+              <Box component="span" fontWeight="regular">
                 {item.owner_first_name} {item.owner_last_name}
-              </Box> */}
+              </Box>
             </Typography>
             <Typography variant="body1" sx={{ mb: 2 }}>
               {item.description}
@@ -216,7 +210,7 @@ const ItemSummary = () => {
           <Grid item xs={12} sm={6}>
             <Box
               component="img"
-              src='url("../../../static-photos/me-climbing.png")'
+              src={imageUrl}
               alt={item.name}
               sx={{
                 width: '100%',
