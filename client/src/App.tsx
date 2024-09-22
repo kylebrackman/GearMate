@@ -5,9 +5,10 @@ import Navbar from "./components/common/navbar";
 import { UserProvider } from "./context/UserContext";
 import SignUp from "./pages/auth/signup";
 import LogIn from "./pages/auth/login";
-import Home from "./pages/home";
 import UploadItem from "./pages/UploadItem";
 import ItemSummary from "./pages/ItemSummary";
+import Home from "./pages/Home";
+import CreateProfile from "./pages/CreateProfile";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/uploaditem" element={<UploadItem />} />
           <Route path="/item/:id" element={<ItemSummary />} />
+          <Route path="/createprofile" element={<CreateProfile />} />
         </Routes>
         <Footer />
       </UserProvider>

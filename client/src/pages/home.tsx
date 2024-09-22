@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { getAllItemsApi } from '../services/ItemApi.ts';
 
-const AllItems: React.FC = () => {
+const Home: React.FC = () => {
     const [allItems, setAllItems] = useState<Item[] | null>(null);
 
     useEffect(() => {
@@ -46,4 +46,4 @@ const AllItems: React.FC = () => {
     );
 };
 
-export default AllItems;
+export default Home;
