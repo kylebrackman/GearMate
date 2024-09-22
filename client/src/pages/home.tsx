@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Item } from '../models/ItemModel.tsx';
-import AllItemCard from '../components/Items/AllItemCard.tsx';
+import ItemCard from '../components/Items/ItemCard.tsx';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { getAllItemsApi } from '../services/ItemApi.ts';
@@ -27,7 +27,7 @@ const AllItems: React.FC = () => {
 
     const allItemsList = items.map((i) => (
         <Grid item xs={6} sm={4} md={3} xl={2} key={i.id} sx={{ p: 1.5 }}>
-            <AllItemCard
+            <ItemCard
                 id={i.id}
                 name={i.name}
                 // image={i.image}

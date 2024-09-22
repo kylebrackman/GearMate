@@ -56,7 +56,7 @@ function ResponsiveAppBar() {
         },
         Profile: () => navigate('/profile'),
         Account: () => navigate('/profile'),
-        Gear: () => navigate('/allItems'),
+        Gear: () => navigate('/home'),
         About: () => navigate('/about'),
         'List an Item': () => navigate('/uploaditem'),
         'Your Rentals': () => navigate('/myRentals'),
@@ -80,7 +80,7 @@ function ResponsiveAppBar() {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="/allItems"
+                        href="/home"
                         sx={{
                             display: { xs: 'none', md: 'flex' },
                             fontFamily: 'monospace',

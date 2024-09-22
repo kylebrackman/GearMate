@@ -3,9 +3,10 @@ import './App.css'
 import Footer from "./components/common/footer";
 import Navbar from "./components/common/navbar";
 import { UserProvider } from "./context/UserContext";
-import SignUp from "./pages/signup";
-import LogIn from "./pages/login";
+import SignUp from "./pages/auth/signup";
+import LogIn from "./pages/auth/login";
 import Home from "./pages/home";
+import UploadItem from "./pages/UploadItem";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/uploaditem" element={<UploadItem />} />
         </Routes>
         <Footer />
       </UserProvider>

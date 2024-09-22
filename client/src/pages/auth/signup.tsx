@@ -12,9 +12,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useUser } from "../context/UserContext.tsx";
-import { signUpUserApi } from "../services/UserApi.ts";
-import { User } from "../models/UserModel.tsx";
+import { useUser } from "../../context/UserContext.tsx";
+import { signUpUserApi } from "../../services/UserApi.ts";
+import { User } from "../../models/UserModel.tsx";
 import Alert from "@mui/material/Alert";
 
 function Copyright(props: any) {

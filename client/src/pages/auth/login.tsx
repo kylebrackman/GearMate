@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUserApi } from '../services/UserApi.ts';
-import { useUser } from '../context/UserContext.tsx';
-import { User } from '../models/UserModel.tsx';
+import { loginUserApi } from '../../services/UserApi.ts';
+import { useUser } from '../../context/UserContext.tsx';
+import { User } from '../../models/UserModel.tsx';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -52,7 +52,7 @@ export default function Login() {
         try {
             const returnedUser: User | null = await loginUserApi(email, password);
             user.loginContext(returnedUser);
-            navigate('/allItems');
+            navigate('/home');
             resetForm();
         } catch (error: any) {
             setErrors(error.message);

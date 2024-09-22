@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { grey } from '@mui/material/colors';
 // import gearmatelogo from '../../static-photos/gearmatelogo.png'
 
-interface AllItemCardProps {
+interface ItemCardProps {
     id: number;
     name: string;
     // image: string;
@@ -14,7 +14,7 @@ interface AllItemCardProps {
     price: number;
 }
 
-const AllItemCard: React.FC<AllItemCardProps> = ({ name, id, price, description }) => {
+const ItemCard: React.FC<ItemCardProps> = ({ name, id, price, description }) => {
 
     const navigate = useNavigate();
 
@@ -26,8 +26,8 @@ const AllItemCard: React.FC<AllItemCardProps> = ({ name, id, price, description 
     return (
         <Card onClick={handleRentClick} sx={{ maxWidth: 345, backgroundColor: 'white', boxShadow: 0, cursor: 'pointer' }}>
             <CardMedia
-                sx={{ height: 300, backgroundColor: 'white', borderRadius: 4 }}
-                image="/static-photos/gearmatlogo.png"
+                sx={{ height: 300, backgroundColor: 'white', borderRadius: 4, backgroundImage: 'url("../../../static-photos/me-climbing.png")' }}
+                image='url("../../../static-photos/me-climbing.png")'
                 title="green iguana"
             />
             <CardContent sx={{ backgroundColor: 'white' }}> {/* Set background color of CardContent to white */}
@@ -45,7 +45,7 @@ const AllItemCard: React.FC<AllItemCardProps> = ({ name, id, price, description 
     );
 };
 
-export default AllItemCard;
+export default ItemCard;
 
 
 
