@@ -7,11 +7,13 @@ interface UserProviderProps {
 }
 interface UserContextType {
     user: User | null;
-    login: (user: User | null) => void;
+    loginContext: (user: User | null) => void;
+    logoutContext: () => void;
 }
 const defaultContextValue: UserContextType = {
     user: null,
-    login: () => {},
+    loginContext: () => { },
+    logoutContext: () => { },
 }
 
 export const UserContext = createContext<UserContextType>(defaultContextValue);
@@ -29,15 +31,19 @@ export const useUser = () => {
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
-    
+
     const [user, setUser] = useState<User | null>(null);
 
-    const login = (user: User | null) => {
+    const loginContext = (user: User | null) => {
         if (user) {
-          setUser(user);
+            setUser(user);
         }
-      };
-      console.log(user)
+    };
+
+    const logoutContext = () => {
+        setUser(null);
+    }
+
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -54,9 +60,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{ user, login }} >
+        <UserContext.Provider value={{ user, loginContext, logoutContext }} >
             {children}
         </UserContext.Provider>
     )
 }
-

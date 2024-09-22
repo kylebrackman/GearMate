@@ -20,6 +20,7 @@ import DownhillSkiingIcon from '@mui/icons-material/DownhillSkiing';
 import SleddingIcon from '@mui/icons-material/Sledding';
 import Badge from '@mui/material/Badge';
 import { UserContext } from "../../context/UserContext";
+import { logoutUserApi } from "../../services/UserApi.ts";
 
 interface SettingActions {
     [key: string]: () => void;
@@ -30,7 +31,7 @@ const headerTextColor = blue[700];
 const iconColor = grey[800];
 function ResponsiveAppBar() {
 
-    let user = useContext(UserContext).user;
+    const { user, logoutContext } = useContext(UserContext);
 
     const navigate = useNavigate();
     const [userMenuTrigger, setUserMenuTrigger] = React.useState<null | HTMLElement>(null);
@@ -38,17 +39,22 @@ function ResponsiveAppBar() {
     const pages = user ? ['Your Rentals', 'List an Item', 'Gear', 'About'] : ['Gear', 'About', 'Login', 'Sign Up'];
     const dropdown = user ? ['Requested Gear', 'Profile', 'Account', 'Dashboard', 'Logout'] : ['Login', 'Sign Up'];
 
-    const settingActions: SettingActions = {
-        Profile: () => navigate('/profile'),
+    function handleLogOut() {
+        logoutUserApi();
+        logoutContext();
+    }
 
-        Login: () => {
-            handleCloseUserMenu();
-            navigate('/login')
-        },
+    const settingActions: SettingActions = {
         'Sign Up': () => {
             navigate('/signup')
             handleCloseUserMenu();
         },
+        Logout: () => handleLogOut(),
+        Login: () => {
+            handleCloseUserMenu();
+            navigate('/login')
+        },
+        Profile: () => navigate('/profile'),
         Account: () => navigate('/profile'),
         Gear: () => navigate('/allItems'),
         About: () => navigate('/about'),

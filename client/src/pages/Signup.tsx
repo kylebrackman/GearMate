@@ -65,7 +65,7 @@ export default function SignUp() {
         password,
         passwordConfirmation
       );
-      user.login(returnedUser);
+      user.loginContext(returnedUser);
       navigate("/createprofile");
       resetForm();
     } catch (error: any) {
