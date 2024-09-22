@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { User } from '../Models/UserModel';
 import { getUserApi } from '../services/UserApi';
-
+import { User } from '../models/UserModel';
 interface UserContextType {
     user: User | null;
 }

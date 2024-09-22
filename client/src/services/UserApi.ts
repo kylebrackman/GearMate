@@ -1,15 +1,8 @@
-import { User } from "../Models/UserModel";
-// const API_URL = import.env.meta.VITE_APP_API_URL;
+import { User } from "../models/UserModel";
 
-/**
- * Retrieves the current user from the server. If no user is logged in, returns null.
- * @returns The current user or null if no user is logged in.
- */
 export async function getUserApi(): Promise<User | null> {
   try {
-    const response = await fetch("/api/me", {
-      credentials: "include",
-    });
+    const response = await fetch("/api/me");
     if (!response.ok) {
       return null;
     }

@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'http://localhost:3000' // Rails backend runs on port 3000
+      '/api': 'http://backend:3000' // Rails backend runs on port 3000
     }
   }
 })
