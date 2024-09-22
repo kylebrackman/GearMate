@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -19,6 +19,7 @@ import AcUnitIcon from '@mui/icons-material/AcUnit';
 import DownhillSkiingIcon from '@mui/icons-material/DownhillSkiing';
 import SleddingIcon from '@mui/icons-material/Sledding';
 import Badge from '@mui/material/Badge';
+import { UserContext } from "../../context/UserContext";
 
 interface SettingActions {
     [key: string]: () => void;
@@ -29,7 +30,7 @@ const headerTextColor = blue[700];
 const iconColor = grey[800];
 function ResponsiveAppBar() {
 
-    let user = true;
+    let user = useContext(UserContext).user;
 
     const navigate = useNavigate();
     const [userMenuTrigger, setUserMenuTrigger] = React.useState<null | HTMLElement>(null);

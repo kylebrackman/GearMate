@@ -1,15 +1,20 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { getUserApi } from '../services/UserApi';
 import { User } from '../models/UserModel';
+
+interface UserProviderProps {
+    children: ReactNode;
+}
 interface UserContextType {
     user: User | null;
+    login: (user: User | null) => void;
 }
-
 const defaultContextValue: UserContextType = {
-    user: null
+    user: null,
+    login: () => {},
 }
 
-const UserContext = createContext<UserContextType>(defaultContextValue);
+export const UserContext = createContext<UserContextType>(defaultContextValue);
 
 // Custom hook for consuming the context
 export const useUser = () => {
@@ -21,13 +26,18 @@ export const useUser = () => {
 };
 
 // Context provider component
-interface UserProviderProps {
-    children: ReactNode;
-}
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+
+    
     const [user, setUser] = useState<User | null>(null);
 
+    const login = (user: User | null) => {
+        if (user) {
+          setUser(user);
+        }
+      };
+      console.log(user)
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -44,8 +54,9 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{ user }} >
+        <UserContext.Provider value={{ user, login }} >
             {children}
         </UserContext.Provider>
     )
 }
+
