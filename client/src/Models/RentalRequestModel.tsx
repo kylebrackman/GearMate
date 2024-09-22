@@ -7,4 +7,5 @@ export interface RentalRequest {
     end_date: string;
     item: Item;
     status?: string;
+    owner_id?: number;
 }

@@ -6,8 +6,8 @@ export interface Item {
     // image: string;
     description: string;
     price: number;
-    owner_id: number;
-    item_type: string;
+    owner_id?: number;
+    item_type?: string;
 }
 
 

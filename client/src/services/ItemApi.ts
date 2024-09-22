@@ -66,3 +66,14 @@ export const getAllItemsApi = async (): Promise<Item[]> => {
         throw error;
     }
 }
+
+export const getItemApi = async (id: string | number): Promise<Item> => {
+    try {
+        const response = await fetch(`/api/items/${id}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error getting item:', error);
+        throw error;
+    }
+}
