@@ -88,7 +88,7 @@ export default function SignUp() {
         >
           <img
             className="w-20 h-15 mr-2"
-            src={"/favicon.ico"}
+            // src={}
             alt="logo"
             style={{
               borderRadius: 10,

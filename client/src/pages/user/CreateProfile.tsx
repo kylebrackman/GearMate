@@ -12,32 +12,42 @@ import { createProfileApi } from "../../services/UserApi";
 //   lat: number;
 //   lng: number;
 // };
+import { useNavigate } from "react-router-dom";
 
 const CreateProfile = () => {
   const [nickname, setNickname] = useState("");
   const [bio, setBio] = useState("");
   const [image, setImage] = useState<File | null>(null);
   // const [position, setPosition] = useState<Position>({ lat: 0, lng: 0 });
-
   // const handleSetLocation = (newPosition: Position) => {
   //   setPosition(newPosition);
   // };
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     const newProfileData = new FormData();
-
+  
     newProfileData.append("bio", bio);
     newProfileData.append("name", nickname);
     // newProfileData.append("lat", position.lat.toString());
     // newProfileData.append("lng", position.lng.toString());
-
+  
     if (image) {
       newProfileData.append("image", image);
     }
-
-    createProfileApi(newProfileData);
+  
+    try {
+      const response = await createProfileApi(newProfileData);
+      if (response?.ok) {
+        navigate("/home");
+      } else {
+        console.error("Error creating profile:", response?.error);
+      }
+    } catch (error) {
+      console.error("Error creating profile:", error);
+    }
   };
 
   return (

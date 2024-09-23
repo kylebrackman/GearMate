@@ -8,6 +8,7 @@ import LogIn from "./pages/auth/login";
 import UploadItem from "./pages/item/UploadItem";
 import ItemSummary from "./pages/item/ItemSummary";
 import Home from "./pages/Home";
+import Profile from "./pages/user/Profile";
 import CreateProfile from "./pages/user/CreateProfile";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/uploaditem" element={<UploadItem />} />
           <Route path="/item/:id" element={<ItemSummary />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/createprofile" element={<CreateProfile />} />
         </Routes>
         <Footer />

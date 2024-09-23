@@ -1,5 +1,5 @@
 import { User } from "../models/UserModel";
-import { Profile } from "../models/ProfileModel";
+// import { Profile } from "../models/ProfileModel";
 export async function getUserApi(): Promise<User | null> {
   try {
     const response = await fetch("/api/me");
@@ -99,7 +99,7 @@ export async function logoutUserApi(): Promise<void> {
   }
 }
 
-export async function createProfileApi(newProfileData: FormData): Promise<Profile | null> {
+export async function createProfileApi(newProfileData: FormData): Promise<any | null> {
   try {
     const response = await fetch("/api/profiles", {
       method: "POST",
@@ -107,10 +107,13 @@ export async function createProfileApi(newProfileData: FormData): Promise<Profil
     });
 
     if (!response.ok) {
+      console.log(response)
       throw new Error("Failed to create profile");
     }
 
     const profile = await response.json();
+    console.log(profile)
+
     return profile;
   } catch (error) {
     console.error("Error creating profile:", error);
