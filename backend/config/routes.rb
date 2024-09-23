@@ -19,7 +19,8 @@ Rails.application.routes.draw do
     # Item routes
     resources :items
 
+    # Profile routes
+    resources :profiles
+
   end
-
-
 end

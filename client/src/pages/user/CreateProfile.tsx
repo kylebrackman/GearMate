@@ -7,7 +7,7 @@ import {
   CardHeader,
   TextField,
 } from "@mui/material";
-
+import { createProfileApi } from "../../services/UserApi";
 // type Position = {
 //   lat: number;
 //   lng: number;
@@ -18,8 +18,6 @@ const CreateProfile = () => {
   const [bio, setBio] = useState("");
   const [image, setImage] = useState<File | null>(null);
   // const [position, setPosition] = useState<Position>({ lat: 0, lng: 0 });
-
-  // const { newProfile } = useContext(UserContext);
 
   // const handleSetLocation = (newPosition: Position) => {
   //   setPosition(newPosition);
@@ -39,7 +37,7 @@ const CreateProfile = () => {
       newProfileData.append("image", image);
     }
 
-    // newProfile(newProfileData);
+    createProfileApi(newProfileData);
   };
 
   return (

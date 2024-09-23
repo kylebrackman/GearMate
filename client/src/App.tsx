@@ -8,7 +8,7 @@ import LogIn from "./pages/auth/login";
 import UploadItem from "./pages/item/UploadItem";
 import ItemSummary from "./pages/item/ItemSummary";
 import Home from "./pages/Home";
-import CreateProfile from "./pages/CreateProfile";
+import CreateProfile from "./pages/user/CreateProfile";
 
 function App() {
 

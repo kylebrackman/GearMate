@@ -1,5 +1,5 @@
 # GearMate Startup Info
-This README provides a comprehensive overview of the GearMate III Backend project setup, common commands, environment variables, and troubleshooting tips. It covers essential information for developers working on the project, including Docker management, database setup, and addressing common errors.
+Notes file on various GearMate info. 
 
 ## Table of Contents
 - [Notes](#notes)
