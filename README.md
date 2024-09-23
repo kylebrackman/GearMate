@@ -33,9 +33,9 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
-## About The Project (Click Image For Demo)
+## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://rentall-6528b54d3efd.herokuapp.com/about)
+[![Product Name Screen Shot][product-screenshot]]
 
 GearMate is an application where users can rent out various types of gear, games, or hardware, that others may just need for a few days, or just want to test out! Currently, to rent outdoor gear, outdoor enthuiasasts must go to a large, corporate, recreational store to rent out low quality equipment for too high of prices. Now, users can rent out their gear to whoever may need it!
 
