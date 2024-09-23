@@ -30,8 +30,6 @@ export const useUser = () => {
 // Context provider component
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-
-
     const [user, setUser] = useState<User | null>(null);
 
     const loginContext = (user: User | null) => {

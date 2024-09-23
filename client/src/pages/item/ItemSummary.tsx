@@ -4,13 +4,12 @@ import { UserContext } from "../../context/UserContext.tsx";
 import { Item } from '../../models/ItemModel.tsx';
 // import EditItemForm from '../components/Items/EditItemForm.tsx';
 import { Box, Typography, Divider, Grid, Button } from '@mui/material';
-// import { orange, red } from '@mui/material/colors';
-import { orange } from '@mui/material/colors';
+import { orange, red } from '@mui/material/colors';
 import { DatePicker } from '@mui/x-date-pickers';
 import { Dayjs } from 'dayjs';
 import { Dialog, DialogContent } from '@mui/material';
 import Alert from '@mui/material/Alert';
-import { getItemApi } from '../../services/ItemApi.ts';
+import { getItemApi, deleteItemApi } from '../../services/ItemApi.ts';
 import { createRentalRequestApi } from '../../services/RentalRequestApi.ts';
 import { RentalRequest } from '../../models/RentalRequestModel.tsx';
 
@@ -32,9 +31,11 @@ const ItemSummary = () => {
       try {
         const item = await getItemApi(itemId);
         setItem(item);
+        console.log(item);
       } catch (error: unknown) {
-        console.error(error);
         if (error instanceof Error) {
+          setItem(null);
+          console.log("errors here")
           setErrors([error.message]);
         } else {
           setErrors([String(error)]);
@@ -49,7 +50,7 @@ const ItemSummary = () => {
   const imageUrl = `${backendUrl}${item?.image}`
 
   const requestButtonColor = orange[600];
-  // const deleteItemButtonColor = red[600];
+  const deleteItemButtonColor = red[600];
   const navigate = useNavigate();
 
   const handleNavigateToSignUp = () => {
@@ -62,6 +63,21 @@ const ItemSummary = () => {
 
   const handleEndDateChange = (value: Dayjs | null) => {
     setEndDate(value);
+  };
+
+  const handleDeleteItem = async (itemId: number) => {
+    try {
+      await deleteItemApi(itemId);
+      setItem(null);
+      navigate('/home');
+    } catch (error: unknown) {
+      console.error(error);
+      if (error instanceof Error) {
+        setErrors([error.message]);
+      } else {
+        setErrors([String(error)]);
+      }
+    }
   };
 
   const handleSubmit = async () => {
@@ -123,8 +139,10 @@ const ItemSummary = () => {
     // eslint-disable-next-line
   }, []);
 
-  if (!item) {
-    return <div>Item not found</div>;
+  if (item === null) {
+    return (
+      <div>Item not found</div>
+    )
   } else if (user === null) {
     return (
       <Box
@@ -254,7 +272,7 @@ const ItemSummary = () => {
                   <Divider sx={{ marginBottom: 2 }} />
                   <div className="flex justify-between mb-4">
                     <Button variant="contained" sx={{ backgroundColor: requestButtonColor }} onClick={handleEditButtonClick}>Edit Item</Button>
-                    {/* <Button variant="contained" sx={{ backgroundColor: deleteItemButtonColor }} onClick={() => deleteItem(item.id)}>Delete</Button> */}
+                    <Button variant="contained" sx={{ backgroundColor: deleteItemButtonColor }} onClick={() => handleDeleteItem(item.id)}>Delete</Button>
                   </div>
                   <Dialog open={openDialog} onClose={handleClose}>
                     <DialogContent sx={{ width: '600px' }}>
