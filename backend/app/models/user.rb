@@ -9,4 +9,20 @@ class User < ApplicationRecord
 
     has_one :profile
 
+    def current_rentals
+        Rental.current_rentals(self)
+    end
+    
+    def upcoming_rentals
+        Rental.upcoming_rentals(self)
+    end
+    
+    def past_rentals
+        Rental.past_rentals(self)
+    end
+
+    def pending_rental_requests
+        RentalRequest.where(renter_id: id, status: 0)
+    end
+
 end
