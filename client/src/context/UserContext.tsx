@@ -47,6 +47,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
             try {
                 const user = await getUserApi();
                 if (user) {
+                    console.log(user)
                     setUser(user);
                 }
             } catch (error) {

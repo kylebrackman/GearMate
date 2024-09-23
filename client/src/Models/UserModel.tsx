@@ -7,4 +7,8 @@ export interface User {
     last_name: string;
     owned_items: Item[];
     profile: Profile;
+    current_rentals: Item[];
+    upcoming_rentals: Item[];
+    past_rentals: Item[];
+    pending_rental_requests: Item[];
 }
