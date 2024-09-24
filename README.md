@@ -69,12 +69,12 @@ GearMate is an application where users can rent out various types of gear, games
    ```sh
     bundle install
    ```
-  ```sh
+   ```sh
     rails db:migrate
    ```
 4. To do the same in docker, create a .env file in root with the two variables: 
-  - POSTGRES_USER=<your-username>
-  - POSTGRES_PASSWORD=<your-password>
+  - POSTGRES_USER=yourusername
+  - POSTGRES_PASSWORD=yourpassword
 5. Following commands in order:
    ```sh
     docker-compose build
