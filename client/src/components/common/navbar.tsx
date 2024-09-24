@@ -38,6 +38,9 @@ function ResponsiveAppBar() {
 
     const pages = user ? ['Your Rentals', 'List an Item', 'Gear', 'About'] : ['Gear', 'About', 'Login', 'Sign Up'];
     const dropdown = user ? ['Requested Gear', 'Profile', 'Account', 'Dashboard', 'Logout'] : ['Login', 'Sign Up'];
+    const backendBaseUrl = import.meta.env.VITE_API_URL
+    const imageUrl = `${backendBaseUrl}${user?.profile?.image}`;
+    const navBarImage = user && user?.profile?.image ? imageUrl : 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png';
 
     function handleLogOut() {
         logoutUserApi();
@@ -109,7 +112,7 @@ function ResponsiveAppBar() {
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Badge badgeContent={1} color="secondary">
-                                    <Avatar alt="Remy Sharp" />
+                                    <Avatar alt="Remy Sharp" src={navBarImage} />
                                 </Badge>
                             </IconButton>
                         </Tooltip>

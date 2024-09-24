@@ -22,5 +22,8 @@ Rails.application.routes.draw do
     # Profile routes
     resources :profiles
 
+    # User routes
+    resources :users
+
   end
 end

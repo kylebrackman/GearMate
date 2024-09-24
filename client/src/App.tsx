@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import './App.css'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import Footer from "./components/common/footer";
 import Navbar from "./components/common/navbar";
 import { UserProvider } from "./context/UserContext";
@@ -16,6 +17,7 @@ function App() {
 
   return ( 
     <div>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
       <UserProvider>
         <Navbar />
         <Routes>
@@ -30,6 +32,7 @@ function App() {
         </Routes>
         <Footer />
       </UserProvider>
+      </LocalizationProvider>
     </div>
   )
 }

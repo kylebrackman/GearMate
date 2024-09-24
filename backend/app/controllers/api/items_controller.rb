@@ -1,21 +1,16 @@
 class Api::ItemsController < ApplicationController
 
     skip_before_action :authorize, only: :index
-    before_action :set_item, only: [:show, :update, :destroy]
+    before_action :set_item, only: [:update, :destroy]
 
     def index
-        if params[:all_items]
-            # items = Item.all.with_attached_image
-            items = Item.all.with_attached_image
-        else
-            #adding in finding the current user because i'm skipping authorize above
-            @current_user = User.find_by(id: session[:user_id])
-            items = @current_user.owned_items
-        end
+        items = Item.all
         render json: items
     end
 
+
     def show 
+        @item = Item.find(params[:id])
         render json: @item
     end
 

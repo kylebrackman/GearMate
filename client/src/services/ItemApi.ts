@@ -67,7 +67,7 @@ export const getAllItemsApi = async (): Promise<Item[]> => {
     }
 }
 
-export const getItemApi = async (id: string | number): Promise<Item | null> => {
+export const getItemApi = async (id: number | string): Promise<Item | null> => {
     try {
         const response = await fetch(`/api/items/${id}`);
         if (!response.ok) {
