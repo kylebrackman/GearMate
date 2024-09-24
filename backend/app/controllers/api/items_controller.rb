@@ -1,6 +1,6 @@
 class Api::ItemsController < ApplicationController
 
-    skip_before_action :authorize, only: :index
+    skip_before_action :authorize, only: [:index, :show]
     before_action :set_item, only: [:update, :destroy]
 
     def index

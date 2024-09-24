@@ -193,21 +193,10 @@ const ItemSummary = () => {
             </Typography>
             <Divider sx={{ marginBottom: 2 }} />
             <Typography variant="h6" component="h2" gutterBottom>
-              <Box component="span" fontWeight="bold">
-                Owner:
-              </Box>{' '}
-              <Box component="span" fontWeight="regular">
-                {item.owner_first_name} {item.owner_last_name}
-              </Box>
             </Typography>
             <Typography variant="body1" sx={{ mb: 2 }}>
               {item.description}
             </Typography>
-            <Box component="span" fontWeight="bold">
-              Pick Your Dates
-            </Box>
-            <br />
-            <DatePicker sx={{ marginBottom: 2 }} /> - <DatePicker sx={{ marginBottom: 2 }} />
             <Divider sx={{ marginBottom: 2 }} />
             <Button variant="contained" sx={{ backgroundColor: requestButtonColor }} onClick={handleNavigateToSignUp}>Sign Up To Rent This Item!</Button>
           </Grid>
