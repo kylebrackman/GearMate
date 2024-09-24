@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a >
-    <img src="images/favicon.ico" alt="GearMate logo" width="80" height="80">
+    <img src="/client/public/static-photos/gearmate-logo.png" alt="GearMate logo" width="80" height="80">
   </a>
 
   <h1 align="center">GearMate</h1>
@@ -59,18 +59,34 @@ GearMate is an application where users can rent out various types of gear, games
 
 1. Clone the repo
    ```sh
-   git clone git@github.com:kylebrackman/GearMate.git
+   git clone https://github.com/kylebrackman/GearMate.git
    ```
-2. Install NPM packages
+2. Change directories into /client and run:
    ```sh
-   npm install --prefix client
+   npm install
    ```
-3. Install gems
+3. Change directories into /backend and run: 
    ```sh
     bundle install
    ```
-4. You will also need to instantiate your postgresql database within docker. 
+  ```sh
+    rails db:migrate
+   ```
+4. To do the same in docker, create a .env file in root with the two variables: 
+  1. POSTGRES_USER=<your-username>
+  2. POSTGRES_PASSWORD=<your-password>
+5. Following commands in order:
+   ```sh
+    docker-compose build
+   ```
+   ```sh
+    docker-compose up
+   ```
+   ```sh
+    docker exec -it gearmate_iii-backend-1 bin/rails db:migrate
+   ```
 
+### See notes.md for more helpful info.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -82,7 +98,7 @@ GearMate is an application where users can rent out various types of gear, games
 - [ ] Add user chat for coordinating item dropoffs/pickups.
 - [ ] Fix Google Maps API issues.
 - [ ] Add available and unavailable dates on each item calendar.
-- [ ] Create "Items Being Rented" Area.
+- [ ] Create "Items Being Rented" page.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
