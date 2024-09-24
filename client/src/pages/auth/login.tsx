@@ -70,9 +70,7 @@ export default function Login() {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage:
-                            'url("/photos/me-climbing.png")',
-
+                        backgroundImage: 'url("../../../static-photos/me-climbing.png")',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
                         backgroundSize: 'cover',

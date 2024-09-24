@@ -107,9 +107,12 @@ const ItemSummary = () => {
       };
       console.log("card", rentalRequestData)
       // createCheckoutSession(rentalRequestData);
-      createRentalRequestApi(rentalRequestData);
-      if (errors.length === 0) {
+      try {
+        const response = await createRentalRequestApi(rentalRequestData);
+        console.log(response);
         navigate(`/confirmRentalRequest/${item.id}`);
+      } catch (error) {
+        console.log(error)
       }
       // }
     }
@@ -286,9 +289,9 @@ const ItemSummary = () => {
                     <Box component="span" fontWeight="bold">
                       Owner:
                     </Box>{' '}
-                    {/* <Box component="span" fontWeight="regular">
+                    <Box component="span" fontWeight="regular">
                       {item.owner_first_name} {item.owner_last_name}
-                    </Box> */}
+                    </Box>
                   </Typography>
                   <Typography variant="body1" sx={{ mb: 2 }}>
                     {item.description}

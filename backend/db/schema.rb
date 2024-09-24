@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_23_170448) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_24_050213) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,8 +74,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_23_170448) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "item_id", null: false
+    t.bigint "owner_id", null: false
     t.bigint "renter_id", null: false
     t.index ["item_id"], name: "index_rental_requests_on_item_id"
+    t.index ["owner_id"], name: "index_rental_requests_on_owner_id"
     t.index ["renter_id"], name: "index_rental_requests_on_renter_id"
   end
 
@@ -107,6 +109,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_23_170448) do
   add_foreign_key "items", "users", column: "owner_id"
   add_foreign_key "profiles", "users"
   add_foreign_key "rental_requests", "items"
+  add_foreign_key "rental_requests", "users", column: "owner_id"
   add_foreign_key "rental_requests", "users", column: "renter_id"
   add_foreign_key "rentals", "items"
   add_foreign_key "rentals", "rental_requests"

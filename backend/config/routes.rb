@@ -25,5 +25,11 @@ Rails.application.routes.draw do
     # User routes
     resources :users
 
+    # Rental routes
+    resources :rentals
+
+    # Rental request routes
+    resources :rental_requests
+
   end
 end

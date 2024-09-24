@@ -111,7 +111,7 @@ function ResponsiveAppBar() {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Badge badgeContent={1} color="secondary">
+                                <Badge badgeContent={user?.rental_requests_received_pending.length} color="secondary">
                                     <Avatar alt="Remy Sharp" src={navBarImage} />
                                 </Badge>
                             </IconButton>
@@ -136,7 +136,7 @@ function ResponsiveAppBar() {
                                 option === 'Requested Gear' ? (
                                     <MenuItem key="Requested Gear" onClick={() => settingActions['Requested Gear']()}>
                                         <Badge
-                                            badgeContent={1}
+                                            badgeContent={user?.rental_requests_received_pending.length}
                                             color="secondary"
                                             sx={{ display: 'flex' }}
                                         >

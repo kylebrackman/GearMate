@@ -9,10 +9,15 @@ class User < ApplicationRecord
 
     has_many :owned_items, class_name: "Item", foreign_key: "owner_id"
 
-    has_many :rental_requests, foreign_key: "requester_id"
+    has_many :rental_requests, foreign_key: "renter_id"
     has_many :rentals, foreign_key: :renter_id
 
     has_one :profile
+
+    has_many :rental_requests_received_pending, 
+        -> { where(status: :pending).includes(:item, :renter) }, 
+        through: :owned_items, 
+        source: :rental_requests
 
     def current_rentals
         Rental.current_rentals(self)
