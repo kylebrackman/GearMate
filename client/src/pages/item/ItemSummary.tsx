@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from "../../context/UserContext.tsx";
 import { Item } from '../../models/ItemModel.tsx';
-// import EditItemForm from '../components/Items/EditItemForm.tsx';
+import EditItemForm from '../../components/item/EditItemForm.tsx';
 import { Box, Typography, Divider, Grid, Button } from '@mui/material';
 import { orange, red } from '@mui/material/colors';
 import { DatePicker } from '@mui/x-date-pickers';
 import { Dayjs } from 'dayjs';
 import { Dialog, DialogContent } from '@mui/material';
 import Alert from '@mui/material/Alert';
-import { getItemApi, deleteItemApi } from '../../services/ItemApi.ts';
+import { getItemApi, deleteItemApi, editItemApi } from '../../services/ItemApi.ts';
 import { createRentalRequestApi } from '../../services/RentalRequestApi.ts';
 import { RentalRequest } from '../../models/RentalRequestModel.tsx';
 
@@ -118,16 +118,24 @@ const ItemSummary = () => {
     }
   };
 
-  // const handleEditItem = async (editedItem: Item) => {
-  //   try {
-  //     await editItem(editedItem);
-  //     handleClose();
-  //     // Optionally, show a success message
-  //   } catch (error: any) {
-  //     console.error("Error editing item:", error);
-  //     setErrors([error.message]);
-  //   }
-  // };
+  const handleEditItem = async (editedItem: Item): Promise<Item> => {
+    try {
+      const updatedItem = await editItemApi({
+        id: editedItem.id,
+        name: editedItem.name,
+        description: editedItem.description,
+        price: editedItem.price,
+        condition: editedItem.condition,
+      });
+      const newItem = updatedItem;
+      setItem(newItem);
+      handleClose();
+      return newItem;
+    } catch (error: any) {
+      console.error("Error editing item:", error);
+      throw error;
+    }
+  };
 
   const handleEditButtonClick = () => {
     setOpenDialog(true);
@@ -254,8 +262,14 @@ const ItemSummary = () => {
                       You!
                     </Box>
                   </Typography>
-                  <Typography variant="body1" sx={{ mb: 2 }}>
-                    {item.condition}
+                  
+                  <Typography variant="h6" component="h2" gutterBottom>
+                    <Box component="span" fontWeight="bold">
+                      Condition:
+                    </Box>{' '}
+                    <Box component="span" fontWeight="regular">
+                      {item.condition}
+                    </Box>
                   </Typography>
                   <Typography variant="body1" sx={{ mb: 2 }}>
                     {item.description}
@@ -268,7 +282,7 @@ const ItemSummary = () => {
                   </div>
                   <Dialog open={openDialog} onClose={handleClose}>
                     <DialogContent sx={{ width: '600px' }}>
-                      {/* <EditItemForm item={item} handleEditItem={handleEditItem} errors={errors} /> */}
+                      <EditItemForm item={item} handleEditItem={handleEditItem} errors={errors} />
                     </DialogContent>
                   </Dialog>
                 </>

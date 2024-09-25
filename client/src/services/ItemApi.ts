@@ -19,14 +19,13 @@ export const addItemApi = async (newItemData: FormData): Promise<Item> => {
 };
 
 
-export const editItemApi = async (id: string | number, itemData: Partial<Item>): Promise<Item> => {
+export const editItemApi = async (itemData: Partial<Item>): Promise<Item> => {
     try {
-        const response = await fetch(`/api/items/${id}`, {
+        const response = await fetch(`/api/items/${itemData.id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ item: itemData }),
-        });
-        
+            body: JSON.stringify(itemData),
+        });  
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(`Validation Error: ${errorData.errors}`);
@@ -45,7 +44,6 @@ export const deleteItemApi = async (id: string | number): Promise<void> => {
         const response = await fetch(`/api/items/${id}`, {
             method: "DELETE",
         });
-
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.errors);

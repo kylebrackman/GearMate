@@ -42,6 +42,7 @@ class Api::ItemsController < ApplicationController
     end
 
     def set_item
+        puts "Item ID: #{params[:id]}"  
         @item = @current_user.owned_items.find_by(id: params[:id])
         render json: { error: "Item not found" }, status: :not_found unless @item
     end
