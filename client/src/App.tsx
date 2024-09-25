@@ -12,7 +12,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/user/Profile";
 import CreateProfile from "./pages/user/CreateProfile";
 import RequestedItems from "./pages/requests/RequestedItems";
-
+import RentalRequestReview from "./pages/requests/RentalRequestReview";
 function App() {
 
 
@@ -31,6 +31,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/createprofile" element={<CreateProfile />} />
           <Route path="/pendingRequests" element={<RequestedItems />} />
+          <Route path="/reviewRequest/:id" element={<RentalRequestReview />} />
         </Routes>
         <Footer />
       </UserProvider>

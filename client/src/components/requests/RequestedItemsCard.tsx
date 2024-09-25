@@ -40,12 +40,12 @@ const RequestedItemsCard: React.FC<RequestedItemsCardProps> = ({ request }) => {
                             >
                                 Dates Requested: {' '}
                             </Typography>
-                            {request.start_date} - {request.end_date}
+                            {request.start_date} to {request.end_date}
                         </React.Fragment>
                     }
                 />
                 <ListItemText>
-                    <Link href={`/rentalRequest/${request.id}`}>
+                    <Link href={`/reviewRequest/${request.id}`}>
                         View Request Details
                     </Link>
                 </ListItemText>

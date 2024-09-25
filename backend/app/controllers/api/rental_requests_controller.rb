@@ -56,9 +56,9 @@ class Api::RentalRequestsController < ApplicationController
       render json: @received_pending_rental_requests, each_serializer: RentalRequestSerializer
     end
 
-    def rental_requests_received_pending_with_id
-      # @rental_request = @current_user.rental_requests_received_pending.find(params[:id])
-      # render json: @rental_request, serializer: RentalRequestSerializer
+    def received_pending_rental_request_id
+      @received_pending_rental_request = @current_user.received_pending_rental_requests.find(params[:id])
+      render json: @received_pending_rental_request, serializer: RentalRequestSerializer
     end
 
     

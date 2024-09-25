@@ -37,7 +37,7 @@ export const getPendingRentalRequestsApi = async () => {
 
 export const getPendingRentalRequestByIdApi = async (id: string) => {
   try {
-    const response = await fetch(`/api/rental_requests_received_pending_with_id/${id}`);
+    const response = await fetch(`/api/received_pending_rental_request/${id}`);
     const data = await response.json();
     if (!data.errors) {
       console.log(data)

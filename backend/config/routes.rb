@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     resources :rental_requests
 
     get '/received_pending_rental_requests', to: 'rental_requests#received_pending_rental_requests'
-    # get '/rental_requests_received_pending_with_id/:id', to: 'rental_requests#rental_requests_received_pending_with_id'
+    get '/received_pending_rental_request/:id', to: 'rental_requests#received_pending_rental_request_id'
 
   end
 end
