@@ -31,5 +31,8 @@ Rails.application.routes.draw do
     # Rental request routes
     resources :rental_requests
 
+    get '/received_pending_rental_requests', to: 'rental_requests#received_pending_rental_requests'
+    # get '/rental_requests_received_pending_with_id/:id', to: 'rental_requests#rental_requests_received_pending_with_id'
+
   end
 end

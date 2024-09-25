@@ -46,6 +46,9 @@ function ResponsiveAppBar() {
         logoutUserApi();
         logoutContext();
     }
+    const handleCloseUserMenu = () => {
+        setUserMenuTrigger(null);
+    };
 
     const settingActions: SettingActions = {
         'Sign Up': () => {
@@ -71,9 +74,6 @@ function ResponsiveAppBar() {
         setUserMenuTrigger(event.currentTarget);
     };
 
-    const handleCloseUserMenu = () => {
-        setUserMenuTrigger(null);
-    };
 
     return (
         <AppBar position="static" sx={{ backgroundColor: navbarColor }}>
@@ -111,7 +111,7 @@ function ResponsiveAppBar() {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Badge badgeContent={user?.rental_requests_received_pending.length} color="secondary">
+                                <Badge badgeContent={user?.received_pending_rental_requests.length} color="secondary">
                                     <Avatar alt="Remy Sharp" src={navBarImage} />
                                 </Badge>
                             </IconButton>
@@ -136,7 +136,7 @@ function ResponsiveAppBar() {
                                 option === 'Requested Gear' ? (
                                     <MenuItem key="Requested Gear" onClick={() => settingActions['Requested Gear']()}>
                                         <Badge
-                                            badgeContent={user?.rental_requests_received_pending.length}
+                                            badgeContent={user?.received_pending_rental_requests.length}
                                             color="secondary"
                                             sx={{ display: 'flex' }}
                                         >

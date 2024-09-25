@@ -51,14 +51,14 @@ class Api::RentalRequestsController < ApplicationController
         redirect_to rental_request.item, alert: "Rental request rejected."
     end
 
-    def rental_requests_received_pending
-      @rental_requests = @current_user.rental_requests_received_pending
-      render json: @rental_requests, each_serializer: RentalRequestSerializer
+    def received_pending_rental_requests
+      @received_pending_rental_requests = @current_user.received_pending_rental_requests
+      render json: @received_pending_rental_requests, each_serializer: RentalRequestSerializer
     end
 
     def rental_requests_received_pending_with_id
-      @rental_request = @current_user.rental_requests_received_pending.find(params[:id])
-      render json: @rental_request, serializer: RentalRequestSerializer
+      # @rental_request = @current_user.rental_requests_received_pending.find(params[:id])
+      # render json: @rental_request, serializer: RentalRequestSerializer
     end
 
     

@@ -12,5 +12,5 @@ export interface User {
     upcoming_rentals: Item[];
     past_rentals: Item[];
     pending_rental_requests: Item[];
-    rental_requests_received_pending: RentalRequest[];
+    received_pending_rental_requests: RentalRequest[];
 }

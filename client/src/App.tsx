@@ -11,6 +11,7 @@ import ItemSummary from "./pages/item/ItemSummary";
 import Home from "./pages/Home";
 import Profile from "./pages/user/Profile";
 import CreateProfile from "./pages/user/CreateProfile";
+import RequestedItems from "./pages/requests/RequestedItems";
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/item/:id" element={<ItemSummary />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/createprofile" element={<CreateProfile />} />
+          <Route path="/pendingRequests" element={<RequestedItems />} />
         </Routes>
         <Footer />
       </UserProvider>

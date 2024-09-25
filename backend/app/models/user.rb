@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
     has_one :profile
 
-    has_many :rental_requests_received_pending, 
+    has_many :received_pending_rental_requests, 
         -> { where(status: :pending).includes(:item, :renter) }, 
         through: :owned_items, 
         source: :rental_requests
@@ -23,6 +23,7 @@ class User < ApplicationRecord
         Rental.current_rentals(self)
     end
     
+
     def upcoming_rentals
         Rental.upcoming_rentals(self)
     end
@@ -31,7 +32,7 @@ class User < ApplicationRecord
         Rental.past_rentals(self)
     end
 
-    def pending_rental_requests
+    def sent_pending_rental_requests
         RentalRequest.where(renter_id: id, status: 0)
     end
 
