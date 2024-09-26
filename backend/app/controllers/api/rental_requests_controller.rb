@@ -16,31 +16,36 @@ class Api::RentalRequestsController < ApplicationController
       render json: @rental_request, serializer: RentalRequestSerializer
     end
     
-    def finalize_approval
+    def approve_rental_request
       rental_request = RentalRequest.find(params[:id])
     
       # Log the rental request details
       Rails.logger.debug "Debugging rental_request: #{rental_request.inspect}"
     
       # Attempt to create a new Rental record
-      rental = Rental.create(
+      rental = Rental.new(
         rental_request_id: rental_request.id,
         item_id: rental_request.item_id,
         renter_id: rental_request.renter_id,
         start_date: rental_request.start_date,
         end_date: rental_request.end_date,
-        owner_id: rental_request.owner_id
       )
-
-      rental_request.update(status: 'approved')
     
-      # Render success response
-      render json: { message: 'Rental request finalized successfully', rental: rental }, status: :ok
+      if rental.save
+        # Update rental_request status to 'approved'
+        rental_request.update(status: 'approved')
+        render json: { message: 'Rental request approved successfully', rental: rental }, status: :ok
+      else
+        # If saving the rental fails
+        render json: { error: 'Rental creation failed', errors: rental.errors.full_messages }, status: :unprocessable_entity
+      end
+    
     rescue ActiveRecord::RecordNotFound => e
-      # Handle case where the rental request is not found
+      # Case where the rental request is not found
       render json: { error: 'Rental request not found' }, status: :not_found
+    
     rescue ActiveRecord::RecordInvalid => e
-      # Handle case where the rental record creation fails due to validation errors
+      # Case where the rental record creation fails due to validation errors
       render json: { error: e.message, errors: rental.errors.full_messages }, status: :unprocessable_entity
     end
     

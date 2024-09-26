@@ -34,5 +34,8 @@ Rails.application.routes.draw do
     get '/received_pending_rental_requests', to: 'rental_requests#received_pending_rental_requests'
     get '/received_pending_rental_request/:id', to: 'rental_requests#received_pending_rental_request_id'
 
+    patch '/approve_rental_request/:id', to: 'rental_requests#approve_rental_request'
+
+
   end
 end

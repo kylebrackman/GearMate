@@ -120,8 +120,8 @@ const About: React.FC = () => {
                 Software Engineer, Climber, Runner, and Outdoor Enthusiast. Kyle
                 Brackman has a passion for building and creating, and is excited
                 to bring that passion to the GearMate platform. His goal is to
-                grow as a developer, build and grow GearMate, and climb 5.14a in
-                under three years of climbing.
+                grow as a developer, build and grow GearMate, and climb 5.14a before
+                his 4 year climbing anniversary.
               </Typography>
               <Typography variant="body1" sx={{ mt: 2 }}>
                 Proudest Accomplishments: Transitioning to software while

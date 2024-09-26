@@ -23,27 +23,49 @@ export const createRentalRequestApi = async (rentalRequestData: RentalRequest) =
 export const getPendingRentalRequestsApi = async () => {
   try {
     const response = await fetch('/api/received_pending_rental_requests');
-    const data = await response.json();
-    if (!data.errors) {
-      return data;
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`${errorData.errors}`);
     } else {
-      console.error('Error retrieving pending rental requests:', data.errors);
+      const data = await response.json();
+      return data;
     }
   } catch (error) {
-    console.error('Error retrieving pending rental requests:', error);
+    console.error(error);
+    throw error;
   }
 }
 
 export const getPendingRentalRequestByIdApi = async (id: string) => {
   try {
     const response = await fetch(`/api/received_pending_rental_request/${id}`);
-    const data = await response.json();
-    if (!data.errors) {
-      return data;
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`${errorData.errors}`);
     } else {
-      console.error('Error retrieving pending rental requests:', data.errors);
+      const data = await response.json();
+      return data;
     }
   } catch (error) {
-    console.error('Error retrieving pending rental requests:', error);
+    console.error(error);
+    throw error;
+  }
+}
+
+export const approveRentalRequestApi = async (id: string) => {
+  try {
+    const response = await fetch(`/api/approve_rental_request/${id}`, {
+      method: 'PATCH',
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`${errorData.errors}`);
+    } else {
+      const data = await response.json();
+      return data;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 }

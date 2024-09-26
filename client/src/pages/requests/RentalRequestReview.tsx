@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext.tsx';
-import { getPendingRentalRequestByIdApi } from '../../services/RentalRequestApi.ts';
+import { getPendingRentalRequestByIdApi, approveRentalRequestApi } from '../../services/RentalRequestApi.ts';
 import { RentalRequest } from '../../models/RentalRequestModel.ts';
 import { useNavigate } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
 import {
     Container,
     Grid,
@@ -19,8 +20,16 @@ import {
 
 const RentalRequestReview = () => {
     const [request, setRequest] = useState<RentalRequest>();
+    const [errors, setErrors] = useState('');
     const { id = '' } = useParams();
     const { user } = useContext(UserContext);
+    const backendBaseUrl = import.meta.env.VITE_API_URL
+    const itemImageUrl = `${backendBaseUrl}${request?.item?.image}`;
+    const navigate = useNavigate();
+    // const renterImageUrl = `${backendBaseUrl}${request?.renter.profile.image}`;
+    const navigateToRenterProfile = () => {
+        navigate(`/profiles/${request?.renter.profile.id}`);
+    };
 
     useEffect(() => {
         const fetchRequest = async () => {
@@ -30,16 +39,20 @@ const RentalRequestReview = () => {
         fetchRequest();
     }, [id]);
 
-    const navigate = useNavigate();
-    const navigateToRenterProfile = () => {
-        navigate(`/profiles/${request?.renter.profile.id}`);
+    const handleApproveRequest = async () => {
+        try {
+            const data = await approveRentalRequestApi(id);
+            console.log(data)
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                setErrors(error.message);
+            } else {
+                setErrors('An unknown error occurred');
+            }
+            console.error(error);
+        }
     };
 
-    console.log(request)
-
-    const backendBaseUrl = import.meta.env.VITE_API_URL
-    const itemImageUrl = `${backendBaseUrl}${request?.item?.image}`;
-    // const renterImageUrl = `${backendBaseUrl}${request?.renter.profile.image}`;
 
     if (!request?.item) {
         return <div>Item not found</div>;
@@ -104,21 +117,20 @@ const RentalRequestReview = () => {
                                     Email: {request.renter.email}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    Renter Bio: {request.renter.profile?.bio}
+                                    Bio: {request.renter.profile?.bio}
                                 </Typography>
                             </CardContent>
                         </Card>
                         <Button
                             variant="contained"
                             color="primary"
-                            sx={{ marginTop: 2 }}
+                            sx={{ mt: 2, mb: 2 }}
                             fullWidth
-                            onClick={() => {
-                                // Logic to approve the rental request can go here
-                            }}
+                            onClick={handleApproveRequest}
                         >
                             Approve Rental
                         </Button>
+                        {errors === '' ? null : <Alert severity="error">{errors}</Alert>}
                     </Grid>
                 </Grid>
             </Container>

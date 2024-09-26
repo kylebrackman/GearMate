@@ -32,7 +32,6 @@ const PendingRentalRequestsReceived = () => {
     }
 
     const pendingRentalRequestsReceivedList = pendingRentalRequestsReceived.map((request) => {
-        console.log(request);
         return (
             <RequestedItemsCard request={request} key={request.id} />
         );
