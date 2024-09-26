@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -6,17 +6,17 @@ import {
   CardContent,
   CardHeader,
   TextField,
-} from "@mui/material";
-import { createProfileApi } from "../../services/UserApi";
+} from '@mui/material';
+import { createProfileApi } from '../../services/UserApi';
 // type Position = {
 //   lat: number;
 //   lng: number;
 // };
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const CreateProfile = () => {
-  const [nickname, setNickname] = useState("");
-  const [bio, setBio] = useState("");
+  const [nickname, setNickname] = useState('');
+  const [bio, setBio] = useState('');
   const [image, setImage] = useState<File | null>(null);
   // const [position, setPosition] = useState<Position>({ lat: 0, lng: 0 });
   // const handleSetLocation = (newPosition: Position) => {
@@ -26,36 +26,41 @@ const CreateProfile = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     const newProfileData = new FormData();
-  
-    newProfileData.append("bio", bio);
-    newProfileData.append("name", nickname);
+
+    newProfileData.append('bio', bio);
+    newProfileData.append('name', nickname);
     // newProfileData.append("lat", position.lat.toString());
     // newProfileData.append("lng", position.lng.toString());
-  
+
     if (image) {
-      newProfileData.append("image", image);
+      newProfileData.append('image', image);
     }
-  
+
     try {
       const response = await createProfileApi(newProfileData);
       if (response?.ok) {
-        navigate("/home");
+        navigate('/home');
       } else {
-        console.error("Error creating profile:", response?.error);
+        console.error('Error creating profile:', response?.error);
       }
     } catch (error) {
-      console.error("Error creating profile:", error);
+      console.error('Error creating profile:', error);
     }
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+    >
       <Card sx={{ maxWidth: 400 }}>
         <CardHeader
           title="Create your profile"
-          titleTypographyProps={{ variant: "h5", fontWeight: "bold" }}
+          titleTypographyProps={{ variant: 'h5', fontWeight: 'bold' }}
         />
         <CardContent>
           <form onSubmit={handleSubmit}>
@@ -98,7 +103,12 @@ const CreateProfile = () => {
             </Box>
             {/* <Geo onSetLocation={handleSetLocation} /> */}
             <Box mb={2}>
-              <Button type="submit" fullWidth variant="contained" color="primary">
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+              >
                 Enter
               </Button>
             </Box>

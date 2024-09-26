@@ -150,7 +150,6 @@ const ItemSummary = () => {
 
   useEffect(() => {
     // resetErrors();
-    // eslint-disable-next-line
   }, []);
 
   if (item === null) {

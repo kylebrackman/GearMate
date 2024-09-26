@@ -30,7 +30,7 @@ const UploadItem = () => {
   const [itemPrice, setItemPrice] = useState('');
   // const [itemPosition, setItemPosition] = useState({ lat: 0, lng: 0 })
   // Temporary ts fix below
-  let itemPosition: ItemPosition = { lat: 0, lng: 0 };
+  const itemPosition: ItemPosition = { lat: 0, lng: 0 };
 
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const UploadItem = () => {
     if (image) {
       newItemData.append('image', image);
     }
-    for (let pair of newItemData.entries()) {
+    for (const pair of newItemData.entries()) {
       console.log(pair[0] + ': ' + pair[1]);
     }
     console.log(newItemData);
