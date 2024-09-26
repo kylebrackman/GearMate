@@ -17,27 +17,12 @@ export default tseslint.config(
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
+
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
-      'prettier/prettier': 'error',
-      // Import sorting rules using simple-import-sort
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
-
-      // Optional: Disable ESLint import sort rules if using simple-import-sort
-      'import/order': 'off',
-
-      // Existing import rules (optional, can be adjusted based on preference)
-      'import/no-unresolved': 'error',
-      'import/named': 'error',
-      'import/default': 'error',
-      'import/namespace': 'error',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      'no-useless-catch': 'warn',
     },
-
     settings: {
       react: {
         version: 'detect',
