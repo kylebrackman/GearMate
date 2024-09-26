@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext.tsx';
 import { getPendingRentalRequestByIdApi } from '../../services/RentalRequestApi.ts';
 import { RentalRequest } from '../../models/RentalRequestModel.ts';
+import { useNavigate } from 'react-router-dom';
 import {
     Container,
     Grid,
@@ -13,6 +14,7 @@ import {
     Button,
     // Avatar,
     Divider,
+    Box
 } from '@mui/material';
 
 const RentalRequestReview = () => {
@@ -27,6 +29,13 @@ const RentalRequestReview = () => {
         };
         fetchRequest();
     }, [id]);
+
+    const navigate = useNavigate();
+    const navigateToRenterProfile = () => {
+        navigate(`/profiles/${request?.renter.profile.id}`);
+    };
+
+    console.log(request)
 
     const backendBaseUrl = import.meta.env.VITE_API_URL
     const itemImageUrl = `${backendBaseUrl}${request?.item?.image}`;
@@ -84,15 +93,10 @@ const RentalRequestReview = () => {
                     <Grid item xs={12} md={4}>
                         <Card>
                             <CardContent>
-                                <Typography variant="h5">Renter Information</Typography>
-                                {/*
-                                Could not figure out how to get the profile returned with the rental request, return to later...
-                                <Avatar
-                                    alt={request.renter.first_name}
-                                    src={renterImageUrl}
-                                    sx={{ width: 56, height: 56 }}
-                                /> */}
-                                <Typography variant="h6">View Profile</Typography>
+                                <Box display="flex" justifyContent="space-between" alignItems="center">
+                                    <Typography variant="h5">Renter Information</Typography>
+                                    <Button onClick={navigateToRenterProfile}>View Profile</Button>
+                                </Box>
                                 <Typography variant="body1">
                                     {request.renter.first_name} {request.renter.last_name}
                                 </Typography>

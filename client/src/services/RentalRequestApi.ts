@@ -25,7 +25,6 @@ export const getPendingRentalRequestsApi = async () => {
     const response = await fetch('/api/received_pending_rental_requests');
     const data = await response.json();
     if (!data.errors) {
-      console.log(data)
       return data;
     } else {
       console.error('Error retrieving pending rental requests:', data.errors);
@@ -40,7 +39,6 @@ export const getPendingRentalRequestByIdApi = async (id: string) => {
     const response = await fetch(`/api/received_pending_rental_request/${id}`);
     const data = await response.json();
     if (!data.errors) {
-      console.log(data)
       return data;
     } else {
       console.error('Error retrieving pending rental requests:', data.errors);
