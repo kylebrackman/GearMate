@@ -4,7 +4,6 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { grey } from '@mui/material/colors';
-// import gearmatelogo from '../../static-photos/gearmatelogo.png'
 
 interface ItemCardProps {
     id: number;

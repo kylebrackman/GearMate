@@ -14,6 +14,7 @@ import CreateProfile from "./pages/user/CreateProfile";
 import RequestedItems from "./pages/requests/RequestedItems";
 import RentalRequestReview from "./pages/requests/RentalRequestReview";
 import RenterProfile from "./pages/user/RenterProfile";
+import About from "./pages/About";
 function App() {
 
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/pendingRequests" element={<RequestedItems />} />
           <Route path="/reviewRequest/:id" element={<RentalRequestReview />} />
           <Route path="/profiles/:renterId" element={<RenterProfile />} />
+          <Route path="/about" element={<About />} />
         </Routes>
         <Footer />
       </UserProvider>
