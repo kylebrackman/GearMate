@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import * as React from "react";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useUser } from "../../context/UserContext.tsx";
-import { signUpUserApi } from "../../services/UserApi.ts";
-import { User } from "../../models/UserModel.tsx";
-import Alert from "@mui/material/Alert";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useUser } from '../../context/UserContext.tsx';
+import { signUpUserApi } from '../../services/UserApi.ts';
+import Alert from '@mui/material/Alert';
+import { User } from '@/types/models.types.ts';
 
 function Copyright(props: any) {
   return (
@@ -25,12 +25,12 @@ function Copyright(props: any) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
+      {'Copyright © '}
       <Link color="inherit" href="/login">
         GearMate
-      </Link>{" "}
+      </Link>{' '}
       {new Date().getFullYear()}
-      {"."}
+      {'.'}
     </Typography>
   );
 }
@@ -39,20 +39,20 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [errors, setErrors] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [errors, setErrors] = useState('');
   const navigate = useNavigate();
   const user = useUser();
 
   function resetForm() {
-    setFirstName("");
-    setLastName("");
-    setPassword("");
-    setPasswordConfirmation("");
+    setFirstName('');
+    setLastName('');
+    setPassword('');
+    setPasswordConfirmation('');
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -66,7 +66,7 @@ export default function SignUp() {
         passwordConfirmation
       );
       user.loginContext(returnedUser);
-      navigate("/createprofile");
+      navigate('/createprofile');
       resetForm();
     } catch (error: any) {
       setErrors(error.message);
@@ -81,9 +81,9 @@ export default function SignUp() {
         <Box
           sx={{
             marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <img
@@ -93,11 +93,11 @@ export default function SignUp() {
             style={{
               borderRadius: 10,
               marginTop: 20,
-              height: "25%",
-              width: "25%",
+              height: '25%',
+              width: '25%',
             }}
           />
-          {errors === "" ? null : <Alert severity="error">{errors}</Alert>}
+          {errors === '' ? null : <Alert severity="error">{errors}</Alert>}
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>

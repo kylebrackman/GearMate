@@ -1,8 +1,9 @@
-import { User } from "../models/UserModel";
+import { User } from '@/types/models.types';
+
 // import { Profile } from "../models/ProfileModel";
 export async function getUserApi(): Promise<User | null> {
   try {
-    const response = await fetch("/api/me");
+    const response = await fetch('/api/me');
     if (!response.ok) {
       return null;
     }
@@ -19,8 +20,8 @@ export async function loginUserApi(
 ): Promise<User | null> {
   try {
     const response = await fetch(`/api/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
 
@@ -52,9 +53,9 @@ export async function signUpUserApi(
   passwordConfirmation: string
 ): Promise<User | null> {
   try {
-    const response = await fetch("/api/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch('/api/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         user: {
           email: email,
@@ -69,54 +70,56 @@ export async function signUpUserApi(
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(
-        errorData.errors ? errorData.errors : "Failed to sign up"
+        errorData.errors ? errorData.errors : 'Failed to sign up'
       );
     }
 
     const user = await response.json();
     return user;
   } catch (error) {
-    console.error("Error during sign-up:", error);
+    console.error('Error during sign-up:', error);
     throw error; // You can rethrow or handle it differently depending on your needs
   }
 }
 
 export async function logoutUserApi(): Promise<void> {
   try {
-    const response = await fetch("/api/logout", {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch('/api/logout', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
     });
 
     if (!response.ok) {
-      throw new Error("Failed to log out");
+      throw new Error('Failed to log out');
     }
 
     return;
   } catch (error) {
-    console.error("Error logging out:", error);
+    console.error('Error logging out:', error);
     throw error;
   }
 }
 
-export async function createProfileApi(newProfileData: FormData): Promise<any | null> {
+export async function createProfileApi(
+  newProfileData: FormData
+): Promise<any | null> {
   try {
-    const response = await fetch("/api/profiles", {
-      method: "POST",
-      body: newProfileData
+    const response = await fetch('/api/profiles', {
+      method: 'POST',
+      body: newProfileData,
     });
 
     if (!response.ok) {
-      console.log(response)
-      throw new Error("Failed to create profile");
+      console.log(response);
+      throw new Error('Failed to create profile');
     }
 
     const profile = await response.json();
-    console.log(profile)
+    console.log(profile);
 
     return profile;
   } catch (error) {
-    console.error("Error creating profile:", error);
+    console.error('Error creating profile:', error);
     throw error;
   }
 }

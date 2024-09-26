@@ -1,15 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { UserContext } from "../../context/UserContext.tsx";
-import { Box, Grid, Typography, Avatar, Card, CardContent } from "@mui/material";
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext.tsx';
+import {
+  Box,
+  Grid,
+  Typography,
+  Avatar,
+  Card,
+  CardContent,
+} from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { getRenterProfileApi } from "../../services/ProfileApi.ts";
-import { Profile } from "../../models/ProfileModel.tsx";
+import { getRenterProfileApi } from '../../services/ProfileApi.ts';
+import { Profile } from '@/types/models.types.ts';
 // import ProfileGeo from "./ProfileGeo.jsx";
 
 const RenterProfile: React.FC = () => {
   const { user } = useContext(UserContext);
-  const backendBaseUrl = import.meta.env.VITE_API_URL
+  const backendBaseUrl = import.meta.env.VITE_API_URL;
   const [renterProfile, setRenterProfile] = useState<Profile | null>();
   const { renterId } = useParams();
 
@@ -36,8 +43,7 @@ const RenterProfile: React.FC = () => {
 
   if (!user) {
     return <h1>Loading...</h1>;
-  }
-  else if (renterProfile === null) {
+  } else if (renterProfile === null) {
     return <h1>No renter profile found</h1>;
   }
   return (
@@ -61,8 +67,12 @@ const RenterProfile: React.FC = () => {
                   }}
                 />
               </Box>
-              <Typography variant="body2" color="text.secondary" mt={2}
-                sx={{ fontSize: 20 }}>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                mt={2}
+                sx={{ fontSize: 20 }}
+              >
                 {renterProfile?.bio || 'Bio goes here...'}
               </Typography>
               <SettingsIcon sx={{ fontSize: 30 }} />

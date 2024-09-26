@@ -1,6 +1,8 @@
-import { RentalRequest } from '../models/RentalRequestModel';
+import { RentalRequest } from '@/types/models.types';
 
-export const createRentalRequestApi = async (rentalRequestData: RentalRequest) => {
+export const createRentalRequestApi = async (
+  rentalRequestData: RentalRequest
+) => {
   try {
     const response = await fetch('/api/rental_requests', {
       method: 'POST',
@@ -34,7 +36,7 @@ export const getPendingRentalRequestsApi = async () => {
     console.error(error);
     throw error;
   }
-}
+};
 
 export const getPendingRentalRequestByIdApi = async (id: string) => {
   try {
@@ -50,7 +52,7 @@ export const getPendingRentalRequestByIdApi = async (id: string) => {
     console.error(error);
     throw error;
   }
-}
+};
 
 export const approveRentalRequestApi = async (id: string) => {
   try {
@@ -68,4 +70,4 @@ export const approveRentalRequestApi = async (id: string) => {
     console.error(error);
     throw error;
   }
-}
+};
