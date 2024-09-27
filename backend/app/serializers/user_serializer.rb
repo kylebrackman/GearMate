@@ -3,6 +3,10 @@ class UserSerializer < ActiveModel::Serializer
 
   has_one :profile
 
+  has_many :current_rentals, serializer: RentalSerializer
+  has_many :upcoming_rentals, serializer: RentalSerializer
+  has_many :past_rentals, serializer: RentalSerializer
+
   def current_rentals
     object.current_rentals
   end
