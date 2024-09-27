@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   IconButton,
   Typography,
@@ -10,8 +10,8 @@ import {
   Divider,
   Grid,
   CardMedia,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const About: React.FC = () => {
   const navigate = useNavigate();
@@ -31,14 +31,14 @@ const About: React.FC = () => {
         sx={{
           width: 240,
           flexShrink: 0,
-          "& .MuiDrawer-paper": {
+          '& .MuiDrawer-paper': {
             width: 240,
-            bgcolor: "#2D4263",
+            bgcolor: '#2D4263',
           },
         }}
       >
         <IconButton onClick={handleDrawerToggle}>
-          <CloseIcon sx={{ color: "#fff" }} />
+          <CloseIcon sx={{ color: '#fff' }} />
         </IconButton>
         <Divider />
         {/* Add any menu items */}
@@ -52,20 +52,24 @@ const About: React.FC = () => {
               variant="h2"
               component="h1"
               gutterBottom
-              sx={{ fontWeight: "bold" }}
+              sx={{ fontWeight: 'bold' }}
             >
               Your Gear
             </Typography>
-            <Typography variant="h4" component="span" sx={{ fontWeight: "light" }}>
+            <Typography
+              variant="h4"
+              component="span"
+              sx={{ fontWeight: 'light' }}
+            >
               Your Passion
               <Box
                 component="span"
                 sx={{
-                  display: "block",
-                  bgcolor: "#FDC221",
-                  height: "5px",
-                  mt: "-6px",
-                  width: "100%",
+                  display: 'block',
+                  bgcolor: '#FDC221',
+                  height: '5px',
+                  mt: '-6px',
+                  width: '100%',
                 }}
               />
               Shared With Others
@@ -79,8 +83,8 @@ const About: React.FC = () => {
             </Typography>
             <Button
               variant="contained"
-              sx={{ mt: 3, bgcolor: "#FDC221" }}
-              onClick={() => navigate("/signup")}
+              sx={{ mt: 3, bgcolor: '#FDC221' }}
+              onClick={() => navigate('/signup')}
             >
               GET STARTED + SIGN UP
             </Button>
@@ -89,7 +93,11 @@ const About: React.FC = () => {
             <CardMedia
               component="img"
               alt="Home"
-              sx={{ height: 800, borderRadius: "50%", backgroundImage: 'url("../../static-photos/ChavezBike.png")' }}
+              sx={{
+                height: 800,
+                borderRadius: '50%',
+                backgroundImage: 'url("../../static-photos/ChavezBike.png")',
+              }}
             />
           </Grid>
         </Grid>
@@ -98,11 +106,11 @@ const About: React.FC = () => {
       {/* Developer Section */}
       <Box
         sx={{
-          position: "relative",
-          bgcolor: "#ECF7FF",
+          position: 'relative',
+          bgcolor: '#ECF7FF',
           pt: 14,
           pb: 14,
-          overflow: "hidden",
+          overflow: 'hidden',
         }}
       >
         <Container>
@@ -110,7 +118,7 @@ const About: React.FC = () => {
             variant="h3"
             component="h2"
             align="center"
-            sx={{ fontWeight: "bold", mb: 5 }}
+            sx={{ fontWeight: 'bold', mb: 5 }}
           >
             About the Developer
           </Typography>
@@ -120,8 +128,8 @@ const About: React.FC = () => {
                 Software Engineer, Climber, Runner, and Outdoor Enthusiast. Kyle
                 Brackman has a passion for building and creating, and is excited
                 to bring that passion to the GearMate platform. His goal is to
-                grow as a developer, build and grow GearMate, and climb 5.14a before
-                his 4 year climbing anniversary.
+                grow as a developer, build and grow GearMate, and climb 5.14a
+                before his 4 year climbing anniversary.
               </Typography>
               <Typography variant="body1" sx={{ mt: 2 }}>
                 Proudest Accomplishments: Transitioning to software while
@@ -131,7 +139,11 @@ const About: React.FC = () => {
             </Grid>
             <Grid item xs={12} md={6}>
               <CardMedia
-                sx={{ height: 500, borderRadius: 2, backgroundImage: 'url("../../static-photos/Headshot.png")' }}
+                sx={{
+                  height: 500,
+                  borderRadius: 2,
+                  backgroundImage: 'url("../../static-photos/Headshot.png")',
+                }}
               />
             </Grid>
           </Grid>
@@ -141,8 +153,8 @@ const About: React.FC = () => {
       {/* Footer */}
       <Box
         sx={{
-          bgcolor: "#000",
-          color: "#fff",
+          bgcolor: '#000',
+          color: '#fff',
           pt: 5,
           pb: 5,
           mt: 10,
@@ -162,6 +174,6 @@ const About: React.FC = () => {
       </Box>
     </Box>
   );
-}
+};
 
 export default About;

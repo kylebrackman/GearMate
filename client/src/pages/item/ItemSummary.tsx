@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { UserContext } from "../../context/UserContext.tsx";
-import { Item } from '../../models/ItemModel.tsx';
+import { UserContext } from '../../context/UserContext.tsx';
 import EditItemForm from '../../components/item/EditItemForm.tsx';
 import { Box, Typography, Divider, Grid, Button } from '@mui/material';
 import { orange, red } from '@mui/material/colors';
@@ -9,9 +8,13 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { Dayjs } from 'dayjs';
 import { Dialog, DialogContent } from '@mui/material';
 import Alert from '@mui/material/Alert';
-import { getItemApi, deleteItemApi, editItemApi } from '../../services/ItemApi.ts';
+import {
+  getItemApi,
+  deleteItemApi,
+  editItemApi,
+} from '../../services/ItemApi.ts';
 import { createRentalRequestApi } from '../../services/RentalRequestApi.ts';
-import { RentalRequest } from '../../models/RentalRequestModel.tsx';
+import { Item, RentalRequest } from '@/types/models.types.ts';
 
 // import useStripeConnect from '../../hooks/useStripeConnect.js';
 // import { createStripeId } from '../../services/StripeApi.ts';
@@ -35,19 +38,19 @@ const ItemSummary = () => {
       } catch (error: unknown) {
         if (error instanceof Error) {
           setItem(null);
-          console.log("errors here")
+          console.log('errors here');
           setErrors([error.message]);
         } else {
           setErrors([String(error)]);
         }
       }
-    }
+    };
     fetchItem();
   }, [id]);
   // const needsStripeConnect = !user?.stripe_connected_account_id
   // const stripeConnectInstance
   const backendUrl = import.meta.env.VITE_API_URL;
-  const imageUrl = `${backendUrl}${item?.image}`
+  const imageUrl = `${backendUrl}${item?.image}`;
 
   const requestButtonColor = orange[600];
   const deleteItemButtonColor = red[600];
@@ -55,7 +58,7 @@ const ItemSummary = () => {
 
   const handleNavigateToSignUp = () => {
     navigate('/signup');
-  }
+  };
 
   const handleStartDateChange = (value: Dayjs | null) => {
     setStartDate(value);
@@ -105,14 +108,14 @@ const ItemSummary = () => {
         item: item,
         owner_id: item.owner_id,
       };
-      console.log("card", rentalRequestData)
+      console.log('card', rentalRequestData);
       // createCheckoutSession(rentalRequestData);
       try {
         const response = await createRentalRequestApi(rentalRequestData);
         console.log(response);
         navigate(`/confirmRentalRequest/${item.id}`);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
       // }
     }
@@ -132,7 +135,7 @@ const ItemSummary = () => {
       handleClose();
       return newItem;
     } catch (error: any) {
-      console.error("Error editing item:", error);
+      console.error('Error editing item:', error);
       throw error;
     }
   };
@@ -147,13 +150,10 @@ const ItemSummary = () => {
 
   useEffect(() => {
     // resetErrors();
-    // eslint-disable-next-line
   }, []);
 
   if (item === null) {
-    return (
-      <div>Item not found</div>
-    )
+    return <div>Item not found</div>;
   } else if (user === null) {
     return (
       <Box
@@ -162,7 +162,13 @@ const ItemSummary = () => {
         alignItems="center"
         minHeight="100vh"
         bgcolor="#f5f5f5"
-        sx={{ maxWidth: '80%', margin: 'auto', borderRadius: '8px', backgroundColor: 'white', mt: 1 }}
+        sx={{
+          maxWidth: '80%',
+          margin: 'auto',
+          borderRadius: '8px',
+          backgroundColor: 'white',
+          mt: 1,
+        }}
       >
         {errors.length > 0 ? (
           <Alert severity="error">
@@ -194,26 +200,30 @@ const ItemSummary = () => {
             <Typography variant="h5" component="h2" gutterBottom>
               <Box component="span" fontWeight="bold">
                 ${item.price}
-              </Box> /{' '}
+              </Box>{' '}
+              /{' '}
               <Box component="span" fontWeight="regular">
                 day
               </Box>
             </Typography>
             <Divider sx={{ marginBottom: 2 }} />
-            <Typography variant="h6" component="h2" gutterBottom>
-            </Typography>
+            <Typography variant="h6" component="h2" gutterBottom></Typography>
             <Typography variant="body1" sx={{ mb: 2 }}>
               {item.description}
             </Typography>
             <Divider sx={{ marginBottom: 2 }} />
-            <Button variant="contained" sx={{ backgroundColor: requestButtonColor }} onClick={handleNavigateToSignUp}>Sign Up To Rent This Item!</Button>
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: requestButtonColor }}
+              onClick={handleNavigateToSignUp}
+            >
+              Sign Up To Rent This Item!
+            </Button>
           </Grid>
         </Grid>
       </Box>
-    )
-  }
-
-  else {
+    );
+  } else {
     return (
       <Box
         display="flex"
@@ -221,7 +231,13 @@ const ItemSummary = () => {
         alignItems="center"
         minHeight="100vh"
         bgcolor="#f5f5f5"
-        sx={{ maxWidth: '80%', margin: 'auto', borderRadius: '8px', backgroundColor: 'white', mt: 1 }}
+        sx={{
+          maxWidth: '80%',
+          margin: 'auto',
+          borderRadius: '8px',
+          backgroundColor: 'white',
+          mt: 1,
+        }}
       >
         <Grid container spacing={4} alignItems="center">
           {/* Photo on the right */}
@@ -245,70 +261,99 @@ const ItemSummary = () => {
             <Typography variant="h5" component="h2" gutterBottom>
               <Box component="span" fontWeight="bold">
                 ${item.price}
-              </Box> /{' '}
+              </Box>{' '}
+              /{' '}
               <Box component="span" fontWeight="regular">
                 day
               </Box>
             </Typography>
             <Divider sx={{ marginBottom: 2 }} />
-            {
-              user?.id === item.owner_id ? (
-                <>
-                  <Typography variant="h6" component="h2" gutterBottom>
-                    <Box component="span" fontWeight="bold">
-                      Owner:
-                    </Box>{' '}
-                    <Box component="span" fontWeight="regular">
-                      You!
-                    </Box>
-                  </Typography>
-                  
-                  <Typography variant="h6" component="h2" gutterBottom>
-                    <Box component="span" fontWeight="bold">
-                      Condition:
-                    </Box>{' '}
-                    <Box component="span" fontWeight="regular">
-                      {item.condition}
-                    </Box>
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 2 }}>
-                    {item.description}
-                  </Typography>
-                  <br />
-                  <Divider sx={{ marginBottom: 2 }} />
-                  <div className="flex justify-between mb-4">
-                    <Button variant="contained" sx={{ backgroundColor: requestButtonColor }} onClick={handleEditButtonClick}>Edit Item</Button>
-                    <Button variant="contained" sx={{ backgroundColor: deleteItemButtonColor }} onClick={() => handleDeleteItem(item.id)}>Delete</Button>
-                  </div>
-                  <Dialog open={openDialog} onClose={handleClose}>
-                    <DialogContent sx={{ width: '600px' }}>
-                      <EditItemForm item={item} handleEditItem={handleEditItem} errors={errors} />
-                    </DialogContent>
-                  </Dialog>
-                </>
-              ) : (
-                <>
-                  <Typography variant="h6" component="h2" gutterBottom>
-                    <Box component="span" fontWeight="bold">
-                      Owner:
-                    </Box>{' '}
-                    <Box component="span" fontWeight="regular">
-                      {item.owner_first_name} {item.owner_last_name}
-                    </Box>
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 2 }}>
-                    {item.description}
-                  </Typography>
+            {user?.id === item.owner_id ? (
+              <>
+                <Typography variant="h6" component="h2" gutterBottom>
                   <Box component="span" fontWeight="bold">
-                    Pick Your Dates
+                    Owner:
+                  </Box>{' '}
+                  <Box component="span" fontWeight="regular">
+                    You!
                   </Box>
-                  <br />
-                  <DatePicker sx={{ marginBottom: 2 }} onChange={handleStartDateChange} /> - <DatePicker sx={{ marginBottom: 2 }} onChange={handleEndDateChange} />
-                  <Divider sx={{ marginBottom: 2 }} />
-                  <Button variant="contained" sx={{ backgroundColor: requestButtonColor }} onClick={handleSubmit}>Request</Button>
-                </>
-              )
-            }
+                </Typography>
+
+                <Typography variant="h6" component="h2" gutterBottom>
+                  <Box component="span" fontWeight="bold">
+                    Condition:
+                  </Box>{' '}
+                  <Box component="span" fontWeight="regular">
+                    {item.condition}
+                  </Box>
+                </Typography>
+                <Typography variant="body1" sx={{ mb: 2 }}>
+                  {item.description}
+                </Typography>
+                <br />
+                <Divider sx={{ marginBottom: 2 }} />
+                <div className="flex justify-between mb-4">
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: requestButtonColor }}
+                    onClick={handleEditButtonClick}
+                  >
+                    Edit Item
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: deleteItemButtonColor }}
+                    onClick={() => handleDeleteItem(item.id)}
+                  >
+                    Delete
+                  </Button>
+                </div>
+                <Dialog open={openDialog} onClose={handleClose}>
+                  <DialogContent sx={{ width: '600px' }}>
+                    <EditItemForm
+                      item={item}
+                      handleEditItem={handleEditItem}
+                      errors={errors}
+                    />
+                  </DialogContent>
+                </Dialog>
+              </>
+            ) : (
+              <>
+                <Typography variant="h6" component="h2" gutterBottom>
+                  <Box component="span" fontWeight="bold">
+                    Owner:
+                  </Box>{' '}
+                  <Box component="span" fontWeight="regular">
+                    {item.owner_first_name} {item.owner_last_name}
+                  </Box>
+                </Typography>
+                <Typography variant="body1" sx={{ mb: 2 }}>
+                  {item.description}
+                </Typography>
+                <Box component="span" fontWeight="bold">
+                  Pick Your Dates
+                </Box>
+                <br />
+                <DatePicker
+                  sx={{ marginBottom: 2 }}
+                  onChange={handleStartDateChange}
+                />{' '}
+                -{' '}
+                <DatePicker
+                  sx={{ marginBottom: 2 }}
+                  onChange={handleEndDateChange}
+                />
+                <Divider sx={{ marginBottom: 2 }} />
+                <Button
+                  variant="contained"
+                  sx={{ backgroundColor: requestButtonColor }}
+                  onClick={handleSubmit}
+                >
+                  Request
+                </Button>
+              </>
+            )}
           </Grid>
         </Grid>
       </Box>

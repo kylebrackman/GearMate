@@ -1,5 +1,5 @@
-import { Route, Routes } from "react-router-dom";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { Routes, Route } from "react-router-dom";
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import Footer from "./components/common/footer";
 import Navbar from "./components/common/navbar";
@@ -17,9 +17,7 @@ import RentalsPage from "./pages/rental/RentalsPage";
 import RenterProfile from "./pages/user/RenterProfile";
 import About from "./pages/About";
 function App() {
-
-
-  return ( 
+  return (
     <div>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
       <UserProvider>
@@ -43,7 +41,7 @@ function App() {
       </UserProvider>
       </LocalizationProvider>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
