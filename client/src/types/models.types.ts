@@ -46,6 +46,10 @@ export interface Rental {
   renter_id: number;
   start_date: string;
   end_date: string;
+  owner: User;
+  item: Item;
+  owner_profile_id: number;
+  rental_request_id: number;
 }
 
 export interface RentalRequest {
@@ -56,4 +60,5 @@ export interface RentalRequest {
   item: Item;
   status?: string;
   owner_id?: number;
+  
 }
