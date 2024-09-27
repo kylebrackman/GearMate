@@ -18,6 +18,11 @@ class User < ApplicationRecord
         -> { where(status: :pending).includes(:item, :renter) }, 
         through: :owned_items, 
         source: :rental_requests
+    
+    has_many :received_approved_rental_requests, 
+        -> { where(status: :approved).includes(:item, :renter) }, 
+        through: :owned_items, 
+        source: :rental_requests
 
     def current_rentals
         Rental.current_rentals(self)
