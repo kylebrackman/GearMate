@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext.tsx';
 import { getPendingRentalRequestByIdApi, approveRentalRequestApi } from '../../services/RentalRequestApi.ts';
-import { RentalRequest } from '../../models/RentalRequestModel.ts';
+import { RentalRequest } from '../../models/RentalRequestModel.tsx';
 import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import {

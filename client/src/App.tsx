@@ -11,8 +11,9 @@ import ItemSummary from "./pages/item/ItemSummary";
 import Home from "./pages/Home";
 import Profile from "./pages/user/Profile";
 import CreateProfile from "./pages/user/CreateProfile";
-import RequestedItems from "./pages/requests/RequestedItems";
-import RentalRequestReview from "./pages/requests/RentalRequestReview";
+import RequestedItems from "./pages/request/RequestedItems";
+import RentalRequestReview from "./pages/request/RentalRequestReview";
+import RentalsPage from "./pages/rental/RentalsPage";
 import RenterProfile from "./pages/user/RenterProfile";
 import About from "./pages/About";
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/createprofile" element={<CreateProfile />} />
           <Route path="/pendingRequests" element={<RequestedItems />} />
           <Route path="/reviewRequest/:id" element={<RentalRequestReview />} />
+          <Route path="/myRentals" element={<RentalsPage />} />
           <Route path="/profiles/:renterId" element={<RenterProfile />} />
           <Route path="/about" element={<About />} />
         </Routes>

@@ -36,7 +36,7 @@ function ResponsiveAppBar() {
     const navigate = useNavigate();
     const [userMenuTrigger, setUserMenuTrigger] = React.useState<null | HTMLElement>(null);
 
-    const pages = user ? ['Your Rentals', 'List an Item', 'Gear', 'About'] : ['Gear', 'About', 'Login', 'Sign Up'];
+    const pages = user ? ['Gear', 'Your Rentals', 'List an Item', 'About'] : ['Gear', 'About', 'Login', 'Sign Up'];
     const dropdown = user ? ['Requested Gear', 'Profile', 'Account', 'Dashboard', 'Logout'] : ['Login', 'Sign Up'];
     const backendBaseUrl = import.meta.env.VITE_API_URL
     const imageUrl = `${backendBaseUrl}${user?.profile?.image}`;
