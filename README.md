@@ -1,4 +1,5 @@
 <a name="readme-top"></a>
+
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -33,6 +34,7 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]]
@@ -41,9 +43,8 @@ GearMate is an application where users can rent out various types of gear, games
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 ### Built With
+
 ![Ruby](https://img.shields.io/badge/ruby-%23CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)
 ![Rails](https://img.shields.io/badge/rails-%23CC0000.svg?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -54,45 +55,73 @@ GearMate is an application where users can rent out various types of gear, games
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-### Installation
+### Local Installation
 
 1. Clone the repo
    ```sh
    git clone https://github.com/kylebrackman/GearMate.git
    ```
-2. Change directories into /client and run:
+2. Change directories into `/client` [`cd client`] and run:
+
    ```sh
    npm install
    ```
-3. Change directories into /backend and run: 
+
+3. Change directories into /backend and run:
    ```sh
     bundle install
    ```
    ```sh
     rails db:migrate
    ```
-4. To do the same in docker, create a .env file in root with the two variables: 
-  - POSTGRES_USER=yourusername
-  - POSTGRES_PASSWORD=yourpassword
-5. Following commands in order:
-   ```sh
-    docker-compose build
-   ```
-   ```sh
-    docker-compose up
-   ```
-   ```sh
-    docker exec -it gearmate_iii-backend-1 bin/rails db:migrate
-   ```
+
+### Docker Installation
+
+4. To do the same in docker, create a `.env` file in root with the two variables:
+
+```sh
+POSTGRES_USER=your_username
+POSTGRES_PASSWORD=your_password
+```
+
+5. There are two ways to run docker:
+
+- Have docker installed or rancher desktop
+- Run the following commands in order
+
+```sh
+ docker-compose build
+```
+
+```sh
+ docker-compose up
+```
+
+```sh
+ docker exec -it gearmate_iii-backend-1 bin/rails db:migrate
+```
+
+That last command will be dependant on what your container name is!
+
+6. Option 2 is run the folling commands
+
+```sh
+cd client // to get into client folder
+npm run docker:build
+npm run docker:create-db [container_name] mydb // the container name could be gearmate it could be geatmate_iii...check on that!
+npm run docker:migrate
+```
+
+7. Once this initial set-up is done then simply cd into client and run `npm run docker:build` or in terminal run the two docker commands in order: `docker compose up` && `docker compose up`
 
 ### See notes.md for more helpful info.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 <!-- ROADMAP -->
+
 ## Roadmap & Bugs
+
 - [ ] Add request and approve flow to rental requests (in progress...).
 - [ ] Add in payment gateway.
 - [ ] Add user chat for coordinating item dropoffs/pickups.
@@ -112,8 +141,8 @@ GearMate is an application where users can rent out various types of gear, games
 <!-- CONTACT -->
 
 ## Acknowledgements
-* [othneildrew Best README Template](https://github.com/othneildrew/Best-README-Template/tree/master)
 
+- [othneildrew Best README Template](https://github.com/othneildrew/Best-README-Template/tree/master)
 
 ## Contact
 
@@ -123,9 +152,9 @@ Project Link: [https://github.com/kylebrackman/GearMate-III](https://github.com/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
 [contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
@@ -142,5 +171,6 @@ Project Link: [https://github.com/kylebrackman/GearMate-III](https://github.com/
 [Tailwind-url]: https://tailwindcss.com/
 [Tailwind]: https://img.shields.io/badge/Tailwind-Blue
 [Ruby-url]: https://www.ruby-lang.org/en/
-[Ruby.rb]:https://camo.githubusercontent.com/3e54bb93c9b07f26583176c6d06d716fb4979496f742fc9eed7c9c5ba8befb27/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f527562792d4343333432443f7374796c653d666c6174266c6f676f3d72756279266c6f676f436f6c6f723d626c61636b
+[Ruby.rb]: https://camo.githubusercontent.com/3e54bb93c9b07f26583176c6d06d716fb4979496f742fc9eed7c9c5ba8befb27/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f527562792d4343333432443f7374796c653d666c6174266c6f676f3d72756279266c6f676f436f6c6f723d626c61636b
+
 # GearMate
