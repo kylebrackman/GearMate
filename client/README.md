@@ -4,7 +4,7 @@
 
 - Commits will not pass if formatted improperly.
 - Commit messages should be formatted in this manner:
-  - `[feat]: lower-case-message`
+  - `feat: lower-case-message`
 
 ### Conventional Commits
 
@@ -28,17 +28,17 @@ Here are some common prefixes (types) used in Conventional Commits:
 
 ### Example Commit Messages
 
-- `[feat]: add user login functionality`
-- `[fix]: correct typo in readme`
-- `[docs]: update api documentation`
-- `[style]: format code with prettier`
+- `feat: add user login functionality`
+- `fix: correct typo in readme`
+- `docs: update api documentation`
+- `style: format code with prettier`
 - `refactor: simplify user authentication logic`
 - `perf: improve database query performance`
 - `test: add unit tests for user service`
-- `build/ update npm dependencies`
-- `ci/ configure github actions`
-- `chore/ update project dependencies`
-- `revert/ revert "add user login functionality"`
+- `build: update npm dependencies`
+- `ci: configure github actions`
+- `chore: update project dependencies`
+- `revert: revert 'add user login functionality'`
 
 ### Benefits
 
