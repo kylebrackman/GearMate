@@ -5,6 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "docker:build": "../scripts/docker_script.sh build",
+    "docker:migrate": "../scripts/docker_script.sh migrate",
+    "docker:create-db": "../scripts/docker_script.sh create-db",
+    "docker:up": "docker compose up",
+    "docker:down": "docker compose down",
+    "docker": "docker compose build && docker compose up",
+    "docker:bash": "docker exec -it gearmate-backend-1 bash",
     "build": "tsc -b && vite build",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
