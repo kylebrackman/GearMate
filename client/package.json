@@ -5,11 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "docker:build": "../scripts/docker_script.sh build",
+    "docker:migrate": "../scripts/docker_script.sh migrate",
+    "docker:create-db": "../scripts/docker_script.sh create-db",
+    "docker:up": "docker compose up",
+    "docker:down": "docker compose down",
+    "docker": "docker compose build && docker compose up",
+    "docker:bash": "docker exec -it gearmate-backend-1 bash",
     "build": "tsc -b && vite build",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{ts,tsx}\"",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "cd .. && husky client/.husky"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -23,9 +31,12 @@
     "dayjs": "^1.11.13",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.2"
+    "react-router-dom": "^6.26.2",
+    "tsc-files": "^1.1.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
     "@eslint/js": "^9.9.0",
     "@types/node": "^22.7.3",
     "@types/react": "^18.3.8",
@@ -34,13 +45,23 @@
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "globals": "^15.9.0",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "sh -c 'tsc-files --noEmit -p tsconfig.json'",
+      "prettier --write"
+    ]
   }
 }
