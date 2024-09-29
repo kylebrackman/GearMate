@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a >
-    <img src="/client/public/static-photos/gearmate-logo.png" alt="GearMate logo" width="80" height="80">
+    <img src="./client/public/static-photos/gearmate-logo.png" alt="GearMate logo" width="80" height="80">
   </a>
 
   <h1 align="center">GearMate</h1>
