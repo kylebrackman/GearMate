@@ -68,3 +68,7 @@ Console error:
 - `config.hosts << "backend"`
 3. If having dependency issues in the frontend:
 - `docker-compose exec frontend npm install`
+
+
+### Heroku Notes
+git subtree push --prefix backend heroku main
