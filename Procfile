@@ -1,2 +1,2 @@
-web: cd backend && bundle exec rails s
-release: cd backend && bin/rails db:migrate
+web: cd backend && bundle exec rails server
+release: cd backend && bundle exec rails db:migrate
