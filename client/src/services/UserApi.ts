@@ -17,7 +17,7 @@ export async function getUserApi(): Promise<User | null> {
 export async function loginUserApi(
   email: string,
   password: string
-): Promise<User | null> {
+): Promise<User> {
   try {
     const response = await fetch(`/api/login`, {
       method: 'POST',
@@ -34,15 +34,12 @@ export async function loginUserApi(
       } else if (response.status === 401) {
         throw new Error(`Unauthorized: ${errorData.error}`);
       }
-    } else {
-      const user = await response.json();
-      return user;
     }
+    const user = await response.json();
+    return user;
   } catch (error) {
     throw error;
   }
-  // Review neccessity of below line with KT to go over typescript error upon removal
-  return null;
 }
 
 export async function signUpUserApi(
@@ -51,7 +48,7 @@ export async function signUpUserApi(
   email: string,
   password: string,
   passwordConfirmation: string
-): Promise<User | null> {
+): Promise<User> {
   try {
     const response = await fetch('/api/signup', {
       method: 'POST',
@@ -100,9 +97,7 @@ export async function logoutUserApi(): Promise<void> {
   }
 }
 
-export async function createProfileApi(
-  newProfileData: FormData
-): Promise<any | null> {
+export async function createProfileApi(newProfileData: FormData): Promise<any> {
   try {
     const response = await fetch('/api/profiles', {
       method: 'POST',

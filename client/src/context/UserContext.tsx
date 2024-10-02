@@ -5,7 +5,7 @@ import React, {
   ReactNode,
   useEffect,
 } from 'react';
-import { getUserApi } from '../services/UserApi';
+import { getUserApi } from '@/services/UserApi';
 import { User } from '@/types/models.types';
 
 interface UserProviderProps {

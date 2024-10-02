@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUserApi } from '../../services/UserApi.ts';
-import { useUser } from '../../context/UserContext.tsx';
+import { loginUserApi } from '@/services/UserApi.ts';
+import { useUser } from '@/context/UserContext.tsx';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';

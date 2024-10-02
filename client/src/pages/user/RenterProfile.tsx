@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext.tsx';
+import { UserContext } from '@/context/UserContext.tsx';
 import {
   Box,
   Grid,
@@ -10,7 +10,7 @@ import {
   CardContent,
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { getRenterProfileApi } from '../../services/ProfileApi.ts';
+import { getRenterProfileApi } from '@/services/ProfileApi.ts';
 import { Profile } from '@/types/models.types.ts';
 // import ProfileGeo from "./ProfileGeo.jsx";
 

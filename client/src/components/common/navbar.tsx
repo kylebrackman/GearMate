@@ -19,8 +19,8 @@ import AcUnitIcon from '@mui/icons-material/AcUnit';
 import DownhillSkiingIcon from '@mui/icons-material/DownhillSkiing';
 import SleddingIcon from '@mui/icons-material/Sledding';
 import Badge from '@mui/material/Badge';
-import { UserContext } from '../../context/UserContext';
-import { logoutUserApi } from '../../services/UserApi.ts';
+import { UserContext } from '@/context/UserContext';
+import { logoutUserApi } from '@/services/UserApi.ts';
 
 interface SettingActions {
   [key: string]: () => void;

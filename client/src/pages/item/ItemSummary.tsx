@@ -1,19 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext.tsx';
-import EditItemForm from '../../components/item/EditItemForm.tsx';
+import { UserContext } from '@/context/UserContext.tsx';
+import EditItemForm from '@/components/item/EditItemForm.tsx';
 import { Box, Typography, Divider, Grid, Button } from '@mui/material';
 import { orange, red } from '@mui/material/colors';
 import { DatePicker } from '@mui/x-date-pickers';
 import { Dayjs } from 'dayjs';
 import { Dialog, DialogContent } from '@mui/material';
 import Alert from '@mui/material/Alert';
-import {
-  getItemApi,
-  deleteItemApi,
-  editItemApi,
-} from '../../services/ItemApi.ts';
-import { createRentalRequestApi } from '../../services/RentalRequestApi.ts';
+import { getItemApi, deleteItemApi, editItemApi } from '@/services/ItemApi.ts';
+import { createRentalRequestApi } from '@/services/RentalRequestApi.ts';
 import { Item, RentalRequest } from '@/types/models.types.ts';
 
 // import useStripeConnect from '../../hooks/useStripeConnect.js';

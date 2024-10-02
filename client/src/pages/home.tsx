@@ -2,8 +2,8 @@ import { Item } from '@/types/models.types.ts';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import React, { useEffect, useState } from 'react';
-import ItemCard from '../components/item/ItemCard.tsx';
-import { getAllItemsApi } from '../services/ItemApi.ts';
+import ItemCard from '@/components/item/ItemCard.tsx';
+import { getAllItemsApi } from '@/services/ItemApi.ts';
 
 const Home: React.FC = () => {
   const [allItems, setAllItems] = useState<Item[] | null>(null);

@@ -7,7 +7,7 @@ import {
   CardHeader,
   TextField,
 } from '@mui/material';
-import { createProfileApi } from '../../services/UserApi';
+import { createProfileApi } from '@/services/UserApi';
 // type Position = {
 //   lat: number;
 //   lng: number;

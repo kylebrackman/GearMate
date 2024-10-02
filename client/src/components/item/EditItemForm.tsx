@@ -15,7 +15,7 @@ import {
 import { SelectChangeEvent } from '@mui/material/Select';
 import * as React from 'react';
 import { useContext, useState } from 'react';
-import { UserContext } from '../../context/UserContext.tsx';
+import { UserContext } from '@/context/UserContext.tsx';
 import { Item } from '@/types/models.types.ts';
 
 interface EditItemFormProps {

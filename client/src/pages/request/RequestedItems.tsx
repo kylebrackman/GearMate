@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import RequestedItemsCard from '../../components/request/RequestedItemsCard.tsx';
+import RequestedItemsCard from '@/components/request/RequestedItemsCard.tsx';
 import List from '@mui/material/List';
-import { getPendingRentalRequestsApi } from '../../services/RentalRequestApi.ts';
+import { getPendingRentalRequestsApi } from '@/services/RentalRequestApi.ts';
 import { Box } from '@mui/material';
 import { RentalRequest } from '@/types/models.types.ts';
 const PendingRentalRequestsReceived = () => {
