@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: app_production
-  username: app
+  database: gearmate_production
+  username: gearmate_production
   password: <%= ENV["APP_DATABASE_PASSWORD"] %>
