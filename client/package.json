@@ -12,6 +12,8 @@
     "docker:down": "docker compose down",
     "docker": "docker compose build && docker compose up",
     "docker:bash": "docker exec -it gearmate-backend-1 bash",
+    "heroku-build": "tsc -b && vite build && cp -r build/* ../backend/public/",
+    "heroku-postbuild": "npm run heroku-build",
     "build": "tsc -b && vite build",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
