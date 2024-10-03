@@ -72,3 +72,6 @@ Console error:
 
 ### Heroku Notes
 git subtree push --prefix backend heroku main
+
+#### Info on subdir heroku buildpack
+https://elements.heroku.com/buildpacks/timanovsky/subdir-heroku-buildpack
