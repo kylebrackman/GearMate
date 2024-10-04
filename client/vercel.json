@@ -3,6 +3,10 @@
       {
         "source": "/api/:path*",
         "destination": "https://gearmate-cc65ac92d410.herokuapp.com/api/:path*"
+      },
+      {
+        "source": "/(.*)",
+        "destination": "/index.html"
       }
     ]
   }

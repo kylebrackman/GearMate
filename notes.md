@@ -70,8 +70,16 @@ Console error:
 - `docker-compose exec frontend npm install`
 
 
-### Heroku Notes
+## Heroku Notes
 git subtree push --prefix backend heroku main
+
+### Enter Rails Console in Heroku Environment
+
+- `heroku run rails console --app gearmate`
+
+If you want to look at attributes of an object, you need to add .attributes at the end of your method like so 
+`User.find(1).attributes`
+
 
 #### Info on subdir heroku buildpack
 https://elements.heroku.com/buildpacks/timanovsky/subdir-heroku-buildpack
