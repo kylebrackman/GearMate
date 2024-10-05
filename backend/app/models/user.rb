@@ -25,16 +25,15 @@ class User < ApplicationRecord
         source: :rental_requests
 
     def current_rentals
-        Rental.current_rentals(self)
+        Rental.current(self)
     end
     
-
     def upcoming_rentals
-        Rental.upcoming_rentals(self)
+        Rental.upcoming(self)
     end
-    
+
     def past_rentals
-        Rental.past_rentals(self)
+        Rental.past(self)
     end
 
     def sent_pending_rental_requests

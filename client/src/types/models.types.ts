@@ -5,9 +5,9 @@ export interface User {
   last_name: string;
   owned_items: Item[];
   profile: Profile;
-  current_rentals: Item[];
+  current_rentals: Rental[];
   upcoming_rentals: Item[];
-  past_rentals: Item[];
+  past_rentals: Rental[];
   pending_rental_requests: Item[];
   received_pending_rental_requests: RentalRequest[];
 }
@@ -47,7 +47,7 @@ export interface Rental {
   start_date: string;
   end_date: string;
   owner: User;
-  item: Item;
+  item?: Item;
   owner_profile_id: number;
   rental_request_id: number;
 }

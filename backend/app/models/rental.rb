@@ -9,17 +9,9 @@ class Rental < ApplicationRecord
     belongs_to :renter, class_name: "User"
     belongs_to :rental_request
 
-    def self.current_rentals(user)
-        where(renter_id: user.id).where("start_date <= ? AND end_date >= ?", Date.today, Date.today)
-    end
-    
-    def self.upcoming_rentals(user)
-        where(renter_id: user.id).where("start_date > ?", Date.today)
-    end
-    
-    def self.past_rentals(user)
-        where(renter_id: user.id).where("end_date < ?", Date.today)
-    end
+    scope :current, ->(user) { where(renter_id: user.id).where("start_date <= ? AND end_date >= ?", Date.today, Date.today) }
+    scope :upcoming, ->(user) { where(renter_id: user.id).where("start_date > ?", Date.today) }
+    scope :past, ->(user) { where(renter_id: user.id).where("end_date < ?", Date.today) }    
 
     private
 

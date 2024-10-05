@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { UserContext } from "../../context/UserContext.tsx";
+import CurrentRentals from "../../components/rental/CurrentRentals.tsx";
 
 // import PendingRentals from './PendingRentals.js';
 
@@ -13,7 +14,7 @@ const RentalsPage = () => {
     return (
       <div>
         <div>
-          <div>{/* <CurrentRentals /> */}</div>
+          <div>{<CurrentRentals />}</div>
           <br />
           <div>{/* <UpcomingRentals /> */}</div>
           <br />
