@@ -5,11 +5,11 @@ import { Rental } from "../../types/models.types";
 const CurrentRentals: React.FC = () => {
     const { user } = useContext(UserContext)
 
-    const pastRentals: Rental[] | undefined = user?.past_rentals;
+    const currentRentals: Rental[] | undefined = user?.past_rentals;
 
 
-    console.log(pastRentals)
-    const currentRentalsList = pastRentals?.map((r: Rental) => {
+    console.log(currentRentals)
+    const currentRentalsList = currentRentals?.map((r: Rental) => {
         return <RentalCard
             key={r.id}
             itemName={r.item?.name ?? ''}
@@ -17,13 +17,10 @@ const CurrentRentals: React.FC = () => {
             description={r.item?.description ?? ''}
             id={r.item?.id ?? 0}
             price={r.item?.price ?? 0}
+            end_date={r.end_date ?? ''}
+            start_date={r.start_date ?? ''}
+            owner={r.owner}
         />
-        console.log(r.item)
-        return (
-            <p key={r.id}>
-                placeholder
-            </p>
-        )
     })
 
     return (
@@ -33,7 +30,7 @@ const CurrentRentals: React.FC = () => {
                 <h1>Current Rentals</h1>
             </div>
             <div>
-                {pastRentals && pastRentals.length > 0 ? currentRentalsList : "You have no current rentals"}
+                {currentRentals && currentRentals.length > 0 ? currentRentalsList : "You have no current rentals"}
             </div>
         </div>
     )

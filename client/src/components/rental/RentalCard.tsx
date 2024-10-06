@@ -1,10 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { grey } from '@mui/material/colors';
+import { Box } from '@mui/material';
+import { User } from '@/types/models.types.ts';
 
 interface RentalCardProps {
     id: number;
@@ -12,64 +13,47 @@ interface RentalCardProps {
     image: string;
     price: number;
     description: string;
+    end_date: string;
+    start_date: string;
+    owner: User;
 }
 
 const RentalCard: React.FC<RentalCardProps> = ({
-    id,
-    price,
-    description,
-    image,
+    itemName,
+    owner,
+    end_date,
+    start_date,
   }) => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
   
-    const handleRentClick = () => {
-      navigate(`/item/${id}`);
-    };
-    const backendUrl = import.meta.env.VITE_API_URL;
-    const imageUrl = `${backendUrl}${image}`;
+    // const handleRentClick = () => {
+    //   navigate(`/item/${id}`);
+    // };
+    // const backendUrl = import.meta.env.VITE_API_URL;
+    // const imageUrl = `${backendUrl}${image}`;
   
-    const descriptionColor = grey[700];
+    // const descriptionColor = grey[700];
     return (
-      <Card
-        onClick={handleRentClick}
-        sx={{
-          maxWidth: 345,
-          backgroundColor: 'white',
-          boxShadow: 0,
-          cursor: 'pointer',
-        }}
-      >
+        <Card sx={{ display: "flex", maxWidth: 400, boxShadow: 2 }}>
         <CardMedia
-          sx={{
-            height: 300,
-            backgroundColor: 'white',
-            borderRadius: 4,
-            backgroundImage: 'url("../../../static-photos/me-climbing.png")',
-          }}
-          image={imageUrl}
-          title="green iguana"
+          component="img"
+          sx={{ width: 100, height: 100, borderRadius: 2 }}
+          image="https://via.placeholder.com/100" // Replace with your image URL
+          alt="Coventry"
         />
-        <CardContent sx={{ backgroundColor: 'white' }}>
-          {' '}
-          {/* Set background color of CardContent to white */}
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            sx={{ mt: -1, ml: -1 }}
-          >
-            {/* {name} */}
-          </Typography>
-          <Typography
-            variant="body2"
-            sx={{ mt: -1, ml: -1, color: descriptionColor }}
-          >
-            {description}
-          </Typography>
-          <Typography variant="body1" component="div" sx={{ ml: -1 }}>
-            ${price} / Day
-          </Typography>
-        </CardContent>
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: 2 }}>
+          <CardContent sx={{ flex: "1 0 auto", padding: '8px 0' }}>
+            <Typography variant="h6" component="div">
+              {itemName}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Owned by {owner.first_name} {owner.last_name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {start_date} - {end_date}
+            </Typography>
+          </CardContent>
+        </Box>
       </Card>
     );
   };

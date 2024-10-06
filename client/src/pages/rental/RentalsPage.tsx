@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from "../../context/UserContext.tsx";
 import CurrentRentals from "../../components/rental/CurrentRentals.tsx";
+import Box from "@mui/material/Box";
 
 // import PendingRentals from './PendingRentals.js';
 
@@ -12,7 +13,7 @@ const RentalsPage = () => {
 
   if (user && user.profile) {
     return (
-      <div>
+      <Box>
         <div>
           <div>{<CurrentRentals />}</div>
           <br />
@@ -20,7 +21,7 @@ const RentalsPage = () => {
           <br />
           <div>{/* <PastRentals /> */}</div>
         </div>
-      </div>
+      </Box>
     );
   } else {
     return (
