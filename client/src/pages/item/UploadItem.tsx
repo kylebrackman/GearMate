@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import { addItemApi } from '../../services/ItemApi';
 import { Item } from '@/types/models.types';
+import Alert from '@mui/material/Alert';
 
 interface ItemPosition {
   lat: number;
@@ -28,6 +29,7 @@ const UploadItem = () => {
   const [condition, setCondition] = useState('Select');
   const [image, setImage] = useState<File | null>(null);
   const [itemPrice, setItemPrice] = useState('');
+  const [errors, setErrors] = useState<string[]>([]);
   // const [itemPosition, setItemPosition] = useState({ lat: 0, lng: 0 })
   // Temporary ts fix below
   const itemPosition: ItemPosition = { lat: 0, lng: 0 };
@@ -46,7 +48,21 @@ const UploadItem = () => {
     setCondition(event.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const addNewItem = async (newItemData: FormData): Promise<Item> => {
+    try {
+      const newItem = await addItemApi(newItemData);
+      navigate('/home');
+      return newItem;
+      // Revisit any type
+    } catch (error: any) {
+      const errorMessages = error.message.split(',');
+      setErrors(errorMessages);
+      console.error('Error adding new item:', error);
+      throw error;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const newItemData = new FormData();
@@ -68,21 +84,14 @@ const UploadItem = () => {
     if (image) {
       newItemData.append('image', image);
     }
-    for (const pair of newItemData.entries()) {
-      console.log(pair[0] + ': ' + pair[1]);
-    }
-    console.log(newItemData);
-    addNewItem(newItemData);
-  };
 
-  const addNewItem = async (newItemData: FormData): Promise<Item> => {
     try {
-      const newItem = await addItemApi(newItemData);
-      navigate('/home');
-      return newItem;
+      const response = await addNewItem(newItemData);
+      console.log(response)
+      navigate('/home'); // Navigate on success
     } catch (error) {
-      console.error('Error adding new item:', error);
-      throw error;
+      console.error('Error while submitting the form:', error);
+      // You could also set an error state here and display a message to the user
     }
   };
 
@@ -109,7 +118,6 @@ const UploadItem = () => {
                 alignItems: 'center',
               }}
             >
-              {/* { errors === '' ? null : <Alert severity="error">{errors}</Alert>} */}
               <Typography component="h1" variant="h5">
                 List Your Item
               </Typography>
@@ -224,10 +232,19 @@ const UploadItem = () => {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  // onClick={handleSubmit}
+                // onClick={handleSubmit}
                 >
                   List Your Item
                 </Button>
+                {errors.length > 0 && (
+                  <Alert severity="error" sx={{ marginBottom: 2 }}>
+                    <ul>
+                      {errors.map((error, index) => (
+                        <li key={index}>{error}</li> // Display each error as a bullet point
+                      ))}
+                    </ul>
+                  </Alert>
+                )}
               </Box>
             </Box>
           </Grid>

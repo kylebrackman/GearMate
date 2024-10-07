@@ -6,17 +6,19 @@ export const addItemApi = async (newItemData: FormData): Promise<Item> => {
       method: 'POST',
       body: newItemData,
     });
-    const data = await response.json();
-    if (!data.errors) {
-      return data;
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.errors);
     } else {
-      throw new Error(data.errors.join(', '));
+      const addedItem = await response.json();
+      return addedItem;
     }
   } catch (error) {
-    console.error('Error adding new item:', error);
+    console.error(error);
     throw error;
   }
 };
+
 
 export const editItemApi = async (itemData: Partial<Item>): Promise<Item> => {
   try {
@@ -27,7 +29,7 @@ export const editItemApi = async (itemData: Partial<Item>): Promise<Item> => {
     });
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(`Validation Error: ${errorData.errors}`);
+      throw new Error(errorData);
     } else {
       const editedItem = await response.json();
       return editedItem;

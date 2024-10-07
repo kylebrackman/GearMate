@@ -16,8 +16,12 @@ class Api::ItemsController < ApplicationController
 
     def create
         item = @current_user.owned_items.create!(owned_item_params)
-        item.image.attach(params[:image])
-        render json: item, status: :created
+        if item.save
+            item.image.attach(params[:image])
+            render json: item, status: :created
+        else
+            render json: { errors: item.errors.full_messages }, status: :unprocessable_entity
+        end
     end
 
     def update
