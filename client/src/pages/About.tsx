@@ -142,8 +142,8 @@ const About: React.FC = () => {
                 sx={{
                   height: 500,
                   borderRadius: 2,
-                  backgroundImage: 'url("../../static-photos/Headshot.png")',
                 }}
+                image='../../static-photos/Headshot.png'
               />
             </Grid>
           </Grid>

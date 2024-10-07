@@ -44,7 +44,7 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState<string[]>([]);
   const navigate = useNavigate();
   const user = useUser();
 
@@ -69,7 +69,8 @@ export default function SignUp() {
       navigate("/createprofile");
       resetForm();
     } catch (error: any) {
-      setErrors(error.message);
+      const errorMessages = error.message.split(',');
+      setErrors(errorMessages);
       resetForm();
     }
   };
@@ -88,7 +89,7 @@ export default function SignUp() {
         >
           <img
             className="w-20 h-15 mr-2"
-            src={'../../../public/static-photos/gearmate-logo.png'}  
+            src={'../../../public/static-photos/gearmate-logo.png'}
             alt="logo"
             style={{
               borderRadius: 10,
@@ -97,7 +98,15 @@ export default function SignUp() {
               width: "25%",
             }}
           />
-          {errors === "" ? null : <Alert severity="error">{errors}</Alert>}
+          {errors.length > 0 && (
+            <Alert severity="error" sx={{ mb: 2, mt: 2 }}>
+              <ul>
+                {errors.map((error, index) => (
+                  <li key={index}>{error}</li> // Display each error as a bullet point
+                ))}
+              </ul>
+            </Alert>
+          )}
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
