@@ -89,7 +89,7 @@ export default function SignUp() {
         >
           <img
             className="w-20 h-15 mr-2"
-            src={'../../../public/static-photos/gearmate-logo.png'}
+            src={'/static-photos/gearmate-logo.png'}
             alt="logo"
             style={{
               borderRadius: 10,
