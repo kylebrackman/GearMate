@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUserApi } from '../../services/UserApi.ts';
 import { useUser } from '../../context/UserContext.tsx';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -12,7 +11,6 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
@@ -94,9 +92,18 @@ export default function Login() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary' }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            <img
+              className="w-20 h-15 mr-2"
+              src={'/static-photos/gearmate-logo.png'}
+              alt="logo"
+              style={{
+                borderRadius: 10,
+                marginTop: 20,
+                height: "20%",
+                width: "20%",
+                marginBottom: 20
+              }}
+            />
             {errors === '' ? null : <Alert severity="error">{errors}</Alert>}
             <Typography component="h1" variant="h5">
               Log In
