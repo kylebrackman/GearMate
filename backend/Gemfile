@@ -54,3 +54,5 @@ group :development, :test do
 end
 
 
+
+gem "geocoder", "~> 1.8"
