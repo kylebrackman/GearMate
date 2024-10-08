@@ -1,6 +1,8 @@
-import React, { useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
+import Link from '@mui/material/Link';
+import CircularProgress from '@mui/material/CircularProgress';
 import {
   Box,
   Grid,
@@ -14,20 +16,24 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 const Profile: React.FC = () => {
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const backendBaseUrl = import.meta.env.VITE_API_URL;
   const imageUrl = `${backendBaseUrl}${user?.profile?.image}`;
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/signup');
-    } else if (!user?.profile) {
-      navigate('/createprofile');
-    }
-  }, [user, navigate]);
-
   if (!user) {
-    return <h1>Please Log In or Sign Up</h1>;
+    return (
+      <Box sx={{ mx: '5%', mt: '2%' }}>
+      <Grid container spacing={2} sx={{ mt: 5 }}>
+          <Box sx={{ display: 'flex' }}>
+            <CircularProgress />
+            <Typography>
+              Please log in. If you haven't create a profile yet, create one here: 
+              <Link href="/createprofile">Create Profile</Link>
+            </Typography>
+          </Box>
+      </Grid>
+    </Box>
+    );
   }
 
   return (
