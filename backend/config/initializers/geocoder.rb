@@ -25,7 +25,7 @@ Geocoder.configure(
   #   prefix: 'geocoder:'
   # }
   lookup: :google,
-  api_key: ENV['GOOGLE_MAPS_API_KEY'], # or your actual key
+  api_key: ENV['VITE_GOOGLE_MAPS_API_KEY'], # or your actual key
   units: :mi,
   timeout: 10
 )

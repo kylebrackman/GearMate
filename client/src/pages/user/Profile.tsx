@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 // import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '@/context/UserContext';
+// import { ImportMetaEnv } from '@/types/env.types';
+// import ProfileMap from '@/components/request/ProfileMap';
 import Link from '@mui/material/Link';
 import CircularProgress from '@mui/material/CircularProgress';
 import {
@@ -16,23 +18,25 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 const Profile: React.FC = () => {
   const { user } = useContext(UserContext);
-  // const navigate = useNavigate();
-  const backendBaseUrl = import.meta.env.VITE_API_URL;
-  const imageUrl = `${backendBaseUrl}${user?.profile?.image}`;
+  // const navigate = useNavigate()
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const backendBaseUrl: string = import.meta.env.VITE_API_URL || '';
+  const imageUrl: string = `${backendBaseUrl}${user?.profile?.image}`;
 
   if (!user) {
     return (
       <Box sx={{ mx: '5%', mt: '2%' }}>
-      <Grid container spacing={2} sx={{ mt: 5 }}>
+        <Grid container spacing={2} sx={{ mt: 5 }}>
           <Box sx={{ display: 'flex' }}>
             <CircularProgress />
             <Typography>
-              Please log in. If you haven't create a profile yet, create one here: 
+              Please log in. If you haven&apos;t create a profile yet, create
+              one here:
               <Link href="/createprofile">Create Profile</Link>
             </Typography>
           </Box>
-      </Grid>
-    </Box>
+        </Grid>
+      </Box>
     );
   }
 
@@ -68,6 +72,11 @@ const Profile: React.FC = () => {
               <SettingsIcon sx={{ fontSize: 30 }} />
             </CardContent>
           </Card>
+        </Grid>
+      </Grid>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          {/* <ProfileMap /> */}
         </Grid>
       </Grid>
     </Box>
