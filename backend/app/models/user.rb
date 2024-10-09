@@ -13,6 +13,7 @@ class User < ApplicationRecord
     has_many :rentals, foreign_key: :renter_id
 
     has_one :profile
+    has_one :location, dependent: :destroy
 
     has_many :received_pending_rental_requests, 
         -> { where(status: :pending).includes(:item, :renter) }, 
