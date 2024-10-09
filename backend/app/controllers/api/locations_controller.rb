@@ -3,6 +3,8 @@ class Api::LocationsController < ApplicationController
 
   # GET /locations
   def index
+
+    @locations = Location.near(params[:location], params[:radius], order: :distance)
     @locations = Location.all
 
     render json: @locations
@@ -46,6 +48,6 @@ class Api::LocationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def location_params
-      params.require(:location).permit(:name, :address, :latitude, :longitude)
+      params.require(:location).permit(:name, :address, :latitude, :longitude, :user_id, :item_id)
     end
 end
