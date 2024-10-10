@@ -1,8 +1,5 @@
 import React, { useContext } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { UserContext } from '@/context/UserContext';
-// import { ImportMetaEnv } from '@/types/env.types';
-// import ProfileMap from '@/components/request/ProfileMap';
 import Link from '@mui/material/Link';
 import CircularProgress from '@mui/material/CircularProgress';
 import {
@@ -14,12 +11,10 @@ import {
   CardContent,
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-// import ProfileGeo from "./ProfileGeo.jsx";
 
 const Profile: React.FC = () => {
   const { user } = useContext(UserContext);
-  // const navigate = useNavigate()
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
   const backendBaseUrl: string = import.meta.env.VITE_API_URL || '';
   const imageUrl: string = `${backendBaseUrl}${user?.profile?.image}`;
 
@@ -72,11 +67,6 @@ const Profile: React.FC = () => {
               <SettingsIcon sx={{ fontSize: 30 }} />
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          {/* <ProfileMap /> */}
         </Grid>
       </Grid>
     </Box>

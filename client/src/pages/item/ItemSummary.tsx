@@ -7,7 +7,8 @@ import { orange, red } from '@mui/material/colors';
 import { DatePicker } from '@mui/x-date-pickers';
 import { Dayjs } from 'dayjs';
 import { Dialog, DialogContent } from '@mui/material';
-import Alert from '@mui/material/Alert';
+import ItemMap from '../../components/maps/ItemMap.tsx';
+// import Alert from '@mui/material/Alert';
 import {
   getItemApi,
   deleteItemApi,
@@ -45,8 +46,13 @@ const ItemSummary = () => {
         }
       }
     };
-    fetchItem();
-  }, [id]);
+    void fetchItem();
+  }, [itemId]);
+
+  const centerMap = item?.location
+    ? { lat: item?.location.latitude, lng: item?.location.longitude }
+    : { lat: 27.9881206, lng: 86.9249751 };
+
   // const needsStripeConnect = !user?.stripe_connected_account_id
   // const stripeConnectInstance
   const backendUrl = import.meta.env.VITE_API_URL;
@@ -111,7 +117,8 @@ const ItemSummary = () => {
       console.log('card', rentalRequestData);
       // createCheckoutSession(rentalRequestData);
       try {
-        const response = await createRentalRequestApi(rentalRequestData);
+        const response: RentalRequest =
+          await createRentalRequestApi(rentalRequestData);
         console.log(response);
         navigate(`/confirmRentalRequest/${item.id}`);
       } catch (error) {
@@ -134,7 +141,7 @@ const ItemSummary = () => {
       setItem(newItem);
       handleClose();
       return newItem;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error editing item:', error);
       throw error;
     }
@@ -154,75 +161,6 @@ const ItemSummary = () => {
 
   if (item === null) {
     return <div>Item not found</div>;
-  } else if (user === null) {
-    return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="100vh"
-        bgcolor="#f5f5f5"
-        sx={{
-          maxWidth: '80%',
-          margin: 'auto',
-          borderRadius: '8px',
-          backgroundColor: 'white',
-          mt: 1,
-        }}
-      >
-        {errors.length > 0 ? (
-          <Alert severity="error">
-            {errors.map((error, index) => (
-              <div key={index}>{error}</div>
-            ))}
-          </Alert>
-        ) : null}
-
-        <Grid container spacing={4} alignItems="center">
-          {/* Photo on the right */}
-          <Grid item xs={12} sm={6}>
-            <Box
-              component="img"
-              src={imageUrl}
-              alt={item.name}
-              sx={{
-                width: '100%',
-                height: 'auto',
-                borderRadius: '8px',
-              }}
-            />
-          </Grid>
-          {/* Item details on the left */}
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h4" component="h1" gutterBottom>
-              {item.name}
-            </Typography>
-            <Typography variant="h5" component="h2" gutterBottom>
-              <Box component="span" fontWeight="bold">
-                ${item.price}
-              </Box>{' '}
-              /{' '}
-              <Box component="span" fontWeight="regular">
-                day
-              </Box>
-            </Typography>
-            <Divider sx={{ marginBottom: 2 }} />
-            <Typography variant="h6" component="h2" gutterBottom></Typography>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              {item.description}
-            </Typography>
-            <Divider sx={{ marginBottom: 2 }} />
-            <Button
-              variant="contained"
-              sx={{ backgroundColor: requestButtonColor }}
-              onClick={handleNavigateToSignUp}
-            >
-              Sign Up To Rent This Item!
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
-    );
   } else {
     return (
       <Box
@@ -303,7 +241,7 @@ const ItemSummary = () => {
                   <Button
                     variant="contained"
                     sx={{ backgroundColor: deleteItemButtonColor }}
-                    onClick={() => handleDeleteItem(item.id)}
+                    onClick={() => void handleDeleteItem(item.id)}
                   >
                     Delete
                   </Button>
@@ -312,7 +250,7 @@ const ItemSummary = () => {
                   <DialogContent sx={{ width: '600px' }}>
                     <EditItemForm
                       item={item}
-                      handleEditItem={handleEditItem}
+                      handleEditItem={() => void handleEditItem}
                       errors={errors}
                     />
                   </DialogContent>
@@ -345,16 +283,27 @@ const ItemSummary = () => {
                   onChange={handleEndDateChange}
                 />
                 <Divider sx={{ marginBottom: 2 }} />
-                <Button
-                  variant="contained"
-                  sx={{ backgroundColor: requestButtonColor }}
-                  onClick={handleSubmit}
-                >
-                  Request
-                </Button>
+                {user == null ? (
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: requestButtonColor }}
+                    onClick={handleNavigateToSignUp}
+                  >
+                    Sign Up!
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: requestButtonColor }}
+                    onClick={() => void handleSubmit}
+                  >
+                    Request
+                  </Button>
+                )}
               </>
             )}
           </Grid>
+          <ItemMap center={centerMap} zoom={15} />
         </Grid>
       </Box>
     );
