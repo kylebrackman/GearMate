@@ -165,7 +165,7 @@ Project Link: [https://github.com/kylebrackman/GearMate-III](https://github.com/
 [issues-url]: https://github.com/othneildrew/Best-README-Template/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/kyle-brackman/
-[product-screenshot]: images/GearMateHome.png
+[product-screenshot]: ./client/public/static-photos/GearMate-Home.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [Tailwind-url]: https://tailwindcss.com/
