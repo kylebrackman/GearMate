@@ -54,7 +54,6 @@ export interface Rental {
   item?: Item;
   owner_profile_id: number;
   rental_request_id: number;
-  errors: ErrorResponse;
 }
 
 export interface RentalRequest {
@@ -65,6 +64,7 @@ export interface RentalRequest {
   item: Item;
   status?: string;
   owner_id?: number;
+  errors: ErrorResponse;
 }
 
 export interface Location {
