@@ -1,8 +1,9 @@
 import { RentalRequest } from '@/types/models.types';
+import { ErrorResponse, RentalApprovalResponse } from '@/types/responses.types';
 
 export const createRentalRequestApi = async (
   rentalRequestData: RentalRequest
-) => {
+): Promise<RentalRequest> => {
   try {
     const response = await fetch('/api/rental_requests', {
       method: 'POST',
@@ -10,10 +11,10 @@ export const createRentalRequestApi = async (
       body: JSON.stringify(rentalRequestData),
     });
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`Validation Error: ${errorData.errors}`);
+      const errorData = (await response.json()) as ErrorResponse;
+      throw new Error(`Validation Error: ${errorData.errors.join(', ')}`);
     } else {
-      const createdRentalRequest = await response.json();
+      const createdRentalRequest = (await response.json()) as RentalRequest;
       return createdRentalRequest;
     }
   } catch (error) {
@@ -26,10 +27,10 @@ export const getPendingRentalRequestsApi = async () => {
   try {
     const response = await fetch('/api/received_pending_rental_requests');
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`${errorData.errors}`);
+      const errorData = (await response.json()) as ErrorResponse;
+      throw new Error(`${errorData.errors.join(', ')}`);
     } else {
-      const data = await response.json();
+      const data = (await response.json()) as RentalRequest[];
       return data;
     }
   } catch (error) {
@@ -42,10 +43,10 @@ export const getPendingRentalRequestByIdApi = async (id: string) => {
   try {
     const response = await fetch(`/api/received_pending_rental_request/${id}`);
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`${errorData.errors}`);
+      const errorData = (await response.json()) as ErrorResponse;
+      throw new Error(`${errorData.errors.join(', ')}`);
     } else {
-      const data = await response.json();
+      const data = (await response.json()) as RentalRequest;
       return data;
     }
   } catch (error) {
@@ -60,10 +61,10 @@ export const approveRentalRequestApi = async (id: string) => {
       method: 'PATCH',
     });
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`${errorData.errors}`);
+      const errorData = (await response.json()) as ErrorResponse;
+      throw new Error(`${errorData.errors.join(', ')}`);
     } else {
-      const data = await response.json();
+      const data = (await response.json()) as RentalApprovalResponse;
       return data;
     }
   } catch (error) {

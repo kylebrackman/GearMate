@@ -12,21 +12,22 @@ const PendingRentalRequestsReceived = () => {
     const fetchRentalRequests = async () => {
       try {
         const response = await getPendingRentalRequestsApi();
-        const data = await response;
-        if (!data.errors) {
-          setPendingRentalRequestsReceived(data);
-        } else {
+        // Check if the response has an errors property
+        if ('errors' in response) {
           console.error(
             'Error retrieving pending rental requests:',
-            data.errors
+            response.errors
           );
+          return; // Return early if there are errors
         }
+
+        setPendingRentalRequestsReceived(response);
       } catch (error) {
         console.error('Error retrieving pending rental requests:', error);
       }
     };
 
-    fetchRentalRequests();
+    fetchRentalRequests().catch(console.error);
   }, []);
 
   if (pendingRentalRequestsReceived.length === 0) {
