@@ -1,5 +1,3 @@
-import { ErrorResponse } from './responses.types';
-
 export interface User {
   id: number;
   email: string;
@@ -64,7 +62,6 @@ export interface RentalRequest {
   item: Item;
   status?: string;
   owner_id?: number;
-  errors?: ErrorResponse;
 }
 
 export interface Location {
