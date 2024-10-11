@@ -57,7 +57,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         console.error(error);
       }
     };
-    fetchUser();
+    void fetchUser();
   }, []);
 
   return (

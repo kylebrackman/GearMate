@@ -5,18 +5,19 @@ import React, { useEffect, useState } from 'react';
 import ItemCard from '../components/item/ItemCard.tsx';
 import { getAllItemsApi } from '../services/ItemApi.ts';
 import CircularProgress from '@mui/material/CircularProgress';
+import SearchBar from '../components/common/searchbar.tsx';
 
 const Home: React.FC = () => {
   const [allItems, setAllItems] = useState<Item[] | null>(null);
 
   useEffect(() => {
     // Fetch all items from the server
-    fetchAllItems();
+    fetchAllItems().catch(console.error);
   }, []);
 
-  const fetchAllItems = () => {
+  const fetchAllItems = async () => {
     try {
-      getAllItemsApi().then((data) => {
+      await getAllItemsApi().then((data) => {
         setAllItems(data);
       });
     } catch (error) {
@@ -37,16 +38,22 @@ const Home: React.FC = () => {
       />
     </Grid>
   ));
-
+  <SearchBar />;
   return (
-    <Box sx={{ mx: '5%', mt: '2%' }}>
-      <Grid container spacing={2} sx={{ mt: 5 }}>
-        {items.length > 0 ? allItemsList :
-          <Box sx={{ display: 'flex' }}>
-            <CircularProgress />
-          </Box>}
-      </Grid>
-    </Box>
+    <div>
+      <SearchBar />
+      <Box sx={{ mx: '5%', mt: '2%' }}>
+        <Grid container spacing={2} sx={{ mt: 5 }}>
+          {items.length > 0 ? (
+            allItemsList
+          ) : (
+            <Box sx={{ display: 'flex' }}>
+              <CircularProgress />
+            </Box>
+          )}
+        </Grid>
+      </Box>
+    </div>
   );
 };
 

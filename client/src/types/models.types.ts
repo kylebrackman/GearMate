@@ -10,6 +10,7 @@ export interface User {
   past_rentals: Rental[];
   pending_rental_requests: Item[];
   received_pending_rental_requests: RentalRequest[];
+  location: Location;
 }
 
 export interface Item {
@@ -25,6 +26,7 @@ export interface Item {
   owner_first_name?: string;
   owner_last_name?: string;
   image?: string;
+  location: Location;
 }
 
 export interface Profile {
@@ -60,5 +62,11 @@ export interface RentalRequest {
   item: Item;
   status?: string;
   owner_id?: number;
-  
+}
+
+export interface Location {
+  id: number;
+  address: string;
+  latitude: number;
+  longitude: number;
 }
