@@ -1,3 +1,5 @@
+import { ErrorResponse } from './responses.types';
+
 export interface User {
   id: number;
   email: string;
@@ -52,6 +54,7 @@ export interface Rental {
   item?: Item;
   owner_profile_id: number;
   rental_request_id: number;
+  errors: ErrorResponse;
 }
 
 export interface RentalRequest {

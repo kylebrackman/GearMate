@@ -16,7 +16,13 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import * as React from 'react';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext.tsx';
-import { Item } from '@/types/models.types.ts';
+import { Item, Location } from '@/types/models.types.ts';
+const existingLocation: Location = {
+  id: 1,
+  address: '123 Main St',
+  latitude: 37.7749,
+  longitude: -122.4194,
+};
 
 interface EditItemFormProps {
   item: Item;
@@ -44,6 +50,7 @@ const EditItemForm: React.FC<EditItemFormProps> = ({
       description: description,
       price: price,
       condition: condition,
+      location: existingLocation,
     };
     handleEditItem(editedItem);
   };
