@@ -3,15 +3,20 @@ import { Grid, TextField, Button, Box } from '@mui/material';
 import { searchItemsApi } from '../../services/SearchApi';
 
 // Define the possible field names as a union type
-type Field = 'location' | 'name' | 'dateFrom' | 'dateTo';
+type SearchField = 'location' | 'name' | 'dateFrom' | 'dateTo';
 
 const SearchBar: React.FC = () => {
   // State to track which field is currently focused
-  const [focusedField, setFocusedField] = useState<Field | null>(null);
-  //   const [query, setQuery] = useState('');
+  const [focusedField, setFocusedField] = useState<SearchField | null>(null);
+  const [searchParams, setSearchParams] = useState({
+    name: '',
+    location: '',
+    dateFrom: '',
+    dateTo: '',
+  });
 
   // Set the focused field on focus event
-  const handleFocus = (field: Field) => {
+  const handleFocus = (field: SearchField) => {
     setFocusedField(field);
   };
 
@@ -20,10 +25,26 @@ const SearchBar: React.FC = () => {
     setFocusedField(null);
   };
 
-  // Helper function to search for items
+  const handleSearch = async () => {
+    try {
+      console.log(searchParams);
+      const results = await searchItemsApi(searchParams);
+      console.log(results);
+    } catch (error) {
+      console.error('Error searching items:', error);
+    }
+  };
+
+  const handleInputChange =
+    (field: SearchField) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchParams((prevParams) => ({
+        ...prevParams,
+        [field]: event.target.value,
+      }));
+    };
 
   // Helper function to check if a field should be dimmed
-  const isDimmed = (field: Field): boolean => {
+  const isDimmed = (field: SearchField): boolean => {
     return focusedField !== null && focusedField !== field;
   };
 
@@ -53,7 +74,7 @@ const SearchBar: React.FC = () => {
               transition: 'background-color 0.3s ease',
             }}
             color="success"
-            // onChange={(e) => setQuery(e.target.value)}
+            onChange={handleInputChange('name')}
           />
         </Grid>
         {/* Location Field */}
@@ -69,6 +90,7 @@ const SearchBar: React.FC = () => {
               backgroundColor: isDimmed('location') ? '#e0e0e0' : 'white',
               transition: 'background-color 0.3s ease',
             }}
+            onChange={handleInputChange('location')}
           />
         </Grid>
 
@@ -89,6 +111,7 @@ const SearchBar: React.FC = () => {
               transition: 'background-color 0.3s ease',
             }}
             color="success"
+            onChange={handleInputChange('dateFrom')}
           />
         </Grid>
 
@@ -109,6 +132,7 @@ const SearchBar: React.FC = () => {
               transition: 'background-color 0.3s ease',
             }}
             color="success"
+            onChange={handleInputChange('dateTo')}
           />
         </Grid>
 
@@ -119,7 +143,7 @@ const SearchBar: React.FC = () => {
             color="success"
             fullWidth
             sx={{ height: '100%', borderRadius: '50px' }}
-            onClick={() => void searchItemsApi()}
+            onClick={() => void handleSearch()}
           >
             Search
           </Button>

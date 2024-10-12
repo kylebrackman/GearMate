@@ -70,6 +70,14 @@ Console error:
 - `docker-compose exec frontend npm install`
 
 
+#### Searchkick commands
+Enter the backend environment
+`docker exec -it gearmate_iii-backend-1 bash`
+
+Reindex the Item being searched, for example, to reindex the Item model:
+`rails searchkick:reindex CLASS=Item`
+
+
 ## Heroku Notes
 git subtree push --prefix backend heroku main
 
