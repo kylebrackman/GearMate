@@ -305,7 +305,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
-  elasticsearch (~> 8.8)
+  elasticsearch
   geocoder (~> 1.8)
   pg (~> 1.1)
   puma (>= 5.0)

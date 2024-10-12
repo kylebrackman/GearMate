@@ -15,6 +15,8 @@ class Item < ApplicationRecord
     has_one :location, dependent: :destroy
     has_one_attached :image
 
+    searchkick
+
     private
 
     def validate_item_type

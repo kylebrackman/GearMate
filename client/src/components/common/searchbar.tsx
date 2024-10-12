@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, TextField, Button, Box } from '@mui/material';
+import { searchItemsApi } from '../../services/SearchApi';
 
 // Define the possible field names as a union type
 type Field = 'location' | 'name' | 'dateFrom' | 'dateTo';
@@ -7,6 +8,7 @@ type Field = 'location' | 'name' | 'dateFrom' | 'dateTo';
 const SearchBar: React.FC = () => {
   // State to track which field is currently focused
   const [focusedField, setFocusedField] = useState<Field | null>(null);
+  //   const [query, setQuery] = useState('');
 
   // Set the focused field on focus event
   const handleFocus = (field: Field) => {
@@ -17,6 +19,8 @@ const SearchBar: React.FC = () => {
   const handleBlur = () => {
     setFocusedField(null);
   };
+
+  // Helper function to search for items
 
   // Helper function to check if a field should be dimmed
   const isDimmed = (field: Field): boolean => {
@@ -49,6 +53,7 @@ const SearchBar: React.FC = () => {
               transition: 'background-color 0.3s ease',
             }}
             color="success"
+            // onChange={(e) => setQuery(e.target.value)}
           />
         </Grid>
         {/* Location Field */}
@@ -114,6 +119,7 @@ const SearchBar: React.FC = () => {
             color="success"
             fullWidth
             sx={{ height: '100%', borderRadius: '50px' }}
+            onClick={() => void searchItemsApi()}
           >
             Search
           </Button>
