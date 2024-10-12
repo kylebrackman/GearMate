@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     delete '/logout', to: 'sessions#destroy'
 
     # Search bar
-    get '/search', to: 'search#search'
+    post '/item_search', to: 'search#item_search'
 
     # Item routes
     resources :items
