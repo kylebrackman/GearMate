@@ -80,6 +80,10 @@ git subtree push --prefix backend heroku main
 If you want to look at attributes of an object, you need to add .attributes at the end of your method like so 
 `User.find(1).attributes`
 
+#### Searchkick and Elastic Search Helpful Commands
+- Ping elastic search from backend container:
+    - `curl http://elasticsearch:9200`
+
 
 #### Info on subdir heroku buildpack
 https://elements.heroku.com/buildpacks/timanovsky/subdir-heroku-buildpack
