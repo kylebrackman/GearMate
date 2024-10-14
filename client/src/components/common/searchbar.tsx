@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Grid, TextField, Button, Box } from '@mui/material';
-import { searchItemsApi } from '../../services/SearchApi';
+import SearchIcon from '@mui/icons-material/Search';
 
 // Define the possible field names as a union type
 type SearchField = 'location' | 'name' | 'dateFrom' | 'dateTo';
@@ -15,24 +16,19 @@ const SearchBar: React.FC = () => {
     dateTo: '',
   });
 
-  // Set the focused field on focus event
+  const navigate = useNavigate();
+
   const handleFocus = (field: SearchField) => {
     setFocusedField(field);
   };
 
-  // Clear the focused field on blur event
   const handleBlur = () => {
     setFocusedField(null);
   };
 
-  const handleSearch = async () => {
-    try {
-      console.log(searchParams);
-      const results = await searchItemsApi(searchParams);
-      console.log(results);
-    } catch (error) {
-      console.error('Error searching items:', error);
-    }
+  const handleSearch = () => {
+    const query = new URLSearchParams(searchParams).toString();
+    navigate(`/search?${query}`);
   };
 
   const handleInputChange =
@@ -43,7 +39,6 @@ const SearchBar: React.FC = () => {
       }));
     };
 
-  // Helper function to check if a field should be dimmed
   const isDimmed = (field: SearchField): boolean => {
     return focusedField !== null && focusedField !== field;
   };
@@ -145,7 +140,7 @@ const SearchBar: React.FC = () => {
             sx={{ height: '100%', borderRadius: '50px' }}
             onClick={() => void handleSearch()}
           >
-            Search
+            <SearchIcon />
           </Button>
         </Grid>
       </Grid>

@@ -35,7 +35,6 @@ const ItemSummary = () => {
       try {
         const item = await getItemApi(itemId);
         setItem(item);
-        console.log(item);
       } catch (error: unknown) {
         if (error instanceof Error) {
           setItem(null);
