@@ -39,7 +39,7 @@ gem 'aws-sdk-s3'
 
 gem 'searchkick', '~> 5.3', '>= 5.3.1' 
 
-gem "elasticsearch" 
+gem 'elasticsearch', '< 7.14' 
 
 gem "geocoder", "~> 1.8"
 
