@@ -27,7 +27,7 @@ const existingLocation: Location = {
 interface EditItemFormProps {
   item: Item;
   errors: string[];
-  handleEditItem: (editedItem: Item) => void;
+  handleEditItem: (item: Item) => Promise<void>;
 }
 
 const EditItemForm: React.FC<EditItemFormProps> = ({
@@ -42,8 +42,9 @@ const EditItemForm: React.FC<EditItemFormProps> = ({
   const { id } = item;
   const { user } = useContext(UserContext);
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
     const editedItem: Item = {
       id: id,
       name: name,
@@ -52,7 +53,11 @@ const EditItemForm: React.FC<EditItemFormProps> = ({
       condition: condition,
       location: existingLocation,
     };
-    handleEditItem(editedItem);
+    try {
+      await handleEditItem(editedItem);
+    } catch (error) {
+      console.error('Error submitting edited item:', error);
+    }
   };
 
   const handleConditionChange = (event: SelectChangeEvent) => {
@@ -96,6 +101,7 @@ const EditItemForm: React.FC<EditItemFormProps> = ({
                 label="Condition"
               >
                 <MenuItem value="New">New</MenuItem>
+                <MenuItem value="Like New">Like New</MenuItem>
                 <MenuItem value="Good">Good</MenuItem>
                 <MenuItem value="Fair">Fair</MenuItem>
                 <MenuItem value="Used">Used</MenuItem>
@@ -136,6 +142,7 @@ const EditItemForm: React.FC<EditItemFormProps> = ({
             <Box display="flex" justifyContent="flex-end" marginTop={2}>
               <Button
                 variant="contained"
+                //eslint-disable-next-line @typescript-eslint/no-misused-promises
                 onClick={handleSubmit}
                 sx={{
                   backgroundColor: 'primary.main',

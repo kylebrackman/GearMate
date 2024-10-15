@@ -127,7 +127,7 @@ const ItemSummary = () => {
     }
   };
 
-  const handleEditItem = async (editedItem: Item): Promise<Item> => {
+  const handleEditItem = async (editedItem: Item) => {
     try {
       const updatedItem = await editItemApi({
         id: editedItem.id,
@@ -137,9 +137,9 @@ const ItemSummary = () => {
         condition: editedItem.condition,
       });
       const newItem = updatedItem;
+      console.log(newItem);
       setItem(newItem);
       handleClose();
-      return newItem;
     } catch (error: unknown) {
       console.error('Error editing item:', error);
       throw error;
@@ -249,7 +249,7 @@ const ItemSummary = () => {
                   <DialogContent sx={{ width: '600px' }}>
                     <EditItemForm
                       item={item}
-                      handleEditItem={() => void handleEditItem}
+                      handleEditItem={handleEditItem}
                       errors={errors}
                     />
                   </DialogContent>

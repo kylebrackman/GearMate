@@ -1,5 +1,5 @@
 import { Item } from '@/types/models.types';
-
+import { ErrorResponse } from '@/types/responses.types';
 export const addItemApi = async (newItemData: FormData): Promise<Item> => {
   try {
     const response = await fetch('/api/items', {
@@ -7,10 +7,10 @@ export const addItemApi = async (newItemData: FormData): Promise<Item> => {
       body: newItemData,
     });
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.errors);
+      const errorData = (await response.json()) as ErrorResponse;
+      throw new Error(`Add Item API Error: ${errorData.errors.join(', ')}`);
     } else {
-      const addedItem = await response.json();
+      const addedItem: Item = (await response.json()) as Item;
       return addedItem;
     }
   } catch (error) {
@@ -18,7 +18,6 @@ export const addItemApi = async (newItemData: FormData): Promise<Item> => {
     throw error;
   }
 };
-
 
 export const editItemApi = async (itemData: Partial<Item>): Promise<Item> => {
   try {
@@ -28,10 +27,10 @@ export const editItemApi = async (itemData: Partial<Item>): Promise<Item> => {
       body: JSON.stringify(itemData),
     });
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData);
+      const errorData = (await response.json()) as ErrorResponse;
+      throw new Error(`Edit Item API Error: ${errorData.errors.join(', ')}`);
     } else {
-      const editedItem = await response.json();
+      const editedItem: Item = (await response.json()) as Item;
       return editedItem;
     }
   } catch (error) {
@@ -46,8 +45,8 @@ export const deleteItemApi = async (id: string | number): Promise<void> => {
       method: 'DELETE',
     });
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.errors);
+      const errorData = (await response.json()) as ErrorResponse;
+      throw new Error(`Add Item API Error: ${errorData.errors.join(', ')}`);
     }
   } catch (error) {
     console.error('Error deleting item:', error);
@@ -58,10 +57,15 @@ export const deleteItemApi = async (id: string | number): Promise<void> => {
 export const getAllItemsApi = async (): Promise<Item[]> => {
   try {
     const response = await fetch('/api/items?all_items=true');
-    const data = await response.json();
-    return data;
+    if (!response.ok) {
+      const errorData = (await response.json()) as ErrorResponse;
+      throw new Error(`Add Item API Error: ${errorData.errors.join(', ')}`);
+    } else {
+      const items: Item[] = (await response.json()) as Item[];
+      return items;
+    }
   } catch (error) {
-    console.error('Error getting all items:', error);
+    console.error(error);
     throw error;
   }
 };
@@ -71,9 +75,10 @@ export const getItemApi = async (id: number | string): Promise<Item | null> => {
     const response = await fetch(`/api/items/${id}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      const item: Item = (await response.json()) as Item;
+      return item;
     }
-    const data = await response.json();
-    return data;
   } catch (error) {
     console.error(error);
     return null; // Return null instead of throwing
