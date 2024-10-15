@@ -77,9 +77,12 @@ Enter the backend environment
 Reindex the Item being searched, for example, to reindex the Item model:
 `rails searchkick:reindex CLASS=Item`
 
-
+reindex in Heroku environment:
+`heroku run rails searchkick:reindex CLASS=Item -a`
 ## Heroku Notes
 git subtree push --prefix backend heroku main
+
+
 
 ### Enter Rails Console in Heroku Environment
 
