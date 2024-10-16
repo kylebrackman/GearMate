@@ -53,6 +53,7 @@ const SearchBar: React.FC = () => {
         mt: 3,
         mx: '25%',
         boxShadow: 5,
+        backgroundColor: 'white',
       }}
     >
       <Grid container spacing={2} alignItems="center">

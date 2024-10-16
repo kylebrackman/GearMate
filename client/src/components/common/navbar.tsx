@@ -49,8 +49,8 @@ function ResponsiveAppBar() {
       ? imageUrl
       : 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png';
 
-  function handleLogOut() {
-    logoutUserApi();
+  async function handleLogOut() {
+    await logoutUserApi();
     logoutContext();
   }
   const handleCloseUserMenu = () => {
@@ -62,7 +62,11 @@ function ResponsiveAppBar() {
       navigate('/signup');
       handleCloseUserMenu();
     },
-    Logout: () => handleLogOut(),
+    Logout: () => {
+      handleLogOut().catch((error) => {
+        console.error('Failed to log out', error);
+      });
+    },
     Login: () => {
       handleCloseUserMenu();
       navigate('/login');
@@ -81,8 +85,11 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: navbarColor }}>
-      <Container maxWidth="xl">
+    <AppBar
+      position="static"
+      sx={{ backgroundColor: navbarColor, width: '100%' }}
+    >
+      <Container>
         <Toolbar disableGutters sx={{ justifyContent: 'center' }}>
           <Typography
             variant="h6"

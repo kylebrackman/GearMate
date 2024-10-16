@@ -17,9 +17,14 @@ import RentalsPage from './pages/rental/RentalsPage';
 import RenterProfile from './pages/user/RenterProfile';
 import About from './pages/About';
 import SearchResults from './pages/item/SearchResults';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+const defaultTheme = createTheme();
 function App() {
   return (
-    <div>
+    <ThemeProvider theme={defaultTheme}>
+      <CssBaseline />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <UserProvider>
           <Navbar />
@@ -45,7 +50,7 @@ function App() {
           <Footer />
         </UserProvider>
       </LocalizationProvider>
-    </div>
+    </ThemeProvider>
   );
 }
 
