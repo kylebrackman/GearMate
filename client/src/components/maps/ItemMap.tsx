@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
+import { Box } from '@mui/material';
 
 interface MapProps {
   center: { lat: number; lng: number };
@@ -41,7 +42,26 @@ const ItemMap: React.FC<MapProps> = ({ center, zoom }) => {
 
   return (
     <>
-      <div id="map" style={{ height: '400px', width: '100%' }} />
+      <Box
+        id="map"
+        sx={{
+          width: {
+            sm: '200px', // Height for small screens
+            md: '300px', // Height for medium screens
+            lg: '400px', // Height for large screens
+            xl: '500px', // Height for extra large screens
+          },
+          height: {
+            sm: '200px', // Height for small screens
+            md: '300px', // Height for medium screens
+            lg: '400px', // Height for large screens
+            xl: '500px', // Height for extra large screens
+          },
+          borderRadius: '8px',
+          overflow: 'hidden',
+          border: '1px solid #ccc',
+        }}
+      />
       {map && (
         <>{/* You can add markers, overlays, or other map features here */}</>
       )}

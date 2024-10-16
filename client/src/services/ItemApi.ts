@@ -8,7 +8,7 @@ export const addItemApi = async (newItemData: FormData): Promise<Item> => {
     });
     if (!response.ok) {
       const errorData = (await response.json()) as ErrorResponse;
-      throw new Error(`Add Item API Error: ${errorData.errors.join(', ')}`);
+      throw new Error(`${errorData.errors.join(', ')}`);
     } else {
       const addedItem: Item = (await response.json()) as Item;
       return addedItem;
@@ -28,7 +28,7 @@ export const editItemApi = async (itemData: Partial<Item>): Promise<Item> => {
     });
     if (!response.ok) {
       const errorData = (await response.json()) as ErrorResponse;
-      throw new Error(`Edit Item API Error: ${errorData.errors.join(', ')}`);
+      throw new Error(`${errorData.errors.join(', ')}`);
     } else {
       const editedItem: Item = (await response.json()) as Item;
       return editedItem;
@@ -46,7 +46,7 @@ export const deleteItemApi = async (id: string | number): Promise<void> => {
     });
     if (!response.ok) {
       const errorData = (await response.json()) as ErrorResponse;
-      throw new Error(`Add Item API Error: ${errorData.errors.join(', ')}`);
+      throw new Error(`${errorData.errors.join(', ')}`);
     }
   } catch (error) {
     console.error('Error deleting item:', error);
@@ -59,7 +59,7 @@ export const getAllItemsApi = async (): Promise<Item[]> => {
     const response = await fetch('/api/items?all_items=true');
     if (!response.ok) {
       const errorData = (await response.json()) as ErrorResponse;
-      throw new Error(`Add Item API Error: ${errorData.errors.join(', ')}`);
+      throw new Error(`${errorData.errors.join(', ')}`);
     } else {
       const items: Item[] = (await response.json()) as Item[];
       return items;

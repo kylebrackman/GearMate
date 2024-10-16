@@ -178,20 +178,31 @@ const ItemSummary = () => {
       >
         <Grid container spacing={4} alignItems="center">
           {/* Photo on the right */}
-          <Grid item xs={12} sm={6}>
+          <Grid
+            sx={{ mt: 2, alignContent: 'center', mb: 3 }}
+            item
+            xs={12}
+            sm={6}
+          >
             <Box
               component="img"
               src={imageUrl}
               alt={item.name}
               sx={{
-                width: '100%',
-                height: 'auto',
+                width: 'auto',
+                height: {
+                  xs: '200px', // Full width on extra small screens (mobile)
+                  sm: '200px', // Full width on small screens
+                  md: '300px', // 80% width on medium screens
+                  lg: '300px', // 70% width on large screens
+                  xl: '400px', // 60% width on extra large screens
+                },
                 borderRadius: '8px',
               }}
             />
           </Grid>
           {/* Item details on the left */}
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} sx={{ mb: 3 }}>
             <Typography variant="h4" component="h1" gutterBottom>
               {item.name}
             </Typography>
@@ -232,7 +243,7 @@ const ItemSummary = () => {
                 <div className="flex justify-between mb-4">
                   <Button
                     variant="contained"
-                    sx={{ backgroundColor: requestButtonColor }}
+                    sx={{ backgroundColor: requestButtonColor, mr: 3 }}
                     onClick={handleEditButtonClick}
                   >
                     Edit Item
@@ -301,8 +312,9 @@ const ItemSummary = () => {
                 )}
               </>
             )}
+            <Typography sx={{ mt: 2 }}>Location</Typography>
+            <ItemMap center={centerMap} zoom={15} />
           </Grid>
-          <ItemMap center={centerMap} zoom={15} />
         </Grid>
       </Box>
     );
