@@ -6,9 +6,10 @@ import { Item, User } from '@/types/models.types.ts';
 interface MapProps {
   center: { lat: number; lng: number };
   zoom: number;
-  item: Item;
+  item?: Item;
   user?: User;
   isEditing?: boolean;
+  onUploadItemPage?: boolean;
 }
 
 const ItemMap: React.FC<MapProps> = ({
@@ -17,6 +18,7 @@ const ItemMap: React.FC<MapProps> = ({
   item,
   user,
   isEditing,
+  onUploadItemPage,
 }) => {
   useEffect(() => {
     const loader = new Loader({
@@ -40,11 +42,12 @@ const ItemMap: React.FC<MapProps> = ({
           zoom,
         });
 
-        if (isEditing && user?.id === item.owner_id) {
+        if ((isEditing && user?.id === item?.owner_id) || onUploadItemPage) {
           // Create the location button only after the map is loaded
           const locationButton = document.createElement('button');
           locationButton.textContent = 'Set Item Location';
           locationButton.classList.add('custom-map-control-button');
+          locationButton.setAttribute('type', 'button');
 
           // Add button to the map's controls
           mapInstance.controls[google.maps.ControlPosition.TOP_CENTER].push(
@@ -62,6 +65,7 @@ const ItemMap: React.FC<MapProps> = ({
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
                   };
+                  console.log(pos);
 
                   infoWindow.setPosition(pos);
                   infoWindow.setContent('Location found.');
@@ -100,21 +104,19 @@ const ItemMap: React.FC<MapProps> = ({
       .catch((e) => {
         console.error(e);
       });
-  }, [center, zoom]);
+  }, [center, zoom, onUploadItemPage, isEditing, user?.id, item?.owner_id]);
 
   return (
-    <>
-      <Box
-        id="map"
-        sx={{
-          width: { sm: '200px', md: '300px', lg: '400px', xl: '500px' },
-          height: { sm: '200px', md: '300px', lg: '400px', xl: '500px' },
-          borderRadius: '8px',
-          overflow: 'hidden',
-          border: '1px solid #ccc',
-        }}
-      />
-    </>
+    <Box
+      id="map"
+      sx={{
+        width: { sm: '200px', md: '300px', lg: '400px', xl: '500px' },
+        height: { sm: '200px', md: '300px', lg: '400px', xl: '500px' },
+        borderRadius: '8px',
+        overflow: 'hidden',
+        border: '1px solid #ccc',
+      }}
+    />
   );
 };
 

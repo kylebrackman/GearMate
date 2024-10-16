@@ -14,11 +14,13 @@ import { useNavigate } from 'react-router-dom';
 import { addItemApi } from '../../services/ItemApi';
 import { Item } from '@/types/models.types';
 import Alert from '@mui/material/Alert';
+import ItemMap from '../../components/maps/ItemMap.tsx';
 
 interface ItemPosition {
   lat: number;
   lng: number;
 }
+const centerMap = { lat: 27.9881206, lng: 86.9249751 };
 
 const defaultTheme = createTheme();
 
@@ -54,15 +56,20 @@ const UploadItem = () => {
       navigate('/home');
       return newItem;
       // Revisit any type
-    } catch (error: any) {
-      const errorMessages = error.message.split(',');
-      setErrors(errorMessages);
-      console.error('Error adding new item:', error);
-      throw error;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        const errorMessages = error.message.split(',');
+        setErrors(errorMessages);
+        console.error('Error adding new item:', error);
+        throw error;
+      } else {
+        console.error('Unknown error:', error);
+        throw error;
+      }
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     const newItemData = new FormData();
@@ -86,8 +93,8 @@ const UploadItem = () => {
     }
 
     try {
-      const response = await addNewItem(newItemData);
-      console.log(response)
+      const response = addNewItem(newItemData);
+      console.log(response);
       navigate('/home'); // Navigate on success
     } catch (error) {
       console.error('Error while submitting the form:', error);
@@ -98,7 +105,7 @@ const UploadItem = () => {
   if (user) {
     return (
       <ThemeProvider theme={defaultTheme}>
-        <Grid container component="main" sx={{ height: '100vh' }}>
+        <Grid container component="main">
           <CssBaseline />
           <Grid
             item
@@ -162,12 +169,12 @@ const UploadItem = () => {
                   multiline
                   onChange={(e) => setDescription(e.target.value)}
                 />
-                <Grid container spacing={2}>
+                <Grid container spacing={2} sx={{ mb: 2 }}>
                   {/* First Select Dropdown */}
                   <Grid item xs={12} sm={6}>
                     <Select
                       fullWidth
-                      sx={{ width: { xs: '100%', sm: '100%', md: '300px' } }} // Adjust width for screen sizes
+                      sx={{ width: '100%' }} // Ensure full width on small screens
                       labelId="item-type-select-label"
                       id="item-type-select"
                       value={itemType}
@@ -195,7 +202,7 @@ const UploadItem = () => {
                   <Grid item xs={12} sm={6}>
                     <Select
                       fullWidth
-                      sx={{ width: { xs: '100%', sm: '100%', md: '300px' } }} // Same width for both selects
+                      sx={{ width: '100%' }} // Ensure full width on small screens
                       labelId="condition-select-label"
                       id="condition-select"
                       value={condition}
@@ -213,6 +220,7 @@ const UploadItem = () => {
                     </Select>
                   </Grid>
                 </Grid>
+
                 <label htmlFor="file-upload">
                   <input
                     id="file-upload"
@@ -227,12 +235,19 @@ const UploadItem = () => {
                     }}
                   />
                 </label>
+                <Box sx={{ mt: 2 }}>
+                  <ItemMap
+                    zoom={15}
+                    center={centerMap}
+                    onUploadItemPage={true}
+                  />
+                </Box>
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                // onClick={handleSubmit}
+                  // onClick={handleSubmit}
                 >
                   List Your Item
                 </Button>
