@@ -17,6 +17,7 @@ import * as React from 'react';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext.tsx';
 import { Item, Location } from '@/types/models.types.ts';
+// import ItemMap from '../maps/ItemMap.tsx';
 const existingLocation: Location = {
   id: 1,
   address: '123 Main St',
@@ -41,6 +42,10 @@ const EditItemForm: React.FC<EditItemFormProps> = ({
   const [condition, setCondition] = useState(item.condition);
   const { id } = item;
   const { user } = useContext(UserContext);
+
+  //   const centerMap = item?.location
+  // ? { lat: item?.location.latitude, lng: item?.location.longitude }
+  // : { lat: 27.9881206, lng: 86.9249751 };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -138,6 +143,8 @@ const EditItemForm: React.FC<EditItemFormProps> = ({
               }}
             />
           </Grid>
+          {/* <ItemMap item={item} isEditing={true} center={centerMap} zoom={15}/> */}
+
           <Grid item xs={12}>
             <Box display="flex" justifyContent="flex-end" marginTop={2}>
               <Button

@@ -27,6 +27,7 @@ const ItemSummary = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [item, setItem] = useState<Item | null>(null);
+
   const { id } = useParams();
   const itemId = id ?? '';
 
@@ -313,7 +314,12 @@ const ItemSummary = () => {
               </>
             )}
             <Typography sx={{ mt: 2 }}>Location</Typography>
-            <ItemMap center={centerMap} zoom={15} />
+            <ItemMap
+              center={centerMap}
+              zoom={15}
+              item={item}
+              user={user ?? undefined}
+            />
           </Grid>
         </Grid>
       </Box>
