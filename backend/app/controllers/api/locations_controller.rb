@@ -18,7 +18,7 @@ class Api::LocationsController < ApplicationController
   # POST /locations
   def create
     @location = Location.new(location_params)
-
+    Rails.logger("location params:", location_params)
     if @location.save
       render json: @location, status: :created, location: @location
     else

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_08_231527) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_17_054647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,12 +63,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_231527) do
     t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.bigint "item_id", null: false
     t.index ["item_id"], name: "index_locations_on_item_id"
     t.index ["latitude"], name: "index_locations_on_latitude"
     t.index ["longitude"], name: "index_locations_on_longitude"
-    t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -123,7 +121,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_231527) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "items", "users", column: "owner_id"
   add_foreign_key "locations", "items"
-  add_foreign_key "locations", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "rental_requests", "items"
   add_foreign_key "rental_requests", "users", column: "owner_id"
