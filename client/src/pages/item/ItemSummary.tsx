@@ -49,10 +49,6 @@ const ItemSummary = () => {
     void fetchItem();
   }, [itemId]);
 
-  const centerMap = item?.location
-    ? { lat: item?.location.latitude, lng: item?.location.longitude }
-    : { lat: 27.9881206, lng: 86.9249751 };
-
   // const needsStripeConnect = !user?.stripe_connected_account_id
   // const stripeConnectInstance
   const backendUrl = import.meta.env.VITE_API_URL;
@@ -65,6 +61,12 @@ const ItemSummary = () => {
   const handleNavigateToSignUp = () => {
     navigate('/signup');
   };
+
+  const centerMap = item?.location
+    ? { lat: item?.location.latitude, lng: item?.location.longitude }
+    : { lat: 27.9881206, lng: 86.9249751 };
+
+  console.log(item);
 
   const handleStartDateChange = (value: Dayjs | null) => {
     setStartDate(value);

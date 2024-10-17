@@ -29,6 +29,11 @@ export interface Item {
   location: Location;
 }
 
+export interface ItemPosition {
+  lat: number;
+  lng: number;
+}
+
 export interface Profile {
   id: number;
   user_id: number;

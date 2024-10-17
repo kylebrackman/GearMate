@@ -15,11 +15,8 @@ import { addItemApi } from '../../services/ItemApi';
 import { Item } from '@/types/models.types';
 import Alert from '@mui/material/Alert';
 import ItemMap from '../../components/maps/ItemMap.tsx';
+import { ItemPosition } from '@/types/models.types';
 
-interface ItemPosition {
-  lat: number;
-  lng: number;
-}
 const centerMap = { lat: 27.9881206, lng: 86.9249751 };
 
 const defaultTheme = createTheme();
@@ -32,15 +29,20 @@ const UploadItem = () => {
   const [image, setImage] = useState<File | null>(null);
   const [itemPrice, setItemPrice] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
-  // const [itemPosition, setItemPosition] = useState({ lat: 0, lng: 0 })
+  const [itemPos, setItemPos] = useState({ lat: 0, lng: 0 });
   // Temporary ts fix below
-  const itemPosition: ItemPosition = { lat: 0, lng: 0 };
+  // const itemPosition: ItemPosition = { lat: 0, lng: 0 };
 
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   // const handleSetItemLocation = (itemPosition: ItemPosition) => {
   //     setItemPosition(itemPosition);
   // };
+
+  const handleSetItemPos = (itemPositionInput: ItemPosition) => {
+    console.log(itemPositionInput);
+    setItemPos(itemPositionInput);
+  };
 
   const handleTypeChange = (event: SelectChangeEvent) => {
     setItemType(event.target.value);
@@ -53,7 +55,7 @@ const UploadItem = () => {
   const addNewItem = async (newItemData: FormData): Promise<Item> => {
     try {
       const newItem = await addItemApi(newItemData);
-      navigate('/home');
+      // navigate('/home');
       return newItem;
       // Revisit any type
     } catch (error: unknown) {
@@ -85,8 +87,8 @@ const UploadItem = () => {
     newItemData.append('description', description);
     newItemData.append('condition', condition);
     newItemData.append('price', itemPrice);
-    newItemData.append('lat', itemPosition.lat.toString());
-    newItemData.append('lng', itemPosition.lng.toString());
+    newItemData.append('lat', itemPos.lat.toString());
+    newItemData.append('lng', itemPos.lng.toString());
 
     if (image) {
       newItemData.append('image', image);
@@ -240,6 +242,7 @@ const UploadItem = () => {
                     zoom={15}
                     center={centerMap}
                     onUploadItemPage={true}
+                    handleSetItemPos={handleSetItemPos}
                   />
                 </Box>
                 <Button

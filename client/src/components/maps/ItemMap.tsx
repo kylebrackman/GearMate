@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import { Box } from '@mui/material';
 import { Item, User } from '@/types/models.types.ts';
+import { ItemPosition } from '@/types/models.types.ts';
 
 interface MapProps {
   center: { lat: number; lng: number };
@@ -10,6 +11,7 @@ interface MapProps {
   user?: User;
   isEditing?: boolean;
   onUploadItemPage?: boolean;
+  handleSetItemPos?: (itemPosition: ItemPosition) => void;
 }
 
 const ItemMap: React.FC<MapProps> = ({
@@ -19,6 +21,7 @@ const ItemMap: React.FC<MapProps> = ({
   user,
   isEditing,
   onUploadItemPage,
+  handleSetItemPos,
 }) => {
   useEffect(() => {
     const loader = new Loader({
@@ -40,6 +43,7 @@ const ItemMap: React.FC<MapProps> = ({
         const mapInstance = new google.maps.Map(mapElement, {
           center,
           zoom,
+          disableDefaultUI: true,
         });
 
         if ((isEditing && user?.id === item?.owner_id) || onUploadItemPage) {
@@ -71,6 +75,9 @@ const ItemMap: React.FC<MapProps> = ({
                   infoWindow.setContent('Location found.');
                   infoWindow.open(mapInstance);
                   mapInstance.setCenter(pos);
+                  if (handleSetItemPos) {
+                    handleSetItemPos(pos);
+                  }
                 },
                 () => {
                   handleLocationError(
