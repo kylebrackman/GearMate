@@ -17,13 +17,15 @@ class Item < ApplicationRecord
 
     searchkick
 
-    private
-
     def search_data
         {
-            name: name
+            name: name,
+            address: location&.address,
+            listed: listed
         }
     end
+
+    private
 
     def validate_item_type
         errors.add(:item_type, "cannot be 'Select'") if item_type == "Select"
