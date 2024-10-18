@@ -66,6 +66,7 @@ const ItemMap: React.FC<MapProps> = ({
           locationButton.addEventListener('click', () => {
             if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(
+                // The below async on line 71 technically causes a linting error. Revisit later.
                 // eslint-disable-next-line
                 async (position: GeolocationPosition) => {
                   const pos = {
