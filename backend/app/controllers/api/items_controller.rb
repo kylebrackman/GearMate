@@ -4,7 +4,7 @@ class Api::ItemsController < ApplicationController
     before_action :set_item, only: [:update, :destroy]
 
     def index
-        items = Item.all
+        items = Item.where(listed: true)
         render json: items
     end
 
@@ -18,8 +18,10 @@ class Api::ItemsController < ApplicationController
         item = @current_user.owned_items.create!(owned_item_params)
         if item.save
             item.image.attach(params[:image])
+            city = Geocoder.search([params[:lat], params[:lng]]).first.city
+            state = Geocoder.search([params[:lat], params[:lng]]).first.state
 
-            location = Location.create!({ latitude: params[:lat], longitude: params[:lng], item_id: item.id })
+            location = Location.create!({ latitude: params[:lat], longitude: params[:lng], item_id: item.id, address: city + ", " + state })
             render json: item, status: :created
         else
             render json: { errors: item.errors.full_messages }, status: :unprocessable_entity
@@ -39,7 +41,9 @@ class Api::ItemsController < ApplicationController
 
     def destroy
         set_item 
-        @item.destroy
+        # @item.destroy
+        @item.listed = false
+        @item.save
         head :no_content
     end
 

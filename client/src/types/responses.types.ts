@@ -8,3 +8,8 @@ export interface RentalApprovalResponse {
   message: string;
   rental: Rental;
 }
+
+export interface CityAndState {
+  address: string;
+  location: string;
+}

@@ -30,6 +30,7 @@ const UploadItem = () => {
   const [itemPrice, setItemPrice] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
   const [itemPos, setItemPos] = useState({ lat: 0, lng: 0 });
+  // const [address, setAddress] = useState('');
   // Temporary ts fix below
   // const itemPosition: ItemPosition = { lat: 0, lng: 0 };
 
@@ -55,7 +56,7 @@ const UploadItem = () => {
   const addNewItem = async (newItemData: FormData): Promise<Item> => {
     try {
       const newItem = await addItemApi(newItemData);
-      // navigate('/home');
+      navigate('/home');
       return newItem;
       // Revisit any type
     } catch (error: unknown) {
@@ -89,6 +90,7 @@ const UploadItem = () => {
     newItemData.append('price', itemPrice);
     newItemData.append('lat', itemPos.lat.toString());
     newItemData.append('lng', itemPos.lng.toString());
+    // newItemData.append('address', address);
 
     if (image) {
       newItemData.append('image', image);
@@ -97,7 +99,7 @@ const UploadItem = () => {
     try {
       const response = addNewItem(newItemData);
       console.log(response);
-      navigate('/home'); // Navigate on success
+      // navigate('/home'); // Navigate on success
     } catch (error) {
       console.error('Error while submitting the form:', error);
       // You could also set an error state here and display a message to the user
@@ -243,6 +245,7 @@ const UploadItem = () => {
                     center={centerMap}
                     onUploadItemPage={true}
                     handleSetItemPos={handleSetItemPos}
+                    // handleSetAddress={handleSetAddress}
                   />
                 </Box>
                 <Button

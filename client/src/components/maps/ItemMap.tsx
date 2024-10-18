@@ -3,7 +3,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { Box } from '@mui/material';
 import { Item, User } from '@/types/models.types.ts';
 import { ItemPosition } from '@/types/models.types.ts';
-
+import { getCityAndStateApi } from '@/services/LocationApi.ts';
 interface MapProps {
   center: { lat: number; lng: number };
   zoom: number;
@@ -12,6 +12,7 @@ interface MapProps {
   isEditing?: boolean;
   onUploadItemPage?: boolean;
   handleSetItemPos?: (itemPosition: ItemPosition) => void;
+  // handleSetAddress?: (address: string) => void;
 }
 
 const ItemMap: React.FC<MapProps> = ({
@@ -22,6 +23,7 @@ const ItemMap: React.FC<MapProps> = ({
   isEditing,
   onUploadItemPage,
   handleSetItemPos,
+  // handleSetAddress,
 }) => {
   useEffect(() => {
     const loader = new Loader({
@@ -64,12 +66,12 @@ const ItemMap: React.FC<MapProps> = ({
           locationButton.addEventListener('click', () => {
             if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(
-                (position: GeolocationPosition) => {
+                // eslint-disable-next-line
+                async (position: GeolocationPosition) => {
                   const pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
                   };
-                  console.log(pos);
 
                   infoWindow.setPosition(pos);
                   infoWindow.setContent('Location found.');
@@ -78,6 +80,14 @@ const ItemMap: React.FC<MapProps> = ({
                   if (handleSetItemPos) {
                     handleSetItemPos(pos);
                   }
+                  const cityAndState = await getCityAndStateApi(
+                    pos.lat,
+                    pos.lng
+                  );
+                  console.log(cityAndState);
+                  // if (handleSetAddress) {
+                  //   handleSetAddress(cityAndState.location)
+                  // }
                 },
                 () => {
                   handleLocationError(
@@ -111,7 +121,15 @@ const ItemMap: React.FC<MapProps> = ({
       .catch((e) => {
         console.error(e);
       });
-  }, [center, zoom, onUploadItemPage, isEditing, user?.id, item?.owner_id]);
+  }, [
+    center,
+    zoom,
+    onUploadItemPage,
+    isEditing,
+    user?.id,
+    item?.owner_id,
+    handleSetItemPos,
+  ]);
 
   return (
     <Box

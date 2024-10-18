@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_17_054647) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_18_042628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_17_054647) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "owner_id", null: false
+    t.boolean "listed", default: true
     t.index ["owner_id"], name: "index_items_on_owner_id"
   end
 
@@ -86,7 +87,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_17_054647) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "item_id", null: false
+    t.bigint "item_id"
     t.bigint "owner_id", null: false
     t.bigint "renter_id", null: false
     t.index ["item_id"], name: "index_rental_requests_on_item_id"

@@ -1,4 +1,7 @@
 class Api::LocationsController < ApplicationController
+
+  require 'logger'
+
   before_action :set_location, only: %i[ show update destroy ]
 
   # GET /locations
@@ -16,15 +19,29 @@ class Api::LocationsController < ApplicationController
   end
 
   # POST /locations
-  def create
-    @location = Location.new(location_params)
-    Rails.logger("location params:", location_params)
-    if @location.save
-      render json: @location, status: :created, location: @location
+def create
+  @location = Location.new(location_params)
+
+  if @location.save
+    render json: @location, status: :created, location: @location
+  else
+    render json: @location.errors, status: :unprocessable_entity
+  end
+end
+
+  def city_and_state
+  
+    # Perform the geocoding search
+    address = Geocoder.search([location_params[:latitude], location_params[:longitude]])
+  
+    if address.present? && address.first
+      # Render the city and state
+      render json: { location: "#{address.first.city}, #{address.first.state}" }
     else
-      render json: @location.errors, status: :unprocessable_entity
+      render json: { errors: ['No address found for the provided coordinates.'] }, status: :unprocessable_entity
     end
   end
+  
 
   # PATCH/PUT /locations/1
   def update

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :locations
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -34,6 +34,11 @@ Rails.application.routes.draw do
 
     # Rental request routes
     resources :rental_requests
+
+    # Location routes
+    resources :locations
+
+    post '/city_and_state', to: 'locations#city_and_state'
 
     get '/received_pending_rental_requests', to: 'rental_requests#received_pending_rental_requests'
     get '/received_pending_rental_request/:id', to: 'rental_requests#received_pending_rental_request_id'
