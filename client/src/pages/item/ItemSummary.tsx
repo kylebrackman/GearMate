@@ -308,7 +308,7 @@ const ItemSummary = () => {
                   <Button
                     variant="contained"
                     sx={{ backgroundColor: requestButtonColor }}
-                    onClick={() => void handleSubmit}
+                    onClick={() => void handleSubmit()}
                   >
                     Request
                   </Button>
