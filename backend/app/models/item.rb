@@ -15,14 +15,15 @@ class Item < ApplicationRecord
     has_one :location, dependent: :destroy
     has_one_attached :image
 
-    searchkick
-
+    searchkick locations: ["location"]
     def search_data
         {
             name: name,
             address: location&.address,
-            listed: listed
+            listed: listed,
+            location: location.present? ? { lat: location.latitude, lon: location.longitude } : nil
         }
+
     end
 
     private

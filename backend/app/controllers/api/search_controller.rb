@@ -10,7 +10,17 @@ class Api::SearchController < ApplicationController
         # @results = Item.search(params[:name])
 
         # searching just by location
-        @results= Item.search(params[:location], params[:name])
+
+        coordinates = Geocoder.search(params[:location]).first.geometry['location']
+
+        lat = coordinates['lat']
+        lng = coordinates['lng']
+
+
+        Rails.logger.info "Coordinates: #{lat}, #{lng}"
+
+        @results = Item.search(params[:name], where: { location: { near: { lat: lat, lon: lng }, within: "100mi" } })
+
         
         Rails.logger.info "Search results: #{@results.inspect}"
 
