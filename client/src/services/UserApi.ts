@@ -22,10 +22,8 @@ export async function loginUserApi(
 
   if (!response.ok) {
     const errorData = (await response.json()) as ErrorResponse;
-    // Assuming the backend sets a specific status code for validation errors
     if (response.status === 400) {
-      // Example status code for bad request
-      throw new Error(`Validation Error: ${errorData.error}`);
+      throw new Error(`${errorData.error}`);
     } else if (response.status === 401) {
       throw new Error(`Unauthorized: ${errorData.error}`);
     }
