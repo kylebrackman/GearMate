@@ -3,10 +3,14 @@ class Api::ProfilesController < ApplicationController
     before_action :authorize, only: [:create]
 
     def create
-        puts "Profile Params: #{profile_params}"
         profile = @current_user.create_profile(profile_params)
         profile.image.attach(params[:image])
-        render json: profile, status: :created
+
+        if profile.save
+            render json: profile, status: :created
+        else
+            render json: { errors: profile.errors.full_messages }, status: :unprocessable_entity
+        end
     end
 
     def index

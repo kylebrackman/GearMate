@@ -1,45 +1,37 @@
 import { User } from '@/types/models.types';
-
-// import { Profile } from "../models/ProfileModel";
+import { ErrorResponse } from '@/types/responses.types';
+import { Profile } from '@/types/models.types';
 export async function getUserApi(): Promise<User | null> {
-  try {
-    const response = await fetch('/api/me');
-    if (!response.ok) {
-      return null;
-    }
-    const user = await response.json();
-    return user;
-  } catch (error) {
-    throw error;
+  const response = await fetch('/api/me');
+  if (!response.ok) {
+    return null;
   }
+  const user = (await response.json()) as User;
+  return user;
 }
 
 export async function loginUserApi(
   email: string,
   password: string
 ): Promise<User | null> {
-  try {
-    const response = await fetch(`/api/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
+  const response = await fetch(`/api/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      // Assuming the backend sets a specific status code for validation errors
-      if (response.status === 400) {
-        // Example status code for bad request
-        throw new Error(`Validation Error: ${errorData.error}`);
-      } else if (response.status === 401) {
-        throw new Error(`Unauthorized: ${errorData.error}`);
-      }
-    } else {
-      const user = await response.json();
-      return user;
+  if (!response.ok) {
+    const errorData = (await response.json()) as ErrorResponse;
+    // Assuming the backend sets a specific status code for validation errors
+    if (response.status === 400) {
+      // Example status code for bad request
+      throw new Error(`Validation Error: ${errorData.error}`);
+    } else if (response.status === 401) {
+      throw new Error(`Unauthorized: ${errorData.error}`);
     }
-  } catch (error) {
-    throw error;
+  } else {
+    const user = (await response.json()) as User;
+    return user;
   }
   // Review neccessity of below line with KT to go over typescript error upon removal
   return null;
@@ -68,15 +60,15 @@ export async function signUpUserApi(
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
+      const errorData = (await response.json()) as ErrorResponse;
       throw new Error(
-        errorData.errors ? errorData.errors : 'Failed to sign up'
+        errorData.errors ? errorData.errors.join(', ') : 'Failed to sign up'
       );
     }
 
-    const user = await response.json();
+    const user = (await response.json()) as User;
     return user;
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error during sign-up:', error);
     throw error; // You can rethrow or handle it differently depending on your needs
   }
@@ -102,24 +94,17 @@ export async function logoutUserApi(): Promise<void> {
 
 export async function createProfileApi(
   newProfileData: FormData
-): Promise<any | null> {
-  try {
-    const response = await fetch('/api/profiles', {
-      method: 'POST',
-      body: newProfileData,
-    });
+): Promise<Profile | null> {
+  const response = await fetch('/api/profiles', {
+    method: 'POST',
+    body: newProfileData,
+  });
 
-    if (!response.ok) {
-      console.log(response);
-      throw new Error('Failed to create profile');
-    }
-
-    const profile = await response.json();
-    console.log(profile);
-
-    return profile;
-  } catch (error) {
-    console.error('Error creating profile:', error);
-    throw error;
+  if (!response.ok) {
+    console.log(response);
+    const errorData = (await response.json()) as ErrorResponse;
+    throw new Error(`${errorData.errors.join(', ')}`);
   }
+  const profile = (await response.json()) as Profile;
+  return profile;
 }

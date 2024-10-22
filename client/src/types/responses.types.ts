@@ -2,6 +2,7 @@ import { Rental } from '@/types/models.types';
 
 export interface ErrorResponse {
   errors: string[];
+  error: string;
 }
 
 export interface RentalApprovalResponse {

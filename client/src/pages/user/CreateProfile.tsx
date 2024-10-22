@@ -8,45 +8,37 @@ import {
   TextField,
 } from '@mui/material';
 import { createProfileApi } from '../../services/UserApi';
-// type Position = {
-//   lat: number;
-//   lng: number;
-// };
 import { useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
 
 const CreateProfile = () => {
   const [nickname, setNickname] = useState('');
   const [bio, setBio] = useState('');
   const [image, setImage] = useState<File | null>(null);
-  // const [position, setPosition] = useState<Position>({ lat: 0, lng: 0 });
-  // const handleSetLocation = (newPosition: Position) => {
-  //   setPosition(newPosition);
-  // };
+  const [errors, setErrors] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const newProfileData = new FormData();
-
     newProfileData.append('bio', bio);
     newProfileData.append('name', nickname);
-    // newProfileData.append("lat", position.lat.toString());
-    // newProfileData.append("lng", position.lng.toString());
-
     if (image) {
       newProfileData.append('image', image);
     }
-
     try {
-      const response = await createProfileApi(newProfileData);
-      if (response?.ok) {
-        navigate('/home');
-      } else {
-        console.error('Error creating profile:', response?.error);
-      }
+      await createProfileApi(newProfileData);
+      navigate('/home');
     } catch (error) {
-      console.error('Error creating profile:', error);
+      if (error instanceof Error) {
+        const errorMessages = error.message.split(',');
+        setErrors(errorMessages);
+        throw error;
+      } else {
+        console.error('Unknown error:', error);
+        throw error;
+      }
     }
   };
 
@@ -63,7 +55,13 @@ const CreateProfile = () => {
           titleTypographyProps={{ variant: 'h5', fontWeight: 'bold' }}
         />
         <CardContent>
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={(e) => {
+              handleSubmit(e).catch((error) => {
+                console.error(error);
+              });
+            }}
+          >
             <Box mb={2}>
               <TextField
                 fullWidth
@@ -112,6 +110,15 @@ const CreateProfile = () => {
                 Enter
               </Button>
             </Box>
+            {errors.length > 0 && (
+              <Alert severity="error" sx={{ marginBottom: 2 }}>
+                <ul>
+                  {errors.map((error, index) => (
+                    <li key={index}>{error}</li> // Display each error as a bullet point
+                  ))}
+                </ul>
+              </Alert>
+            )}
           </form>
         </CardContent>
       </Card>
