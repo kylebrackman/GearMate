@@ -1,6 +1,6 @@
 export interface SearchFields {
   name?: string;
   location?: string;
-  dateFrom?: string;
-  dateTo?: string;
+  date_from?: string;
+  date_to?: string;
 }

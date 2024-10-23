@@ -21,12 +21,18 @@ class Item < ApplicationRecord
             name: name,
             address: location&.address,
             listed: listed,
-            location: location.present? ? { lat: location.latitude, lon: location.longitude } : nil
+            location: location.present? ? { lat: location.latitude, lon: location.longitude } : nil,
+            rental_periods: rentals.map { |r| { start_date: r.start_date, end_date: r.end_date } },
+            # start_dates: rentals.map { |r| { start_date: r.start_date }}
+            # end_dates:  rentals.map { |r| { start_date: r.start_date }}
+            start_dates: rentals.map(&:start_date),
+            end_dates: rentals.map(&:end_date)
         }
 
     end
 
     private
+
 
     def validate_item_type
         errors.add(:item_type, "cannot be 'Select'") if item_type == "Select"

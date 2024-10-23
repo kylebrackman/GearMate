@@ -81,7 +81,7 @@ For heroku:
 `heroku run rails searchkick:reindex CLASS=Item --app gearmate`
 
 reindex in Heroku environment:
-`heroku run rails searchkick:reindex CLASS=Item -a`
+`heroku run rails searchkick:reindex CLASS=Item`
 ## Heroku Notes
 git subtree push --prefix backend heroku main
 

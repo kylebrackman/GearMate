@@ -23,18 +23,23 @@ class Api::SearchController < ApplicationController
             search_params[:location] = { near: { lat: lat, lon: lng }, within: "100mi" }
           end
         end
-      
-        # Perform search based on the updated criteria
-        if search_params[:name].present? || search_params[:location].present?
-          @results = Item.search('*', where: search_params) # Use '*' as a wildcard if no name is provided
-      
-          Rails.logger.info "Search results: #{@results.inspect}"
-          render json: @results
-        else
-          render json: { error: 'No valid search parameters provided' }, status: :unprocessable_entity
+
+        if params[:date_from].present? && params[:date_to].present?
+          start_date = Date.parse(params[:date_from])
+          end_date = Date.parse(params[:date_to])
+    
+          # Query for items that have rental periods overlapping with the date range
+          search_params[:start_dates] = { gte: start_date }
+          search_params[:end_dates] = { lte: end_date }
         end
+
+          # Perform search based on the updated criteria
+        @results = Item.search('*', where: search_params)
+
+        Rails.logger.info "Search results: #{@results.inspect}"
+        render json: @results
       end
-      
+
   
       private
 

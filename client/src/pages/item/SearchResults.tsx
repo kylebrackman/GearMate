@@ -12,8 +12,8 @@ const SearchResults: React.FC = () => {
   const [searchResults, setSearchResults] = useState<Item[] | null>(null);
   const name = searchParams.get('name') || '';
   const location = searchParams.get('location') || '';
-  const dateFrom = searchParams.get('dateFrom') || '';
-  const dateTo = searchParams.get('dateTo') || '';
+  const date_from = searchParams.get('date_from') || '';
+  const date_to = searchParams.get('date_to') || '';
 
   const searchResultList = searchResults?.map((i) => (
     <Grid item xs={6} sm={4} md={3} xl={2} key={i.id} sx={{ p: 1.5 }}>
@@ -30,7 +30,7 @@ const SearchResults: React.FC = () => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const searchParams = { name, location, dateFrom, dateTo };
+        const searchParams = { name, location, date_from, date_to };
         const data = await searchItemsApi(searchParams);
         setSearchResults(data);
       } catch (error) {
@@ -39,7 +39,7 @@ const SearchResults: React.FC = () => {
     };
 
     void fetchResults();
-  }, [name, location, dateFrom, dateTo]);
+  }, [name, location, date_from, date_to]);
 
   return (
     <div>
@@ -49,8 +49,8 @@ const SearchResults: React.FC = () => {
           Searching for Gear
           {name && ` named "${name}"`}
           {location && ` in "${location}"`}
-          {dateFrom && ` from "${dateFrom}"`}
-          {dateTo && ` to "${dateTo}"`}
+          {date_from && ` from "${date_from}"`}
+          {date_to && ` to "${date_to}"`}
         </Typography>
       </Box>
       <Box sx={{ mx: '5%' }}>

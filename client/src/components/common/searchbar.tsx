@@ -4,7 +4,7 @@ import { Grid, TextField, Button, Box } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 // Define the possible field names as a union type
-type SearchField = 'location' | 'name' | 'dateFrom' | 'dateTo';
+type SearchField = 'location' | 'name' | 'date_from' | 'date_to';
 
 const SearchBar: React.FC = () => {
   // State to track which field is currently focused
@@ -12,8 +12,8 @@ const SearchBar: React.FC = () => {
   const [searchParams, setSearchParams] = useState({
     name: '',
     location: '',
-    dateFrom: '',
-    dateTo: '',
+    date_from: '',
+    date_to: '',
   });
 
   const navigate = useNavigate();
@@ -100,14 +100,14 @@ const SearchBar: React.FC = () => {
             InputLabelProps={{
               shrink: true,
             }}
-            onFocus={() => handleFocus('dateFrom')}
+            onFocus={() => handleFocus('date_from')}
             onBlur={handleBlur}
             sx={{
-              backgroundColor: isDimmed('dateFrom') ? '#e0e0e0' : 'white',
+              backgroundColor: isDimmed('date_from') ? '#e0e0e0' : 'white',
               transition: 'background-color 0.3s ease',
             }}
             color="success"
-            onChange={handleInputChange('dateFrom')}
+            onChange={handleInputChange('date_from')}
           />
         </Grid>
 
@@ -121,14 +121,14 @@ const SearchBar: React.FC = () => {
             InputLabelProps={{
               shrink: true,
             }}
-            onFocus={() => handleFocus('dateTo')}
+            onFocus={() => handleFocus('date_to')}
             onBlur={handleBlur}
             sx={{
-              backgroundColor: isDimmed('dateTo') ? '#e0e0e0' : 'white',
+              backgroundColor: isDimmed('date_to') ? '#e0e0e0' : 'white',
               transition: 'background-color 0.3s ease',
             }}
             color="success"
-            onChange={handleInputChange('dateTo')}
+            onChange={handleInputChange('date_to')}
           />
         </Grid>
 
