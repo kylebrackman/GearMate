@@ -8,7 +8,9 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { Dayjs } from 'dayjs';
 import { Dialog, DialogContent } from '@mui/material';
 import ItemMap from '../../components/maps/ItemMap.tsx';
-// import Alert from '@mui/material/Alert';
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
+
 import {
   getItemApi,
   deleteItemApi,
@@ -27,6 +29,7 @@ const ItemSummary = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [item, setItem] = useState<Item | null>(null);
+  const [approvalMessage, setApprovalMessage] = useState('');
 
   const { id } = useParams();
   const itemId = id ?? '';
@@ -122,7 +125,9 @@ const ItemSummary = () => {
         const response: RentalRequest =
           await createRentalRequestApi(rentalRequestData);
         console.log(response);
-        navigate(`/confirmRentalRequest/${item.id}`);
+        setStartDate(null);
+        setEndDate(null);
+        setApprovalMessage('Your request has been sent!');
       } catch (error) {
         console.log(error);
       }
@@ -180,7 +185,6 @@ const ItemSummary = () => {
         }}
       >
         <Grid container spacing={4} alignItems="center">
-          {/* Photo on the right */}
           <Grid
             sx={{ mt: 2, alignContent: 'center', mb: 3 }}
             item
@@ -204,8 +208,12 @@ const ItemSummary = () => {
               }}
             />
           </Grid>
-          {/* Item details on the left */}
           <Grid item xs={12} sm={6} sx={{ mb: 3 }}>
+            {approvalMessage != '' && (
+              <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+                {approvalMessage}
+              </Alert>
+            )}
             <Typography variant="h4" component="h1" gutterBottom>
               {item.name}
             </Typography>
@@ -289,11 +297,13 @@ const ItemSummary = () => {
                 <DatePicker
                   sx={{ marginBottom: 2 }}
                   onChange={handleStartDateChange}
+                  value={startDate}
                 />{' '}
                 -{' '}
                 <DatePicker
                   sx={{ marginBottom: 2 }}
                   onChange={handleEndDateChange}
+                  value={endDate}
                 />
                 <Divider sx={{ marginBottom: 2 }} />
                 {user == null ? (
