@@ -316,7 +316,7 @@ const ItemSummary = () => {
               </>
             )}
             <Typography sx={{ mt: 2 }}>
-              Location: {item.location.address}
+              Location: {item.location?.address}
             </Typography>
             <ItemMap
               center={centerMap}
