@@ -2,6 +2,11 @@ class Api::SearchController < ApplicationController
 
       def item_search
         Rails.logger.info "Item search params: #{params}"
+
+        if params[:name].blank?
+          render json: { error: "An item name is required from this page." }, status: :bad_request
+          return
+        end
       
         # Initialize an empty hash for search parameters
         search_params = {

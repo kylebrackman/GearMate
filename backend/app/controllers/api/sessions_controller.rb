@@ -4,8 +4,8 @@ class Api::SessionsController < ApplicationController
     
     def create
         if params[:email].blank? || params[:password].blank?
-        render json: { error: "Email and password are required" }, status: :bad_request
-        return
+            render json: { error: "Email and password are required" }, status: :bad_request
+            return
         end
 
         user = User.find_by(email: params[:email])
