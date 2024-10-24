@@ -4,7 +4,8 @@ class Rental < ApplicationRecord
     validate :no_overlapping_rentals
     validate :start_date_minimum
     validate :end_date_after_start_date
-
+    validate :validate_date_range
+    
     belongs_to :item
     belongs_to :renter, class_name: "User"
     belongs_to :rental_request
@@ -12,6 +13,8 @@ class Rental < ApplicationRecord
     scope :current, ->(user) { where(renter_id: user.id).where("start_date <= ? AND end_date >= ?", Date.today, Date.today) }
     scope :upcoming, ->(user) { where(renter_id: user.id).where("start_date > ?", Date.today) }
     scope :past, ->(user) { where(renter_id: user.id).where("end_date < ?", Date.today) }    
+
+    before_save :set_rental_period
 
     private
 
@@ -34,6 +37,16 @@ class Rental < ApplicationRecord
     
         if end_date < start_date
           errors.add(:end_date, "must be after the start date")
+        end
+    end
+
+    def set_rental_period
+        self.rental_period = (start_date..end_date)
+    end
+    
+    def validate_date_range
+        if start_date && end_date && start_date >= end_date
+            errors.add(:end_date, "must be after the start date")
         end
     end
 end

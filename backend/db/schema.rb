@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_18_042628) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_24_013833) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -103,6 +103,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_18_042628) do
     t.bigint "renter_id", null: false
     t.bigint "item_id", null: false
     t.bigint "rental_request_id", null: false
+    t.daterange "rental_period"
     t.index ["item_id"], name: "index_rentals_on_item_id"
     t.index ["rental_request_id"], name: "index_rentals_on_rental_request_id"
     t.index ["renter_id"], name: "index_rentals_on_renter_id"
