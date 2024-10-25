@@ -26,7 +26,6 @@ class Item < ApplicationRecord
             start_dates: rentals.map(&:start_date),
             end_dates: rentals.map(&:end_date)
         }
-
     end
 
     private
