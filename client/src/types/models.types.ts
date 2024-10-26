@@ -6,7 +6,7 @@ export interface User {
   owned_items: Item[];
   profile: Profile;
   current_rentals: Rental[];
-  upcoming_rentals: Item[];
+  upcoming_rentals: Rental[];
   past_rentals: Rental[];
   pending_rental_requests: Item[];
   received_pending_rental_requests: RentalRequest[];

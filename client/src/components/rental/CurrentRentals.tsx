@@ -4,21 +4,21 @@ import { UserContext } from '../../context/UserContext.tsx';
 import RentalCard from './RentalCard.tsx';
 import { Rental } from '../../types/models.types.ts';
 
-const PastRentals: React.FC = () => {
+const CurrentRentals: React.FC = () => {
   const { user } = useContext(UserContext);
 
-  const pastRentals: Rental[] | undefined = user?.past_rentals;
+  const currentRentals: Rental[] | undefined = user?.current_rentals;
 
-  console.log(pastRentals);
+  console.log(currentRentals);
   return (
     <div>
       <br />
       <Typography variant="h4" gutterBottom>
-        Gear You&apos;ve Rented
+        Upcoming Rentals
       </Typography>
       <Grid container spacing={2}>
-        {pastRentals && pastRentals.length > 0 ? (
-          pastRentals.map((r: Rental) => (
+        {currentRentals && currentRentals.length > 0 ? (
+          currentRentals.map((r: Rental) => (
             <Grid item xs={12} sm={6} md={4} key={r.id}>
               <RentalCard
                 itemName={r.item?.name ?? ''}
@@ -34,7 +34,9 @@ const PastRentals: React.FC = () => {
           ))
         ) : (
           <Box sx={{ mx: '1%', mt: '1%' }}>
-            <Typography variant="body1">You have no past rentals.</Typography>
+            <Typography variant="body1">
+              You have no current rentals.
+            </Typography>
           </Box>
         )}
       </Grid>
@@ -42,4 +44,4 @@ const PastRentals: React.FC = () => {
   );
 };
 
-export default PastRentals;
+export default CurrentRentals;

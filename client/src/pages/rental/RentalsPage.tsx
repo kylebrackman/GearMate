@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext.tsx';
+import CurrentRentals from '@/components/rental/CurrentRentals.tsx';
 import PastRentals from '@/components/rental/PastRentals.tsx';
+import UpcomingRentals from '@/components/rental/UpcomingRentals.tsx';
 import Box from '@mui/material/Box';
 
 // import PendingRentals from './PendingRentals.js';
@@ -14,11 +16,17 @@ const RentalsPage = () => {
     return (
       <Box sx={{ mx: '5%' }}>
         <div>
-          <div>{/* <UpcomingRentals /> */}</div>
+          <div>
+            <CurrentRentals />
+          </div>
           <br />
-          <div>{<PastRentals />}</div>
+          <div>
+            <UpcomingRentals />
+          </div>
           <br />
-          <div>{/* <PastRentals /> */}</div>
+          <div>
+            <PastRentals />
+          </div>
         </div>
       </Box>
     );
