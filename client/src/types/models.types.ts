@@ -57,6 +57,7 @@ export interface Rental {
   item?: Item;
   owner_profile_id: number;
   rental_request_id: number;
+  item_image: string;
 }
 
 export interface RentalRequest {

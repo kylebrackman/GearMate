@@ -6,10 +6,11 @@ import { Rental } from '../../types/models.types.ts';
 
 const UpcomingRentals: React.FC = () => {
   const { user } = useContext(UserContext);
-
+  console.log(user);
   const upcomingRentals: Rental[] | undefined = user?.upcoming_rentals;
-
+  console.log('upcoming rentals', upcomingRentals);
   console.log(upcomingRentals);
+
   return (
     <div>
       <br />
@@ -22,7 +23,7 @@ const UpcomingRentals: React.FC = () => {
             <Grid item xs={12} sm={6} md={4} key={r.id}>
               <RentalCard
                 itemName={r.item?.name ?? ''}
-                image={r.item?.image || ''}
+                image={r.item_image || ''}
                 description={r.item?.description ?? ''}
                 id={r.item?.id ?? 0}
                 price={r.item?.price ?? 0}

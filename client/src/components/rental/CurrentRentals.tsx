@@ -14,7 +14,7 @@ const CurrentRentals: React.FC = () => {
     <div>
       <br />
       <Typography variant="h4" gutterBottom>
-        Upcoming Rentals
+        Current Rentals
       </Typography>
       <Grid container spacing={2}>
         {currentRentals && currentRentals.length > 0 ? (
@@ -22,7 +22,7 @@ const CurrentRentals: React.FC = () => {
             <Grid item xs={12} sm={6} md={4} key={r.id}>
               <RentalCard
                 itemName={r.item?.name ?? ''}
-                image={r.item?.image || ''}
+                image={r.item_image || ''}
                 description={r.item?.description ?? ''}
                 id={r.item?.id ?? 0}
                 price={r.item?.price ?? 0}

@@ -21,13 +21,17 @@ const RentalCard: React.FC<RentalCardProps> = ({
   owner,
   end_date,
   start_date,
+  image,
 }) => {
+  const backendUrl = import.meta.env.VITE_API_URL;
+  const imageUrl = `${backendUrl}${image}`;
+
   return (
     <Box sx={{ display: 'flex', maxWidth: 400 }}>
       <CardMedia
         component="img"
         sx={{ width: 100, height: 100, borderRadius: 2 }}
-        image="https://via.placeholder.com/100"
+        image={imageUrl}
         alt="Coventry"
       />
       <Box
