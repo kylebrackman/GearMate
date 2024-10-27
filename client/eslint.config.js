@@ -33,6 +33,7 @@ export default tseslint.config(
       ...react.configs['jsx-runtime'].rules,
       '@typescript-eslint/no-explicit-any': 'warn',
       'no-useless-catch': 'warn',
+      'react/prop-types': 'off',
     },
     settings: {
       react: {

@@ -47,7 +47,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
           backgroundImage: 'url("../../../static-photos/me-climbing.png")',
         }}
         image={imageUrl}
-        title="green iguana"
+        title={name}
       />
       <CardContent sx={{ backgroundColor: 'white' }}>
         {' '}

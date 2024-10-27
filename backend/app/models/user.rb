@@ -11,6 +11,7 @@ class User < ApplicationRecord
 
     has_many :rental_requests, foreign_key: "renter_id"
     has_many :rentals, foreign_key: :renter_id
+    
 
     has_one :profile
 
@@ -27,6 +28,9 @@ class User < ApplicationRecord
         -> { where(status: :approved).includes(:item, :renter) }, 
         through: :owned_items, 
         source: :rental_requests
+
+    # trying to make new association here
+    has_many :owned_rentals, through: :received_approved_rental_requests, source: :rental
 
     def current_rentals
         Rental.current(self)
