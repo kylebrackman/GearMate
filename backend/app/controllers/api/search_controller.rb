@@ -1,5 +1,7 @@
 class Api::SearchController < ApplicationController
 
+      skip_before_action :authorize
+
       def item_search
         Rails.logger.info "Item search params: #{params}"
 

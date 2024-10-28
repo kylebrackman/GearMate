@@ -7,7 +7,8 @@ class UserSerializer < ActiveModel::Serializer
   has_many :current_rentals, serializer: RentalSerializer
   has_many :upcoming_rentals, serializer: RentalSerializer
   has_many :past_rentals, serializer: RentalSerializer
-
+  has_many :owned_items, serializer: ItemSerializer
+  
   def current_rentals
     object.current_rentals
   end
