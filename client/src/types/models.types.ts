@@ -27,6 +27,7 @@ export interface Item {
   owner_last_name?: string;
   image?: string;
   location: Location;
+  rating: number;
 }
 
 export interface ItemPosition {

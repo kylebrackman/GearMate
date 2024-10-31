@@ -36,6 +36,7 @@ const Home: React.FC = () => {
         image={i.image ?? ''}
         description={i.description}
         price={i.price}
+        rating={i.rating}
       />
     </Grid>
   ));

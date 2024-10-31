@@ -1,8 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+import { Card, CardContent, Typography, CardMedia } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
 interface ItemCardProps {
@@ -11,6 +8,7 @@ interface ItemCardProps {
   image: string;
   description: string;
   price: number;
+  rating: number;
 }
 
 const ItemCard: React.FC<ItemCardProps> = ({

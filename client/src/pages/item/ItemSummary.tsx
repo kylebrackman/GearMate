@@ -1,15 +1,23 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext.tsx';
-import EditItemForm from '../../components/item/EditItemForm.tsx';
-import { Box, Typography, Divider, Grid, Button } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Divider,
+  Grid,
+  Button,
+  Dialog,
+  DialogContent,
+  Alert,
+  Rating,
+} from '@mui/material';
 import { orange, red } from '@mui/material/colors';
 import { DatePicker } from '@mui/x-date-pickers';
 import { Dayjs } from 'dayjs';
-import { Dialog, DialogContent } from '@mui/material';
 import ItemMap from '../../components/maps/ItemMap.tsx';
-import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
+import EditItemForm from '../../components/item/EditItemForm.tsx';
 
 import {
   getItemApi,
@@ -18,9 +26,6 @@ import {
 } from '../../services/ItemApi.ts';
 import { createRentalRequestApi } from '../../services/RentalRequestApi.ts';
 import { Item, RentalRequest } from '@/types/models.types.ts';
-
-// import useStripeConnect from '../../hooks/useStripeConnect.js';
-// import { createStripeId } from '../../services/StripeApi.ts';
 
 const ItemSummary = () => {
   const { user } = useContext(UserContext);
@@ -52,8 +57,6 @@ const ItemSummary = () => {
     void fetchItem();
   }, [itemId]);
 
-  // const needsStripeConnect = !user?.stripe_connected_account_id
-  // const stripeConnectInstance
   const backendUrl = import.meta.env.VITE_API_URL;
   const imageUrl = `${backendUrl}${item?.image}`;
 
@@ -95,22 +98,6 @@ const ItemSummary = () => {
   };
 
   const handleSubmit = async () => {
-    // Write logic to stop the user from being able to press this button twice, so they can't click while it's loading...
-
-    // Possible stripe flow here: ...
-    // e.preventDefault();
-    // let stripeId;
-    // if (needsStripeConnect) {
-    //   stripeId = await createStripeId();
-    // } else {
-    //   stripeId = user?.stripe_connected_account_id
-    // }
-
-    // console.log(stripeId)
-    // handleClose();
-
-    // useStripeSession.purchase(amount)
-    //   else {
     if (item && user) {
       const rentalRequestData: RentalRequest = {
         start_date: startDate ? startDate.format('YYYY-MM-DD') : '',
@@ -120,7 +107,6 @@ const ItemSummary = () => {
         owner_id: item.owner_id,
       };
       console.log('card', rentalRequestData);
-      // createCheckoutSession(rentalRequestData);
       try {
         const response: RentalRequest =
           await createRentalRequestApi(rentalRequestData);
@@ -131,7 +117,6 @@ const ItemSummary = () => {
       } catch (error) {
         console.log(error);
       }
-      // }
     }
   };
 
@@ -161,10 +146,6 @@ const ItemSummary = () => {
   const handleClose = () => {
     setOpenDialog(false);
   };
-
-  useEffect(() => {
-    // resetErrors();
-  }, []);
 
   if (item === null) {
     return <div>Item not found</div>;
@@ -198,11 +179,11 @@ const ItemSummary = () => {
               sx={{
                 width: 'auto',
                 height: {
-                  xs: '200px', // Full width on extra small screens (mobile)
-                  sm: '200px', // Full width on small screens
-                  md: '300px', // 80% width on medium screens
-                  lg: '300px', // 70% width on large screens
-                  xl: '400px', // 60% width on extra large screens
+                  xs: '200px',
+                  sm: '200px',
+                  md: '300px',
+                  lg: '300px',
+                  xl: '400px',
                 },
                 borderRadius: '8px',
               }}
@@ -214,9 +195,18 @@ const ItemSummary = () => {
                 {approvalMessage}
               </Alert>
             )}
-            <Typography variant="h4" component="h1" gutterBottom>
-              {item.name}
-            </Typography>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              width="65%"
+            >
+              <Typography variant="h4" component="h1" gutterBottom>
+                {item.name}
+              </Typography>
+              <Rating name="read-only" value={item.rating} readOnly />
+            </Box>
+
             <Typography variant="h5" component="h2" gutterBottom>
               <Box component="span" fontWeight="bold">
                 ${item.price}
