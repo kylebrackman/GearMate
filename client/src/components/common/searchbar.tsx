@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Grid, TextField, Button, Box } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers';
+import { Dayjs } from 'dayjs';
 import SearchIcon from '@mui/icons-material/Search';
 import Alert from '@mui/material/Alert';
 
@@ -26,6 +28,20 @@ const SearchBar: React.FC = () => {
 
   const handleBlur = () => {
     setFocusedField(null);
+  };
+
+  const handleDateFromChange = (value: Dayjs | null) => {
+    setSearchParams((prevParams) => ({
+      ...prevParams,
+      date_from: value ? value.toISOString() : '',
+    }));
+  };
+
+  const handleDateToChange = (value: Dayjs | null) => {
+    setSearchParams((prevParams) => ({
+      ...prevParams,
+      date_to: value ? value.toISOString() : '',
+    }));
   };
 
   const handleSearch = () => {
@@ -98,43 +114,27 @@ const SearchBar: React.FC = () => {
 
           {/* Date From Field */}
           <Grid item xs={12} sm={2}>
-            <TextField
+            <DatePicker
               label="Date From"
-              type="date"
-              variant="outlined"
-              fullWidth
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onFocus={() => handleFocus('date_from')}
-              onBlur={handleBlur}
+              // onBlur={handleBlur}
               sx={{
                 backgroundColor: isDimmed('date_from') ? '#e0e0e0' : 'white',
                 transition: 'background-color 0.3s ease',
               }}
-              color="success"
-              onChange={handleInputChange('date_from')}
+              onChange={handleDateFromChange}
             />
           </Grid>
 
           {/* Date To Field */}
           <Grid item xs={12} sm={2}>
-            <TextField
+            <DatePicker
               label="Date To"
-              type="date"
-              variant="outlined"
-              fullWidth
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onFocus={() => handleFocus('date_to')}
-              onBlur={handleBlur}
+              // onBlur={handleBlur}
               sx={{
                 backgroundColor: isDimmed('date_to') ? '#e0e0e0' : 'white',
                 transition: 'background-color 0.3s ease',
               }}
-              color="success"
-              onChange={handleInputChange('date_to')}
+              onChange={handleDateToChange}
             />
           </Grid>
 
