@@ -6,7 +6,6 @@ import { Dayjs } from 'dayjs';
 import SearchIcon from '@mui/icons-material/Search';
 import Alert from '@mui/material/Alert';
 
-// Define the possible field names as a union type
 type SearchField = 'location' | 'name' | 'date_from' | 'date_to';
 
 const SearchBar: React.FC = () => {
