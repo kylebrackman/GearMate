@@ -101,3 +101,9 @@ If you want to look at attributes of an object, you need to add .attributes at t
 
 #### Info on subdir heroku buildpack
 https://elements.heroku.com/buildpacks/timanovsky/subdir-heroku-buildpack
+
+
+## Redis
+
+Enter redis cli
+`docker-compose exec redis redis-cli`

@@ -1,9 +1,11 @@
 development:
-  adapter: async
+  adapter: redis
+  url: redis://redis:6379/1   # Assuming the Redis service is named 'redis' in Docker Compose
+  channel_prefix: app_development
 
 test:
   adapter: test
-
+  
 production:
   adapter: redis
   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>

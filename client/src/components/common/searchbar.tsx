@@ -6,11 +6,11 @@ import { Dayjs } from 'dayjs';
 import SearchIcon from '@mui/icons-material/Search';
 import Alert from '@mui/material/Alert';
 
+// Define the possible field names as a union type
 type SearchField = 'location' | 'name' | 'date_from' | 'date_to';
 
 const SearchBar: React.FC = () => {
   const [errors, setErrors] = useState<string[]>([]);
-  // State to track which field is currently focused
   const [focusedField, setFocusedField] = useState<SearchField | null>(null);
   const [searchParams, setSearchParams] = useState({
     name: '',

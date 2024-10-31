@@ -12,11 +12,18 @@ services:
     depends_on:
       - db
       - elasticsearch
+      - redis
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/GearMate_development
       RAILS_ENV: development
+      REDIS_URL: redis://redis:6379/1
     env_file:
       - .env
+
+  redis:
+    image: redis:6
+    ports:
+      - "6379:6379"
     
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.11
