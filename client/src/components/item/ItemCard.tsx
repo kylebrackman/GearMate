@@ -8,7 +8,6 @@ interface ItemCardProps {
   image: string;
   description: string;
   price: number;
-  rating: number;
 }
 
 const ItemCard: React.FC<ItemCardProps> = ({
