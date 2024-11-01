@@ -58,7 +58,7 @@ const RentalRequestReview = () => {
   };
 
   if (!request?.item) {
-    return <div>Item not found</div>;
+    return <div>Request not found.</div>;
   } else if (user === null) {
     return (
       <Container>

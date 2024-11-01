@@ -94,6 +94,8 @@ const UploadItem = () => {
 
     if (image) {
       newItemData.append('image', image);
+      // for multiple images later on
+      // item.images.attach([file1, file2, file3, file4])
     }
 
     try {

@@ -17,7 +17,8 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { Dayjs } from 'dayjs';
 import ItemMap from '../../components/maps/ItemMap.tsx';
 import CheckIcon from '@mui/icons-material/Check';
-import EditItemForm from '../../components/item/EditItemForm.tsx';
+import EditItemForm from '@/components/item/EditItemForm.tsx';
+import ImageGrid from '@/components/images/ImageGrid.tsx';
 
 import {
   getItemApi,
@@ -57,8 +58,8 @@ const ItemSummary = () => {
     void fetchItem();
   }, [itemId]);
 
-  const backendUrl = import.meta.env.VITE_API_URL;
-  const imageUrl = `${backendUrl}${item?.image}`;
+  // const backendUrl = import.meta.env.VITE_API_URL;
+  // const imageUrl = `${backendUrl}${item?.image}`;
 
   const requestButtonColor = orange[600];
   const deleteItemButtonColor = red[600];
@@ -172,7 +173,7 @@ const ItemSummary = () => {
             xs={12}
             sm={6}
           >
-            <Box
+            {/* <Box
               component="img"
               src={imageUrl}
               alt={item.name}
@@ -187,7 +188,8 @@ const ItemSummary = () => {
                 },
                 borderRadius: '8px',
               }}
-            />
+            /> */}
+            <ImageGrid />
           </Grid>
           <Grid item xs={12} sm={6} sx={{ mb: 3 }}>
             {approvalMessage != '' && (
