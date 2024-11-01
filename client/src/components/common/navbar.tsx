@@ -20,7 +20,7 @@ import DownhillSkiingIcon from '@mui/icons-material/DownhillSkiing';
 import SleddingIcon from '@mui/icons-material/Sledding';
 import Badge from '@mui/material/Badge';
 import { UserContext } from '../../context/UserContext';
-import { logoutUserApi } from '../../services/UserApi.ts';
+import { logoutUserApi } from '../../services/apis/UserApi.ts';
 
 interface SettingActions {
   [key: string]: () => void;

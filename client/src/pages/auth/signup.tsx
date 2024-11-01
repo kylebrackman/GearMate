@@ -1,36 +1,36 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import * as React from "react";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useUser } from "../../context/UserContext.tsx";
-import { signUpUserApi } from "../../services/UserApi.ts";
-import { User } from "@/types/models.types";
-import Alert from "@mui/material/Alert";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useUser } from '../../context/UserContext.tsx';
+import { signUpUserApi } from '../../services/apis/UserApi.ts';
+import { User } from '@/types/models.types';
+import Alert from '@mui/material/Alert';
 
-function Copyright(props: any) {
+function Copyright() {
   return (
     <Typography
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}
+      sx={{ mt: 2 }}
     >
-      {"Copyright © "}
-      <Link color="inherit" href="/login">
+      {'Copyright © '}
+      <Link color="inherit" href="/about">
         GearMate
-      </Link>{" "}
+      </Link>{' '}
       {new Date().getFullYear()}
-      {"."}
+      {'.'}
     </Typography>
   );
 }
@@ -39,20 +39,20 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
   const navigate = useNavigate();
   const user = useUser();
 
   function resetForm() {
-    setFirstName("");
-    setLastName("");
-    setPassword("");
-    setPasswordConfirmation("");
+    setFirstName('');
+    setLastName('');
+    setPassword('');
+    setPasswordConfirmation('');
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -66,12 +66,18 @@ export default function SignUp() {
         passwordConfirmation
       );
       user.loginContext(returnedUser);
-      navigate("/createprofile");
+      navigate('/createprofile');
       resetForm();
-    } catch (error: any) {
-      const errorMessages = error.message.split(',');
-      setErrors(errorMessages);
-      resetForm();
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        const errorMessages = error.message.split(',');
+        setErrors(errorMessages);
+        console.error('Error adding new item:', error);
+        throw error;
+      } else {
+        console.error('Unknown error:', error);
+        throw error;
+      }
     }
   };
 
@@ -82,9 +88,9 @@ export default function SignUp() {
         <Box
           sx={{
             marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <img
@@ -94,8 +100,8 @@ export default function SignUp() {
             style={{
               borderRadius: 10,
               marginTop: 20,
-              height: "25%",
-              width: "25%",
+              height: '25%',
+              width: '25%',
             }}
           />
           {errors.length > 0 && (
@@ -113,7 +119,9 @@ export default function SignUp() {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
+            onSubmit={(e) => {
+              (async () => await handleSubmit(e))().catch(console.error);
+            }}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -206,7 +214,7 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright />
       </Container>
     </ThemeProvider>
   );

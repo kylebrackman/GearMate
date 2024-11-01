@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-import { addItemApi } from '../../services/ItemApi';
+import { addItemApi } from '../../services/apis/ItemApi.ts';
 import { Item } from '@/types/models.types';
 import Alert from '@mui/material/Alert';
 import ItemMap from '../../components/maps/ItemMap.tsx';

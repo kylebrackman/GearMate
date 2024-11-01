@@ -3,7 +3,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { Box } from '@mui/material';
 import { Item, User } from '@/types/models.types.ts';
 import { ItemPosition } from '@/types/models.types.ts';
-import { getCityAndStateApi } from '@/services/LocationApi.ts';
+import { getCityAndStateApi } from '@/services/apis/LocationApi';
 interface MapProps {
   center: { lat: number; lng: number };
   zoom: number;

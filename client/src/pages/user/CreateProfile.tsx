@@ -7,7 +7,7 @@ import {
   CardHeader,
   TextField,
 } from '@mui/material';
-import { createProfileApi } from '../../services/UserApi';
+import { createProfileApi } from '../../services/apis/UserApi';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUserApi } from '../../services/UserApi.ts';
+import { loginUserApi } from '../../services/apis/UserApi.ts';
 import { useUser } from '../../context/UserContext.tsx';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,13 +16,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import { User } from '@/types/models.types.ts';
 
-function Copyright(props: any) {
+function Copyright() {
   return (
     <Typography
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}
+      sx={{ mt: 2 }}
     >
       {'Copyright © '}
       <Link color="inherit" href="/about">
@@ -40,7 +40,7 @@ const defaultTheme = createTheme();
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState('');
+  const [errors, setErrors] = useState<string[]>([]);
   const navigate = useNavigate();
   const user = useUser();
   // Revisit this later. User info is still available after logout until refresh...
@@ -57,9 +57,16 @@ export default function Login() {
       user.loginContext(returnedUser);
       navigate('/home');
       resetForm();
-    } catch (error: any) {
-      setErrors(error.message);
-      resetForm();
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        const errorMessages = error.message.split(',');
+        setErrors(errorMessages);
+        console.error('Error adding new item:', error);
+        throw error;
+      } else {
+        console.error('Unknown error:', error);
+        throw error;
+      }
     }
   };
 
@@ -99,19 +106,29 @@ export default function Login() {
               style={{
                 borderRadius: 10,
                 marginTop: 20,
-                height: "20%",
-                width: "20%",
-                marginBottom: 20
+                height: '20%',
+                width: '20%',
+                marginBottom: 20,
               }}
             />
-            {errors === '' ? null : <Alert severity="error">{errors}</Alert>}
+            {errors.length > 0 && (
+              <Alert severity="error" sx={{ marginBottom: 2 }}>
+                <ul>
+                  {errors.map((error, index) => (
+                    <li key={index}>{error}</li>
+                  ))}
+                </ul>
+              </Alert>
+            )}
             <Typography component="h1" variant="h5">
               Log In
             </Typography>
             <Box
               component="form"
               noValidate
-              onSubmit={handleSubmit}
+              onSubmit={(e) => {
+                (async () => await handleSubmit(e))().catch(console.error);
+              }}
               sx={{ mt: 1 }}
             >
               <TextField
@@ -162,7 +179,7 @@ export default function Login() {
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
+              <Copyright />
             </Box>
           </Box>
         </Grid>

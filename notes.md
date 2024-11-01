@@ -27,7 +27,7 @@ This README contains important information about setting up and troubleshooting 
 - `exit`: Exits the container
 
 ### Entering Ruby Console
-- `docker exec -it <backend-id> bin/rails c`: Opens the Ruby console
+- `docker exec -it gearmate_iii-backend-1 bin/rails c`: Opens the Ruby console
 
 ## Setting Up Postgres in Docker
 

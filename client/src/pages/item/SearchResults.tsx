@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import ItemCard from '@/components/item/ItemCard.tsx';
 import CircularProgress from '@mui/material/CircularProgress';
 import SearchBar from '@/components/common/searchbar.tsx';
-import { searchItemsApi } from '@/services/SearchApi';
+import { searchItemsApi } from '@/services/apis/SearchApi';
 import { useSearchParams } from 'react-router-dom';
 
 const SearchResults: React.FC = () => {

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import React, { useEffect, useState } from 'react';
 import ItemCard from '../components/item/ItemCard.tsx';
-import { getAllItemsApi } from '../services/ItemApi.ts';
+import { getAllItemsApi } from '../services/apis/ItemApi.ts';
 import CircularProgress from '@mui/material/CircularProgress';
 import SearchBar from '../components/common/searchbar.tsx';
 import { Typography } from '@mui/material';

@@ -23,8 +23,8 @@ import {
   getItemApi,
   deleteItemApi,
   editItemApi,
-} from '../../services/ItemApi.ts';
-import { createRentalRequestApi } from '../../services/RentalRequestApi.ts';
+} from '../../services/apis/ItemApi.ts';
+import { createRentalRequestApi } from '../../services/apis/RentalRequestApi.ts';
 import { Item, RentalRequest } from '@/types/models.types.ts';
 
 const ItemSummary = () => {

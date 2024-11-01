@@ -10,7 +10,7 @@ import {
   CardContent,
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { getRenterProfileApi } from '../../services/ProfileApi.ts';
+import { getRenterProfileApi } from '../../services/apis/ProfileApi.ts';
 import { Profile } from '@/types/models.types.ts';
 // import ProfileGeo from "./ProfileGeo.jsx";
 
@@ -37,7 +37,7 @@ const RenterProfile: React.FC = () => {
         setRenterProfile(data);
       };
 
-      loadProfile();
+      loadProfile().catch(console.error);
     }
   }, [renterId]);
 
