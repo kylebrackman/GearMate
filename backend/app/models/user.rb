@@ -15,8 +15,6 @@ class User < ApplicationRecord
     has_one :profile
 
     has_many :item_locations, through: :owned_items, source: :location
-    # Can probably remove below
-    # has_one :location, dependent: :destroy
 
     has_many :received_pending_rental_requests, 
         -> { where(status: :pending).includes(:item, :renter) }, 

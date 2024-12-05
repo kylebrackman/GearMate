@@ -1,7 +1,6 @@
 class RentalRequest < ApplicationRecord
     validate :start_date
     validate :end_date
-    # validate :no_overlapping_rentals
     validate :start_date_minimum
     validate :end_date_after_start_date
 
@@ -32,24 +31,13 @@ class RentalRequest < ApplicationRecord
     
     def reject
         rental_request = RentalRequest.find(params[:id])
-        rental_request.update(status: 2) # Update status to 2 (rejected)
-        # Notify requester that their rental request has been rejected
-        redirect_to rental_request.item, alert: "Rental request rejected."
+        rental_request.update(status: 2)
+        # TODO: Notify requester that their rental request has been rejected
     end
 
 
 
     private
-
-
-    # TODO: Review having this validation in the rental_request model vs the rental model
-    # def no_overlapping_rentals
-    #     existing_rentals = RentalRequest.where(item_id: item_id).where("start_date <= ? AND end_date >= ?", start_date, end_date)
-
-    #     if existing_rentals.exists?
-    #         errors.add(:start_date, "cannot overlap with an existing rental")
-    #     end
-    # end
 
     def start_date_minimum
         if start_date < Date.today
