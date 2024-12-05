@@ -28,12 +28,6 @@ class RentalRequest < ApplicationRecord
         rescue ActiveRecord::RecordNotFound => e
         render json: { error: 'Rental request not found' }, status: :not_found
     end
-    
-    def reject
-        rental_request = RentalRequest.find(params[:id])
-        rental_request.update(status: 2)
-        # TODO: Notify requester that their rental request has been rejected
-    end
 
 
 

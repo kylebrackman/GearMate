@@ -29,7 +29,7 @@ const UploadItem = () => {
   const [image, setImage] = useState<File | null>(null);
   const [itemPrice, setItemPrice] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
-  const [itemPos, setItemPos] = useState({ lat: 0, lng: 0 });
+  // const [itemPos, setItemPos] = useState({ lat: 0, lng: 0 });
   // const [address, setAddress] = useState('');
   // Temporary ts fix below
   // const itemPosition: ItemPosition = { lat: 0, lng: 0 };
@@ -42,7 +42,7 @@ const UploadItem = () => {
 
   const handleSetItemPos = (itemPositionInput: ItemPosition) => {
     console.log(itemPositionInput);
-    setItemPos(itemPositionInput);
+    // setItemPos(itemPositionInput);
   };
 
   const handleTypeChange = (event: SelectChangeEvent) => {
@@ -88,8 +88,9 @@ const UploadItem = () => {
     newItemData.append('description', description);
     newItemData.append('condition', condition);
     newItemData.append('price', itemPrice);
-    newItemData.append('lat', itemPos.lat.toString());
-    newItemData.append('lng', itemPos.lng.toString());
+    // Below lat and lng are temporary for testing...
+    newItemData.append('lat', '27.9881206');
+    newItemData.append('lng', '86.9249751');
     // newItemData.append('address', address);
 
     if (image) {

@@ -28,6 +28,7 @@ export const editItemApi = async (itemData: Partial<Item>): Promise<Item> => {
     });
     if (!response.ok) {
       const errorData = (await response.json()) as ErrorResponse;
+      console.log('error data here', errorData);
       throw new Error(`${errorData.errors.join(', ')}`);
     } else {
       const editedItem: Item = (await response.json()) as Item;

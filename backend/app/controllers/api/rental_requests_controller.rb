@@ -44,8 +44,11 @@ class Api::RentalRequestsController < ApplicationController
     
     def reject
         rental_request = RentalRequest.find(params[:id])
-        rental_request.rejected!
-        redirect_to rental_request.item, alert: "Rental request rejected."
+        rental_request.update_columns(status: 'rejected') # Skips validations
+        # TODO: Notify requester that their rental request has been rejected
+        render json: { message: 'Rental request rejected successfully' }, status: :ok
+    rescue ActiveRecord::RecordNotFound => e
+        render json: { error: 'Rental request not found' }, status: :not_found
     end
 
     def received_pending_rental_requests

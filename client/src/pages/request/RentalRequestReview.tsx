@@ -4,6 +4,7 @@ import { UserContext } from '../../context/UserContext.tsx';
 import {
   getPendingRentalRequestByIdApi,
   approveRentalRequestApi,
+  rejectRentalRequestApi,
 } from '../../services/apis/RentalRequestApi.ts';
 import { RentalRequest } from '@/types/models.types.ts';
 import { useNavigate } from 'react-router-dom';
@@ -46,6 +47,22 @@ const RentalRequestReview = () => {
     try {
       const data = await approveRentalRequestApi(id);
       console.log(data);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrors(error.message);
+      } else {
+        setErrors('An unknown error occurred');
+      }
+      console.error(error);
+    }
+    return;
+  };
+
+  const handleRejectRequest = async () => {
+    try {
+      const data = await rejectRentalRequestApi(id);
+      console.log(data);
+      navigate('/pendingRequests');
     } catch (error: unknown) {
       if (error instanceof Error) {
         setErrors(error.message);
@@ -140,6 +157,17 @@ const RentalRequestReview = () => {
               }}
             >
               Approve Rental
+            </Button>
+            <Button
+              variant="contained"
+              color="warning"
+              sx={{ mt: 2, mb: 2 }}
+              fullWidth
+              onClick={() => {
+                handleRejectRequest().catch(console.error);
+              }}
+            >
+              Decline Request`
             </Button>
             {errors === '' ? null : <Alert severity="error">{errors}</Alert>}
           </Grid>

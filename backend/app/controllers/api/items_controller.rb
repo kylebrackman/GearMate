@@ -16,16 +16,13 @@ class Api::ItemsController < ApplicationController
 
     def create
         item = @current_user.owned_items.create!(owned_item_params)
-        if item.save
-            item.image.attach(params[:image])
-            city = Geocoder.search([params[:lat], params[:lng]]).first.city
-            state = Geocoder.search([params[:lat], params[:lng]]).first.state
-
-            location = Location.create!({ latitude: params[:lat], longitude: params[:lng], item_id: item.id, address: city + ", " + state })
-            render json: item, status: :created
-        else
-            render json: { errors: item.errors.full_messages }, status: :unprocessable_entity
-        end
+        item.image.attach(params[:image])
+        city = Geocoder.search([params[:lat], params[:lng]]).first.city
+        state = Geocoder.search([params[:lat], params[:lng]]).first.state
+        location = Location.create!({ latitude: params[:lat], longitude: params[:lng], item_id: item.id, address: "#{city}, #{state}" })
+        render json: item, status: :created
+    rescue ActiveRecord::RecordInvalid => e
+        render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
     end
 
     def update
