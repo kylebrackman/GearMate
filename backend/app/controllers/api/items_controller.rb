@@ -41,7 +41,6 @@ class Api::ItemsController < ApplicationController
 
     def destroy
         set_item 
-        # @item.destroy
         @item.listed = false
         @item.save
         head :no_content

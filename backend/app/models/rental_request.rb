@@ -41,6 +41,8 @@ class RentalRequest < ApplicationRecord
 
     private
 
+
+    # TODO: Review having this validation in the rental_request model vs the rental model
     # def no_overlapping_rentals
     #     existing_rentals = RentalRequest.where(item_id: item_id).where("start_date <= ? AND end_date >= ?", start_date, end_date)
 
