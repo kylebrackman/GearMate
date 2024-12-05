@@ -16,24 +16,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import { User } from '@/types/models.types.ts';
 
-function Copyright() {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      sx={{ mt: 2 }}
-    >
-      {'Copyright © '}
-      <Link color="inherit" href="/about">
-        GearMate
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
@@ -179,7 +161,6 @@ export default function Login() {
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright />
             </Box>
           </Box>
         </Grid>

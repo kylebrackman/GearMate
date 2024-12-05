@@ -17,24 +17,6 @@ import { signUpUserApi } from '../../services/apis/UserApi.ts';
 import { User } from '@/types/models.types';
 import Alert from '@mui/material/Alert';
 
-function Copyright() {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      sx={{ mt: 2 }}
-    >
-      {'Copyright © '}
-      <Link color="inherit" href="/about">
-        GearMate
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
@@ -214,7 +196,6 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright />
       </Container>
     </ThemeProvider>
   );
