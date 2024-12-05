@@ -7,10 +7,8 @@ class Api::RentalsController < ApplicationController
 
   def create
       item = Item.find(params[:item_id])
-      # Assuming @current_user is set elsewhere in your application, e.g., in ApplicationController
-      rental_request = RentalRequest.find(params[:rental_request_id]) # Find the rental request by ID
+      rental_request = RentalRequest.find(params[:rental_request_id])
   
-      # Create a new Rental record based on the rental request
       rental = Rental.create(
         item_id: item.id,
         renter_id: @current_user.id,

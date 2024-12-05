@@ -6,8 +6,8 @@ class Api::ItemsController < ApplicationController
     def index
         items = Item.where(listed: true)
         render json: items
-    end
-
+    end`
+````
 
     def show 
         @item = Item.find(params[:id])

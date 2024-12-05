@@ -10,7 +10,6 @@ class Api::UsersController < ApplicationController
         begin
           user = User.create!(user_params)
           session[:user_id] = user.id
-          puts "Session User ID Set: #{session[:user_id]}" # Log session user_id
           render json: user, status: :created
         rescue ActiveRecord::RecordInvalid => e
           puts "Failed to save user: #{e.record.errors.full_messages}"

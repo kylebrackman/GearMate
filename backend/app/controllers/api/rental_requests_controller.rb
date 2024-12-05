@@ -19,10 +19,6 @@ class Api::RentalRequestsController < ApplicationController
     def approve_rental_request
       rental_request = RentalRequest.find(params[:id])
     
-      # Log the rental request details
-      Rails.logger.debug "Debugging rental_request: #{rental_request.inspect}"
-    
-      # Attempt to create a new Rental record
       rental = Rental.new(
         rental_request_id: rental_request.id,
         item_id: rental_request.item_id,
@@ -32,20 +28,16 @@ class Api::RentalRequestsController < ApplicationController
       )
     
       if rental.save
-        # Update rental_request status to 'approved'
         rental_request.update(status: 'approved')
         render json: { message: 'Rental request approved successfully', rental: rental }, status: :ok
       else
-        # If saving the rental fails
         render json: { error: 'Rental creation failed', errors: rental.errors.full_messages }, status: :unprocessable_entity
       end
     
     rescue ActiveRecord::RecordNotFound => e
-      # Case where the rental request is not found
       render json: { error: 'Rental request not found' }, status: :not_found
     
     rescue ActiveRecord::RecordInvalid => e
-      # Case where the rental record creation fails due to validation errors
       render json: { error: e.message, errors: rental.errors.full_messages }, status: :unprocessable_entity
     end
     
