@@ -94,6 +94,9 @@ git subtree push --prefix backend heroku main
 If you want to look at attributes of an object, you need to add .attributes at the end of your method like so 
 `User.find(1).attributes`
 
+Run migrations in heroku environment.
+`heroku run rake db:migrate`
+
 #### Searchkick and Elastic Search Helpful Commands
 - Ping elastic search from backend container:
     - `curl http://elasticsearch:9200`
