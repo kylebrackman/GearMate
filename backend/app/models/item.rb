@@ -13,7 +13,9 @@ class Item < ApplicationRecord
     has_many :rental_requests, dependent: :destroy
 
     has_one :location, dependent: :destroy
-    has_one_attached :image
+#     has_one_attached :image
+    has_many_attached :images
+
 
     searchkick locations: ["location"]
     def search_data
