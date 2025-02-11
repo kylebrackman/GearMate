@@ -21,6 +21,8 @@ class RentalRequest < ApplicationRecord
     end
   
     def approve
+        # TODO: Security focus: we want transaction data...
+        # Look to do in ActiveRecord
         @rental_request = RentalRequest.find(params[:id])
         @rental_request.update(status: 'approved')
         Rental.create(renter: @rental_request.renter, item: @rental_request.item, start_date: @rental_request.start_date, end_date: @rental_request.end_date)

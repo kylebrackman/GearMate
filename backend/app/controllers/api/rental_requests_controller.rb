@@ -6,6 +6,9 @@ class Api::RentalRequestsController < ApplicationController
         start_date: params[:start_date],
         end_date: params[:end_date],
         renter_id: @current_user.id,
+
+        # Todo: "is this honest data?"... do we check for know that this is the correct owner id, given the item id that's provided,
+        # if they are not matched, what happens?
         owner_id: params[:item][:owner_id]
       )
       render json: rental_request, status: :created
