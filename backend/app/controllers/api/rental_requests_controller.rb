@@ -9,6 +9,7 @@ class Api::RentalRequestsController < ApplicationController
 
         # Todo: "is this honest data?"... do we check for know that this is the correct owner id, given the item id that's provided,
         # if they are not matched, what happens?
+        # Todo: move token to header...
         owner_id: params[:item][:owner_id]
       )
       render json: rental_request, status: :created
