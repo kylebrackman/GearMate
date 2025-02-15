@@ -61,7 +61,9 @@ Rails.application.configure do
   # Combine both loggers
   combined_logger = ActiveSupport::BroadcastLogger.new(stdout_logger, file_logger)
 
-  config.logger = combined_logger
+  config.logger = ActiveSupport::Logger.new("log/#{Rails.env}.log")
+    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
+    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Keep your existing log level configuration
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
