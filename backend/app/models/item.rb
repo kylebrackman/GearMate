@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
 
     validates :name, :description, :item_type, :condition, :price, :image, presence: true
-    validates :image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 5.megabytes , message: 'is not given between size' }
+    validates :image, attached: true, content_type: ['image/png', 'image/jpeg'], size: { less_than: 5.megabytes , message: 'is not given between size' }
     validates :price, numericality: { greater_than: 0 }
     validate :validate_item_type
     validate :validate_condition
