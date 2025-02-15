@@ -47,10 +47,24 @@ Rails.application.configure do
   # Skip http-to-https redirect for the default health check endpoint.
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
-  # Log to STDOUT by default
-  config.logger = ActiveSupport::Logger.new(STDOUT)
-    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
-    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+  # Create a multi-logger that writes to both STDOUT and file
+  stdout_logger = ActiveSupport::Logger.new(STDOUT)
+  stdout_logger.formatter = ::Logger::Formatter.new
+  stdout_logger = ActiveSupport::TaggedLogging.new(stdout_logger)
+
+  # Consider adding a rotation setting to file logger to prevent the log file from growing too large...
+  file_logger = ActiveSupport::Logger.new("log/#{Rails.env}.log")
+  file_logger.formatter = proc do |severity, datetime, progname, msg|
+    "#{datetime.iso8601},#{severity},#{msg}\n"
+  end
+
+  # Combine both loggers
+  combined_logger = ActiveSupport::BroadcastLogger.new(stdout_logger, file_logger)
+
+  config.logger = combined_logger
+
+  # Keep your existing log level configuration
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
@@ -61,7 +75,6 @@ Rails.application.configure do
   # Heroku defaults to "Info" if the env variable is not set.
   # Info: General app activity (e.g., requests, database queries).
 
-  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store

@@ -26,9 +26,6 @@ This README contains important information about setting up and troubleshooting 
 - `docker exec -it gearmate_iii-backend-1 bin/rails db:migrate`: Runs migrations
 - `exit`: Exits the container
 
-### Entering Ruby Console
-- `docker exec -it gearmate_iii-backend-1 bin/rails c`: Opens the Ruby console
-
 ## Setting Up Postgres in Docker
 
 1. Enter the Docker environment:
@@ -41,7 +38,7 @@ This README contains important information about setting up and troubleshooting 
 - `exit`
 
 4. To enter the Ruby console:
-- `docker exec -it <backend-id> bin/rails c`
+- `docker exec -it gearmate_iii-backend-1 bin/rails c`
 
 ## Environment Variables
 
@@ -83,7 +80,11 @@ For heroku:
 reindex in Heroku environment:
 `heroku run rails searchkick:reindex CLASS=Item`
 ## Heroku Notes
-git subtree push --prefix backend heroku main
+
+Push to Heroku
+- `git push heroku main`
+
+`git subtree push --prefix backend heroku main`
 
 
 
@@ -110,3 +111,11 @@ https://elements.heroku.com/buildpacks/timanovsky/subdir-heroku-buildpack
 
 Enter redis cli
 `docker-compose exec redis redis-cli`
+
+## Entering Ruby Console
+- `docker exec -it gearmate_iii-backend-1 bin/rails c`: Opens the Ruby console
+
+### View Development Logs
+- `cd backend/log`
+- `shift+control+W`
+- `shift+control+V`
