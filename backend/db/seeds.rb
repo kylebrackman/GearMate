@@ -17,10 +17,10 @@ def attach_image(file_name)
   file_path = Rails.root.join("db", "seeds", "images", file_name)
 
   if File.exist?(file_path)
-    { io: File.open(file_path), filename: file_name, content_type: "image/jpg" }
+    { io: File.open(file_path), filename: file_name, content_type: "image/jpeg" }
   else
     # For remote URLs, example:
-    # { io: URI.open("https://example.com/path/to/image.jpg"), filename: file_name, content_type: "image/jpg" }
+    # { io: URI.open("https://example.com/path/to/image.jpeg"), filename: file_name, content_type: "image/jpeg" }
   end
 end
 

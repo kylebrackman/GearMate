@@ -1,5 +1,5 @@
 class Profile < ApplicationRecord
-    validates :image, content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 5.megabytes , message: 'is not given between size' }
+    validates :image, content_type: ['image/png', 'image/jpeg'], size: { less_than: 5.megabytes , message: 'is not given between size' }
     validates :name, presence: { message: 'is required' }
     validates :bio, presence: { message: 'is required' }
 
