@@ -61,6 +61,8 @@ Rails.application.configure do
   # Combine both loggers
   combined_logger = ActiveSupport::BroadcastLogger.new(stdout_logger, file_logger)
 
+  # Address common issue with BroadcastLogger when used with ActiveJob's deliver_later
+  # Errors will occur, without the below, when logger tries to access current_tags on a nil formatter
   config.logger = ActiveSupport::Logger.new("log/#{Rails.env}.log")
     .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
     .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
