@@ -7,3 +7,10 @@ In Ruby on Rails, the jobs folder is used to store Active Job classes, which def
 - **Scalability:** Allows the app to handle multiple background tasks concurrently.
 - **Reliability:** Prevents tasks from being lost if the app crashes before completion.  
 
+Todo: Remove custom logging from application and move to Sentry
+Files: 
+- log_upload_job.rb
+- remove log_update in application record
+- Audit gems to remove redundancies in logging
+- Revisit .env variables
+

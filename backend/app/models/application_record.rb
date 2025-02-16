@@ -17,7 +17,8 @@ class ApplicationRecord < ActiveRecord::Base
       File.open(log_file_path, 'a') { |f| f.puts(log_message) }
 
       # Upload log to Backblaze asynchronously
-      LogUploadJob.perform_later(log_file_path.to_s, Time.current)
+      log_data = File.read(log_file_path)
+      LogUploadJob.perform_later(log_data, Time.current)
     end
   end
 

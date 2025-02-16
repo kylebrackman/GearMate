@@ -18,7 +18,7 @@ This application is a user-to-user gear rental platform that facilitates renting
 
 ### 3. RentalRequest
    - The Rental Request model tracks requests for gear rentals; once they are approved, a Rental record is created.
-   - The decision to make this a separate model from Rental is to separate the business logic and keep rentals clean. It would be misleading to create an instance of a rental if a rental never existed in the first place.
+   - The decision to make this a separate model from Rental is to separate the bu//siness logic and keep rentals clean. It would be misleading to create an instance of a rental if a rental never existed in the first place.
    - This allows for a cancellation of rentals later on if needed within a cleaner process.
 ### 4. Rental
    - The Rental model tracks rentals.
@@ -27,4 +27,13 @@ This application is a user-to-user gear rental platform that facilitates renting
    - The Profile model contains additional user information.
 ### 6. Location
    - The Location model tracks where items are located.
+
+## Roadmap for Messaging
+- Use the users table
+- Create a conversations table
+- Create a users_to_conversations table, this links the users to the conversation
+  - 
+- conversations have a jsonb column which stores messages
+
+
 
