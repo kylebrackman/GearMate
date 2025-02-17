@@ -56,7 +56,6 @@ const ItemSummary = () => {
     };
     void fetchItem();
   }, [itemId]);
-
   const backendUrl = import.meta.env.VITE_API_URL;
   const imageUrl = `${backendUrl}${item?.image}`;
 
