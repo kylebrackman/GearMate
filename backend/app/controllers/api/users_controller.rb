@@ -1,5 +1,6 @@
 class Api::UsersController < ApplicationController
-    skip_before_action :authorize, only: [:create]
+    # Todo: review skip before action on get_user_by_fb_id
+    skip_before_action :authorize, only: [:create, :get_user_by_fb_id]
 
     def index
       users = User.all
@@ -19,6 +20,11 @@ class Api::UsersController < ApplicationController
 
     def show
         render json: @current_user
+    end
+
+    def get_user_by_fb_id
+        @user = User.find_by(firebase_id: params[:firebase_id])
+        render json: @user
     end
 
     private
