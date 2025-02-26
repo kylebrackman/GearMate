@@ -23,19 +23,14 @@ Rails.application.routes.draw do
     # Search bar
     get '/item_search', to: 'search#item_search'
 
-    # Item routes
     resources :items
 
-    # Profile routes
     resources :profiles
 
-    # User routes
     resources :users
 
-    # Rental routes
     resources :rentals
 
-    # Rental request routes
     resources :rental_requests
 
     # Location routes
@@ -51,3 +46,14 @@ Rails.application.routes.draw do
 
   end
 end
+
+# Todo:
+
+# Create dedicated endpoints for:
+# /api/users/:id/items - For owned items
+# /api/users/:id/rentals/current - For current rentals
+# /api/users/:id/rentals/upcoming - For upcoming rentals
+# /api/users/:id/rentals/past - For past rentals
+# /api/users/:id/rental_requests/sent - For sent pending requests
+# /api/users/:id/rental_requests/received - For received pending requests
+# /api/users/:id/rental_requests/approved - For approved requests

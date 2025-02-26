@@ -16,13 +16,13 @@ class Api::UsersController < ApplicationController
           puts "Failed to save user: #{e.record.errors.full_messages}"
           render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
         end
-      end
+    end
 
     def show
         render json: @current_user
     end
 
-    def get_user_by_fb_id
+    def get_user_by_firebase_id
         @user = User.find_by(firebase_id: params[:firebase_id])
         render json: @user
     end
