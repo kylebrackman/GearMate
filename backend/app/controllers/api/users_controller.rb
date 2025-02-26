@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
     # Todo: review skip before action on get_user_by_fb_id
-    skip_before_action :authorize, only: [:create, :get_user_by_fb_id]
+    skip_before_action :authorize, only: [:create, :get_user_by_firebase_id]
 
     def index
       users = User.all
@@ -25,6 +25,11 @@ class Api::UsersController < ApplicationController
     def get_user_by_firebase_id
         @user = User.find_by(firebase_id: params[:firebase_id])
         render json: @user
+    end
+
+    def get_user_owned_items
+        @user = User.find_by(firebase_id: params[:firebase_id])
+        render json: @user.owned_items
     end
 
     private

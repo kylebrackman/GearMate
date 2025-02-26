@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     # Using firebase uid to find the user in gm database
     # Todo: this is assuming that upon user creation, the fb uid is an attribute on the user
     # Consider making the uid the overall user id
-    get '/get_user_by_fb_id/:firebase_id', to: 'users#get_user_by_fb_id'
+    get '/get_user_by_firebase_id/:firebase_id', to: 'users#get_user_by_firebase_id'
 
     # Search bar
     get '/item_search', to: 'search#item_search'
@@ -29,11 +29,12 @@ Rails.application.routes.draw do
 
     resources :users
 
+    get '/user_owned_items', to: 'users#get_user_owned_items'
+
     resources :rentals
 
     resources :rental_requests
 
-    # Location routes
     resources :locations
 
     post '/city_and_state', to: 'locations#city_and_state'
