@@ -108,11 +108,11 @@ https://elements.heroku.com/buildpacks/timanovsky/subdir-heroku-buildpack
 
 
 ## Redis
-
-Enter redis cli
+et
+Enter redis clifas
 `docker-compose exec redis redis-cli`
-
-## Entering Ruby Console
+safds
+## Entering  sliaRliaa
 - `docker exec -it gearmate_iii-backend-1 bin/rails c`: Opens the Ruby console
 
 ### View Development Logs

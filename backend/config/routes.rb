@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
     resources :users
 
-    get '/user_owned_items', to: 'users#get_user_owned_items'
+    get '/user_owned_items/:firebase_id', to: 'users#get_user_owned_items'
 
     resources :rentals
 
